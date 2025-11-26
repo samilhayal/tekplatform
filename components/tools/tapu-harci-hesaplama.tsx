@@ -1,10 +1,11 @@
 "use client"
 
 import { useState, useCallback } from "react"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Building2, Calculator, Info, AlertCircle, Check } from "lucide-react"
+import { Building2, Calculator, Info, AlertCircle, Check, Home, Lightbulb, BookOpen, HelpCircle, FileText } from "lucide-react"
+import Link from "next/link"
 
 interface TapuHarciResult {
   satisHarci: number
@@ -79,19 +80,50 @@ export function TapuHarciHesaplama() {
   }
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
-      <Card className="border-2 border-emerald-100/50 shadow-xl">
-        <CardContent className="pt-8 pb-8 px-6 sm:px-8">
-          <div className="mb-8 text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 shadow-lg mb-4">
-              <Building2 className="h-8 w-8 text-white" />
-            </div>
-            <h2 className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent mb-2">
-              Tapu Harcı Hesaplama
-            </h2>
-            <p className="text-slate-600">Gayrimenkul alım-satım işlemlerinde ödenmesi gereken tapu harcını hesaplayın</p>
-          </div>
+    <div className="w-full max-w-4xl mx-auto space-y-8">
+      {/* Home Button */}
+      <div className="flex justify-start">
+        <Link href="/">
+          <Button variant="outline" size="sm" className="gap-2">
+            <Home className="h-4 w-4" />
+            Ana Sayfaya Dön
+          </Button>
+        </Link>
+      </div>
 
+      {/* Hero Section */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-500 p-8 text-white">
+        <div className="absolute inset-0 bg-black/10" />
+        <div className="absolute top-4 right-4 opacity-20">
+          <Building2 className="h-32 w-32 animate-pulse" />
+        </div>
+        <div className="absolute bottom-4 left-4 opacity-20">
+          <FileText className="h-24 w-24" />
+        </div>
+        <div className="relative z-10 text-center">
+          <div className="flex justify-center gap-3 mb-4">
+            <Building2 className="h-12 w-12 animate-bounce" style={{ animationDuration: '2s' }} />
+          </div>
+          <h1 className="text-4xl font-bold mb-3">Tapu Harcı Hesaplama</h1>
+          <p className="text-lg opacity-90 max-w-2xl mx-auto">
+            2024 güncel oranlarıyla tapu harcı, döner sermaye ve tescil ücretlerini kolayca hesaplayın
+          </p>
+          <div className="flex justify-center gap-4 mt-6 flex-wrap">
+            <div className="bg-white/20 rounded-full px-4 py-2 text-sm backdrop-blur-sm">
+              📊 Alıcı %2 + Satıcı %2
+            </div>
+            <div className="bg-white/20 rounded-full px-4 py-2 text-sm backdrop-blur-sm">
+              💰 Döner Sermaye %0.1
+            </div>
+            <div className="bg-white/20 rounded-full px-4 py-2 text-sm backdrop-blur-sm">
+              📝 Güncel 2024 Oranları
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <Card className="border-2 border-emerald-200 shadow-xl">
+        <CardContent className="pt-8 pb-8 px-6 sm:px-8">
           {/* Bilgi Butonu */}
           <div className="mb-6">
             <button
@@ -246,6 +278,76 @@ export function TapuHarciHesaplama() {
           )}
         </CardContent>
       </Card>
+
+      {/* Educational Sections */}
+      <div className="grid gap-6 md:grid-cols-2">
+        <Card className="border-emerald-200 bg-gradient-to-br from-emerald-50 to-white">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-emerald-700">
+              <HelpCircle className="h-5 w-5" />
+              Nasıl Kullanılır?
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3 text-sm text-slate-600">
+            <p>• Gayrimenkulün tipini seçin (Konut, Arsa, Ticari)</p>
+            <p>• Satış fiyatını TL olarak girin</p>
+            <p>• Beyan edilen veya rayiç bedelden yüksek olanını kullanın</p>
+            <p>• "Hesapla" butonuna tıklayın</p>
+            <p>• Alıcı ve satıcı paylarını ayrı ayrı görün</p>
+            <p>• Toplam maliyeti öğrenin</p>
+          </CardContent>
+        </Card>
+
+        <Card className="border-teal-200 bg-gradient-to-br from-teal-50 to-white">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-teal-700">
+              <BookOpen className="h-5 w-5" />
+              Örnek Kullanımlar
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3 text-sm text-slate-600">
+            <p>• <strong>Ev alımı:</strong> 2.500.000 TL ev için toplam tapu masrafını hesapla</p>
+            <p>• <strong>Arsa satışı:</strong> Satıcı olarak ödeyeceğiniz harcı öğrenin</p>
+            <p>• <strong>Bütçe planı:</strong> Ev alırken ek masrafları hesaba katın</p>
+            <p>• <strong>Pazarlık:</strong> Tapu masraflarını kimin ödeyeceğini belirleyin</p>
+            <p>• <strong>Karşılaştırma:</strong> Farklı fiyatlardaki evlerin masraflarını kıyaslayın</p>
+          </CardContent>
+        </Card>
+
+        <Card className="border-amber-200 bg-gradient-to-br from-amber-50 to-white">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-amber-700">
+              <Info className="h-5 w-5" />
+              Önemli Bilgiler
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3 text-sm text-slate-600">
+            <p>• Tapu harcı, satış bedelinin toplam %4'üdür</p>
+            <p>• Yasal olarak alıcı %2, satıcı %2 öder</p>
+            <p>• Pratikte genellikle alıcı toplam harcı üstlenir</p>
+            <p>• Rayiç bedel, belediyenin belirlediği minimum değerdir</p>
+            <p>• Beyan edilen bedel rayiçten düşük olamaz</p>
+            <p>• Döner sermaye hizmet bedeli ayrıca ödenir (%0.1)</p>
+          </CardContent>
+        </Card>
+
+        <Card className="border-cyan-200 bg-gradient-to-br from-cyan-50 to-white">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-cyan-700">
+              <Lightbulb className="h-5 w-5" />
+              İlginç Bilgiler
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3 text-sm text-slate-600">
+            <p>• Türkiye'de yıllık yaklaşık 1.5 milyon tapu işlemi yapılıyor</p>
+            <p>• Tapu harcı oranları 2024'te %4 olarak sabit kaldı</p>
+            <p>• İlk konut alımında bazı indirimler uygulanabilir</p>
+            <p>• Miras yoluyla intikalde farklı oranlar geçerli</p>
+            <p>• Tapu harcı, işlem günü tapu müdürlüğüne ödenir</p>
+            <p>• E-devlet üzerinden tapu kayıt belgesi alınabilir</p>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   )
 }

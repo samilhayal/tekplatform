@@ -1,9 +1,10 @@
 "use client"
 
 import { useState, useCallback } from "react"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Code, Copy, Check, AlertCircle, Download, Upload, Trash2, Minimize2, Maximize2, FileCode } from "lucide-react"
+import { Code, Copy, Check, AlertCircle, Download, Upload, Trash2, Minimize2, Maximize2, FileCode, Home, Lightbulb, BookOpen, HelpCircle, Info, Tags } from "lucide-react"
+import Link from "next/link"
 
 export function XMLBeautifier() {
   const [input, setInput] = useState("")
@@ -207,19 +208,46 @@ export function XMLBeautifier() {
   }
 
   return (
-    <div className="w-full max-w-7xl mx-auto">
+    <div className="w-full max-w-7xl mx-auto p-4 space-y-6">
+      {/* Ana Sayfa Butonu */}
+      <Link href="/">
+        <Button variant="ghost" className="gap-2 hover:bg-orange-50">
+          <Home className="h-4 w-4" />
+          Ana Sayfa
+        </Button>
+      </Link>
+
+      {/* Hero Section */}
+      <div className="text-center mb-8">
+        <div className="relative inline-block">
+          <div className="absolute -inset-4 bg-gradient-to-r from-orange-400 via-red-500 to-orange-400 rounded-full blur-2xl opacity-20 animate-pulse" />
+          <div className="relative bg-gradient-to-br from-orange-100 to-red-100 p-6 rounded-3xl">
+            <FileCode className="h-16 w-16 text-orange-600 mx-auto mb-2" />
+            <Tags className="h-8 w-8 text-red-500 absolute -top-2 -right-2 animate-bounce" />
+            <Code className="h-6 w-6 text-orange-500 absolute -bottom-1 -left-1 animate-pulse" />
+          </div>
+        </div>
+        <h1 className="text-3xl md:text-4xl font-bold mt-6 bg-gradient-to-r from-orange-600 via-red-600 to-orange-600 bg-clip-text text-transparent">
+          XML Beautifier
+        </h1>
+        <p className="text-slate-600 mt-3 max-w-2xl mx-auto">
+          XML verilerinizi güzelleştirin, doğrulayın ve profesyonel formata dönüştürün
+        </p>
+        <div className="flex flex-wrap gap-2 justify-center mt-4">
+          <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm font-medium">
+            🎨 Güzelleştir
+          </span>
+          <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium">
+            ✅ Doğrula
+          </span>
+          <span className="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm font-medium">
+            📦 Küçült
+          </span>
+        </div>
+      </div>
+
       <Card className="border-2 border-orange-100/50 shadow-xl">
         <CardContent className="pt-8 pb-8 px-6 sm:px-8">
-          <div className="mb-8 text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-500 to-red-600 shadow-lg mb-4">
-              <FileCode className="h-8 w-8 text-white" />
-            </div>
-            <h2 className="text-3xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent mb-2">
-              XML Beautifier
-            </h2>
-            <p className="text-slate-600">XML verilerinizi düzenleyin, doğrulayın ve güzelleştirin</p>
-          </div>
-
           {/* Toolbar */}
           <div className="flex flex-wrap gap-3 mb-6 p-4 bg-slate-50 rounded-xl">
             <div className="flex items-center gap-2">
@@ -351,6 +379,117 @@ export function XMLBeautifier() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Eğitici Bölümler */}
+      <div className="grid md:grid-cols-2 gap-6 mt-8">
+        {/* Nasıl Kullanılır? */}
+        <Card className="border-2 border-orange-200 hover:border-orange-300 transition-colors">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-orange-700">
+              <HelpCircle className="h-5 w-5" />
+              Nasıl Kullanılır?
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="flex items-start gap-3">
+              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-orange-100 text-orange-700 text-sm font-bold shrink-0">1</span>
+              <p className="text-slate-600">XML verinizi sol panele yapıştırın veya dosya yükleyin</p>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-orange-100 text-orange-700 text-sm font-bold shrink-0">2</span>
+              <p className="text-slate-600">Girinti boyutunu seçin (2, 4 veya 8 boşluk)</p>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-orange-100 text-orange-700 text-sm font-bold shrink-0">3</span>
+              <p className="text-slate-600">&quot;Güzelleştir&quot;, &quot;Küçült&quot; veya &quot;Doğrula&quot; butonuna tıklayın</p>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-orange-100 text-orange-700 text-sm font-bold shrink-0">4</span>
+              <p className="text-slate-600">Sonucu kopyalayın veya dosya olarak indirin</p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Örnek Kullanımlar */}
+        <Card className="border-2 border-red-200 hover:border-red-300 transition-colors">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-red-700">
+              <BookOpen className="h-5 w-5" />
+              Örnek Kullanımlar
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="p-3 bg-red-50 rounded-lg">
+              <p className="font-medium text-red-800">📄 SOAP Web Servisleri</p>
+              <p className="text-sm text-red-600">SOAP API yanıtlarını okunabilir hale getirin</p>
+            </div>
+            <div className="p-3 bg-red-50 rounded-lg">
+              <p className="font-medium text-red-800">⚙️ Konfigürasyon Dosyaları</p>
+              <p className="text-sm text-red-600">web.xml, pom.xml gibi yapılandırma dosyalarını düzenleyin</p>
+            </div>
+            <div className="p-3 bg-red-50 rounded-lg">
+              <p className="font-medium text-red-800">🔄 Veri Dönüşümü</p>
+              <p className="text-sm text-red-600">RSS feed, SVG ve diğer XML formatlarını işleyin</p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Önemli Bilgiler */}
+        <Card className="border-2 border-amber-200 hover:border-amber-300 transition-colors">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-amber-700">
+              <Info className="h-5 w-5" />
+              Önemli Bilgiler
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="flex items-start gap-2">
+              <span className="text-amber-600">⚡</span>
+              <p className="text-slate-600 text-sm">Her açılan etiket mutlaka kapatılmalıdır</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-amber-600">📋</span>
+              <p className="text-slate-600 text-sm">XML büyük/küçük harf duyarlıdır</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-amber-600">🔢</span>
+              <p className="text-slate-600 text-sm">Özel karakterler (&lt;, &gt;, &amp;) escape edilmelidir</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-amber-600">✓</span>
+              <p className="text-slate-600 text-sm">Attribute değerleri çift veya tek tırnak içinde olmalıdır</p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* İlginç Bilgiler */}
+        <Card className="border-2 border-rose-200 hover:border-rose-300 transition-colors">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-rose-700">
+              <Lightbulb className="h-5 w-5" />
+              İlginç Bilgiler
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="flex items-start gap-2">
+              <span className="text-rose-600">🌟</span>
+              <p className="text-slate-600 text-sm">XML, 1998&apos;de W3C tarafından standartlaştırıldı</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-rose-600">📈</span>
+              <p className="text-slate-600 text-sm">HTML5 ve XHTML, XML&apos;in türevleridir</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-rose-600">🌐</span>
+              <p className="text-slate-600 text-sm">Microsoft Office dosyaları (docx, xlsx) aslında sıkıştırılmış XML&apos;dir</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-rose-600">💡</span>
+              <p className="text-slate-600 text-sm">XML&apos;in tam adı &quot;Extensible Markup Language&quot;dır</p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   )
 }

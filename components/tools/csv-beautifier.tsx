@@ -1,9 +1,10 @@
 "use client"
 
 import { useState, useCallback, useMemo } from "react"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Copy, Check, AlertCircle, Download, Upload, Trash2, Table, FileSpreadsheet, Eye, Code } from "lucide-react"
+import { Copy, Check, AlertCircle, Download, Upload, Trash2, Table, FileSpreadsheet, Eye, Code, Home, Lightbulb, BookOpen, HelpCircle, Info } from "lucide-react"
+import Link from "next/link"
 
 interface CSVData {
   headers: string[]
@@ -175,18 +176,46 @@ Ayşe Çelik,28,Bursa,Öğretmen`
   }
 
   return (
-    <div className="w-full max-w-7xl mx-auto">
+    <div className="w-full max-w-7xl mx-auto p-4 space-y-6">
+      {/* Ana Sayfa Butonu */}
+      <Link href="/">
+        <Button variant="ghost" className="gap-2 hover:bg-green-50">
+          <Home className="h-4 w-4" />
+          Ana Sayfa
+        </Button>
+      </Link>
+
+      {/* Hero Section */}
+      <div className="text-center mb-8">
+        <div className="relative inline-block">
+          <div className="absolute -inset-4 bg-gradient-to-r from-green-400 via-emerald-500 to-green-400 rounded-full blur-2xl opacity-20 animate-pulse" />
+          <div className="relative bg-gradient-to-br from-green-100 to-emerald-100 p-6 rounded-3xl">
+            <FileSpreadsheet className="h-16 w-16 text-green-600 mx-auto mb-2" />
+            <Table className="h-8 w-8 text-emerald-500 absolute -top-2 -right-2 animate-bounce" />
+            <Eye className="h-6 w-6 text-green-500 absolute -bottom-1 -left-1 animate-pulse" />
+          </div>
+        </div>
+        <h1 className="text-3xl md:text-4xl font-bold mt-6 bg-gradient-to-r from-green-600 via-emerald-600 to-green-600 bg-clip-text text-transparent">
+          CSV Beautifier
+        </h1>
+        <p className="text-slate-600 mt-3 max-w-2xl mx-auto">
+          CSV verilerinizi görüntüleyin, düzenleyin ve profesyonel formata dönüştürün
+        </p>
+        <div className="flex flex-wrap gap-2 justify-center mt-4">
+          <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
+            📊 Tablo Görünümü
+          </span>
+          <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm font-medium">
+            🔍 Otomatik Algılama
+          </span>
+          <span className="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm font-medium">
+            💾 Dışa Aktar
+          </span>
+        </div>
+      </div>
+
       <Card className="border-2 border-green-100/50 shadow-xl">
         <CardContent className="pt-8 pb-8 px-6 sm:px-8">
-          <div className="mb-8 text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 shadow-lg mb-4">
-              <FileSpreadsheet className="h-8 w-8 text-white" />
-            </div>
-            <h2 className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-2">
-              CSV Beautifier
-            </h2>
-            <p className="text-slate-600">CSV verilerinizi düzenleyin, görüntüleyin ve dışa aktarın</p>
-          </div>
 
           {/* Toolbar */}
           <div className="flex flex-wrap gap-3 mb-6 p-4 bg-slate-50 rounded-xl">
@@ -381,6 +410,117 @@ Zeynep,25,Ankara"
           </div>
         </CardContent>
       </Card>
+
+      {/* Eğitici Bölümler */}
+      <div className="grid md:grid-cols-2 gap-6 mt-8">
+        {/* Nasıl Kullanılır? */}
+        <Card className="border-2 border-green-200 hover:border-green-300 transition-colors">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-green-700">
+              <HelpCircle className="h-5 w-5" />
+              Nasıl Kullanılır?
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="flex items-start gap-3">
+              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-green-100 text-green-700 text-sm font-bold shrink-0">1</span>
+              <p className="text-slate-600">CSV verinizi yapıştırın veya dosya yükleyin</p>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-green-100 text-green-700 text-sm font-bold shrink-0">2</span>
+              <p className="text-slate-600">Ayırıcı karakteri seçin (virgül, noktalı virgül, tab)</p>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-green-100 text-green-700 text-sm font-bold shrink-0">3</span>
+              <p className="text-slate-600">Başlık satırı varsa işaretleyin</p>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-green-100 text-green-700 text-sm font-bold shrink-0">4</span>
+              <p className="text-slate-600">Tablo veya metin görünümünde inceleyin ve indirin</p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Örnek Kullanımlar */}
+        <Card className="border-2 border-emerald-200 hover:border-emerald-300 transition-colors">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-emerald-700">
+              <BookOpen className="h-5 w-5" />
+              Örnek Kullanımlar
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="p-3 bg-emerald-50 rounded-lg">
+              <p className="font-medium text-emerald-800">📊 Excel Dışa Aktarma</p>
+              <p className="text-sm text-emerald-600">Excel&apos;den kopyalanan verileri düzenleyip görüntüleyin</p>
+            </div>
+            <div className="p-3 bg-emerald-50 rounded-lg">
+              <p className="font-medium text-emerald-800">🗃️ Veritabanı Dışa Aktarma</p>
+              <p className="text-sm text-emerald-600">SQL veritabanından export edilen CSV&apos;leri inceleyin</p>
+            </div>
+            <div className="p-3 bg-emerald-50 rounded-lg">
+              <p className="font-medium text-emerald-800">📈 Veri Analizi</p>
+              <p className="text-sm text-emerald-600">Ham verileri tablo formatında görüntüleyip analiz edin</p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Önemli Bilgiler */}
+        <Card className="border-2 border-teal-200 hover:border-teal-300 transition-colors">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-teal-700">
+              <Info className="h-5 w-5" />
+              Önemli Bilgiler
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="flex items-start gap-2">
+              <span className="text-teal-600">⚡</span>
+              <p className="text-slate-600 text-sm">Virgül içeren hücreler çift tırnak içinde olmalıdır</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-teal-600">📋</span>
+              <p className="text-slate-600 text-sm">İlk satır genellikle başlık olarak kullanılır</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-teal-600">🔢</span>
+              <p className="text-slate-600 text-sm">Tüm satırlar aynı sayıda sütun içermelidir</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-teal-600">✓</span>
+              <p className="text-slate-600 text-sm">UTF-8 kodlaması Türkçe karakterleri destekler</p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* İlginç Bilgiler */}
+        <Card className="border-2 border-cyan-200 hover:border-cyan-300 transition-colors">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-cyan-700">
+              <Lightbulb className="h-5 w-5" />
+              İlginç Bilgiler
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="flex items-start gap-2">
+              <span className="text-cyan-600">🌟</span>
+              <p className="text-slate-600 text-sm">CSV, 1972&apos;den beri kullanılan en eski veri formatlarından biridir</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-cyan-600">📈</span>
+              <p className="text-slate-600 text-sm">Excel, Google Sheets ve çoğu veritabanı CSV&apos;yi destekler</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-cyan-600">🌐</span>
+              <p className="text-slate-600 text-sm">API veri aktarımlarında JSON&apos;dan sonra en çok CSV kullanılır</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-cyan-600">💡</span>
+              <p className="text-slate-600 text-sm">CSV&apos;nin tam adı &quot;Comma-Separated Values&quot;dır</p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   )
 }

@@ -1,10 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
-import { Star, Heart, Briefcase, Users, Flame, Droplet, Wind, Mountain, Sparkles, Brain, Crown, Shield, Gem, Zap } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Star, Heart, Briefcase, Users, Flame, Droplet, Wind, Mountain, Sparkles, Brain, Crown, Shield, Gem, Zap, Home, Info, Lightbulb, BookOpen, HelpCircle, Moon, Sun } from "lucide-react"
+import Link from "next/link"
 
 interface ZodiacDetail {
   id: string
@@ -425,21 +427,64 @@ export function BurcOzellikleri() {
   }
 
   return (
-    <div className="w-full max-w-5xl mx-auto space-y-8">
+    <div className="w-full max-w-6xl mx-auto space-y-8">
+      {/* Ana Sayfaya Dön Butonu */}
+      <div className="flex justify-start">
+        <Link href="/">
+          <Button variant="outline" className="gap-2">
+            <Home className="h-4 w-4" />
+            Ana Sayfaya Dön
+          </Button>
+        </Link>
+      </div>
+
+      {/* Hero Section */}
+      <Card className="border-2 border-indigo-200 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
+        <CardHeader className="text-center pb-6">
+          <div className="flex justify-center mb-4">
+            <div className="relative">
+              <Star className="h-20 w-20 text-indigo-500 animate-pulse" />
+              <Sparkles className="h-8 w-8 text-purple-500 absolute -top-2 -right-2 animate-bounce" />
+            </div>
+          </div>
+          <CardTitle className="text-4xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+            Burç Özellikleri
+          </CardTitle>
+          <CardDescription className="text-lg mt-2">
+            12 burcun detaylı karakter analizi, uyumlu burçlar ve şans bilgileri
+          </CardDescription>
+        </CardHeader>
+      </Card>
+
       {/* Burç Seçici */}
-      <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-12 gap-2">
-        {zodiacDetails.map(sign => (
+      <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-12 gap-3">
+        {zodiacDetails.map((sign, index) => (
           <button
             key={sign.id}
             onClick={() => setSelectedSign(sign.id)}
-            className={`p-3 rounded-xl transition-all text-center ${
+            className={`group p-4 rounded-2xl transition-all duration-300 text-center relative overflow-hidden ${
               selectedSign === sign.id 
-                ? "bg-gradient-to-br from-indigo-500 to-purple-500 text-white shadow-lg scale-105" 
-                : "bg-slate-100 hover:bg-slate-200"
+                ? "bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 text-white shadow-2xl scale-110 z-10" 
+                : "bg-gradient-to-br from-slate-50 to-slate-100 hover:from-indigo-100 hover:to-purple-100 hover:shadow-lg hover:scale-105"
             }`}
+            style={{
+              animationDelay: `${index * 30}ms`,
+              animation: 'fadeIn 0.4s ease-out forwards',
+            }}
           >
-            <div className="text-2xl mb-1">{sign.symbol}</div>
-            <div className="text-xs font-medium truncate">{sign.name}</div>
+            <div className={`text-3xl mb-2 transition-transform duration-300 ${
+              selectedSign === sign.id ? 'scale-110' : 'group-hover:scale-125'
+            }`}>
+              {sign.symbol}
+            </div>
+            <div className={`text-xs font-semibold truncate ${
+              selectedSign === sign.id ? 'text-white' : 'text-slate-700 group-hover:text-indigo-600'
+            }`}>
+              {sign.name}
+            </div>
+            {selectedSign === sign.id && (
+              <div className="absolute inset-0 bg-white/20 animate-pulse pointer-events-none" />
+            )}
           </button>
         ))}
       </div>
@@ -623,6 +668,155 @@ export function BurcOzellikleri() {
           </Card>
         </>
       )}
+
+      {/* Nasıl Kullanılır */}
+      <Card className="border-2 border-blue-200">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <HelpCircle className="h-6 w-6 text-blue-500" />
+            Nasıl Kullanılır?
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <div className="flex gap-3">
+            <Badge className="bg-blue-500">1</Badge>
+            <p className="text-slate-700">Yukarıdaki 12 burç sembolünden kendi burcunuzu seçin</p>
+          </div>
+          <div className="flex gap-3">
+            <Badge className="bg-blue-500">2</Badge>
+            <p className="text-slate-700">Burç özellikleri detaylı olarak ekrana gelecektir</p>
+          </div>
+          <div className="flex gap-3">
+            <Badge className="bg-blue-500">3</Badge>
+            <p className="text-slate-700">Genel Bilgiler, Kişilik, Uyumluluk, Kariyer, Sağlık ve Şans Bilgileri sekmelerini inceleyin</p>
+          </div>
+          <div className="flex gap-3">
+            <Badge className="bg-blue-500">4</Badge>
+            <p className="text-slate-700">Her sekmede burcunuza özel detaylı bilgiler bulabilirsiniz</p>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Örnek Kullanımlar */}
+      <Card className="border-2 border-green-200">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <BookOpen className="h-6 w-6 text-green-500" />
+            Örnek Kullanımlar
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="p-4 bg-indigo-50 rounded-lg">
+            <h4 className="font-semibold text-indigo-700 mb-2">🔍 Kendini Tanıma</h4>
+            <p className="text-slate-600">Kendi burcunuzun özelliklerini öğrenerek kendinizi daha iyi tanıyabilirsiniz. Güçlü ve zayıf yönlerinizi keşfedin.</p>
+          </div>
+          <div className="p-4 bg-pink-50 rounded-lg">
+            <h4 className="font-semibold text-pink-700 mb-2">💑 İlişki Analizi</h4>
+            <p className="text-slate-600">Partnerinizin burcunu öğrenip uyumluluk bölümünden hangi burçlarla uyumlu olduğunu kontrol edin.</p>
+          </div>
+          <div className="p-4 bg-green-50 rounded-lg">
+            <h4 className="font-semibold text-green-700 mb-2">💼 Kariyer Rehberi</h4>
+            <p className="text-slate-600">Burcunuza göre hangi mesleklerde başarılı olabileceğinizi öğrenin ve kariyer planlaması yapın.</p>
+          </div>
+          <div className="p-4 bg-purple-50 rounded-lg">
+            <h4 className="font-semibold text-purple-700 mb-2">🎨 Renk ve Şans</h4>
+            <p className="text-slate-600">Şanslı renklerinizi, sayılarınızı ve taşlarınızı kullanarak enerjinizi yükseltebilirsiniz.</p>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Önemli Bilgiler */}
+      <Card className="border-2 border-orange-200">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Info className="h-6 w-6 text-orange-500" />
+            Önemli Bilgiler
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <div className="flex items-start gap-3">
+            <Star className="h-5 w-5 text-orange-500 flex-shrink-0 mt-0.5" />
+            <p className="text-slate-700">
+              <strong>4 Element:</strong> Ateş (Koç, Aslan, Yay), Toprak (Boğa, Başak, Oğlak), Hava (İkizler, Terazi, Kova), Su (Yengeç, Akrep, Balık)
+            </p>
+          </div>
+          <div className="flex items-start gap-3">
+            <Star className="h-5 w-5 text-orange-500 flex-shrink-0 mt-0.5" />
+            <p className="text-slate-700">
+              <strong>3 Modalite:</strong> Öncü burçlar (Koç, Yengeç, Terazi, Oğlak), Sabit burçlar (Boğa, Aslan, Akrep, Kova), Değişken burçlar (İkizler, Başak, Yay, Balık)
+            </p>
+          </div>
+          <div className="flex items-start gap-3">
+            <Star className="h-5 w-5 text-orange-500 flex-shrink-0 mt-0.5" />
+            <p className="text-slate-700">
+              <strong>Yönetici Gezegen:</strong> Her burcun bir yönetici gezegeni vardır ve bu gezegen o burcun temel özelliklerini belirler.
+            </p>
+          </div>
+          <div className="flex items-start gap-3">
+            <Star className="h-5 w-5 text-orange-500 flex-shrink-0 mt-0.5" />
+            <p className="text-slate-700">
+              <strong>12 Ev:</strong> Her burç astrolojik haritada bir eve karşılık gelir ve hayatın farklı alanlarını temsil eder.
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* İlginç Bilgiler */}
+      <Card className="border-2 border-purple-200 bg-gradient-to-br from-purple-50 to-pink-50">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Lightbulb className="h-6 w-6 text-purple-500" />
+            Bilmeniz İlginç Olabilecek Şeyler
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="p-4 bg-white rounded-lg shadow-sm">
+            <h4 className="font-semibold text-purple-700 mb-2 flex items-center gap-2">
+              <Crown className="h-5 w-5" />
+              Zodyak Tarihi
+            </h4>
+            <p className="text-slate-600">
+              Zodyak sistemi 2000 yıldan fazla bir süredir kullanılmaktadır. Babil astrologları tarafından geliştirilmiştir.
+            </p>
+          </div>
+          <div className="p-4 bg-white rounded-lg shadow-sm">
+            <h4 className="font-semibold text-blue-700 mb-2 flex items-center gap-2">
+              <Brain className="h-5 w-5" />
+              Burç vs Takımyıldız
+            </h4>
+            <p className="text-slate-600">
+              Astrolojik burçlar ile gökyüzündeki takımyıldızlar aynı değildir. Astrolojik burçlar ekinoks noktalarına göredir.
+            </p>
+          </div>
+          <div className="p-4 bg-white rounded-lg shadow-sm">
+            <h4 className="font-semibold text-green-700 mb-2 flex items-center gap-2">
+              <Shield className="h-5 w-5" />
+              Element Dengesi
+            </h4>
+            <p className="text-slate-600">
+              İdeal bir doğum haritasında 4 elementin de dengeli dağılması istenir. Bir elementin eksikliği veya fazlalığı kişiliği etkiler.
+            </p>
+          </div>
+          <div className="p-4 bg-white rounded-lg shadow-sm">
+            <h4 className="font-semibold text-orange-700 mb-2 flex items-center gap-2">
+              <Zap className="h-5 w-5" />
+              Karşıt İşaretler
+            </h4>
+            <p className="text-slate-600">
+              Zodyak çemberinde karşı karşıya duran burçlar (180 derece) birbirlerini tamamlar: Koç-Terazi, Boğa-Akrep, İkizler-Yay vb.
+            </p>
+          </div>
+          <div className="p-4 bg-white rounded-lg shadow-sm">
+            <h4 className="font-semibold text-pink-700 mb-2 flex items-center gap-2">
+              <Heart className="h-5 w-5" />
+              Üçlü Kombinasyon
+            </h4>
+            <p className="text-slate-600">
+              Güneş burcu, Ay burcu ve Yükselen burç kombinasyonu her insanın benzersiz astrolojik kimliğini oluşturur. Bu üçlü çok önemlidir.
+            </p>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   )
 }

@@ -104,6 +104,10 @@
       "title": "Loan Calculator",
       "description": "Calculate mortgage, auto and personal loan payments"
     },
+    "brut-net-maas-hesaplayici": {
+      "title": "Gross-Net Salary Calculator",
+      "description": "Calculate gross-net salary with 2025 Turkish tax brackets, social security, AGI and deduction details"
+    },
     "investment-calculator": {
       "title": "Investment Return Calculator",
       "description": "Stock, bond and fund return projections"
@@ -395,6 +399,22 @@
     "yukselen-burc-hesaplayici": {
       "title": "Rising Sign Calculator",
       "description": "Calculate your rising sign based on birth date, time and location"
+    },
+    "yildiz-haritasi": {
+      "title": "Natal Chart Generator",
+      "description": "Create your personal natal chart and astrological analysis based on birth date, time and location"
+    },
+    "ay-burcu-hesaplayici": {
+      "title": "Moon Sign Calculator",
+      "description": "Discover your moon sign and emotional characteristics based on birth date, time and location"
+    },
+    "astroloji-takvimi": {
+      "title": "Astrology Calendar 2024",
+      "description": "Planetary retrogrades, eclipses, moon phases and important astrological events calendar"
+    },
+    "burc-onerileri": {
+      "title": "Zodiac Recommendations",
+      "description": "Health, nutrition, career, finance, travel and lifestyle recommendations for each zodiac sign"
     }
   },
   "meta": {

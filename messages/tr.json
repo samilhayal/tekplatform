@@ -104,6 +104,10 @@
       "title": "Kredi Hesaplama",
       "description": "Konut, taşıt ve ihtiyaç kredisi hesaplamaları"
     },
+    "brut-net-maas-hesaplayici": {
+      "title": "Brüt-Net Maaş Hesaplayıcı",
+      "description": "2025 Türkiye vergi dilimlerine göre brüt-net maaş hesaplama, SGK, AGI ve kesinti detayları"
+    },
     "investment-calculator": {
       "title": "Yatırım Getiri Hesaplama",
       "description": "Hisse, tahvil ve fon getiri projeksiyonları"
@@ -395,6 +399,22 @@
     "yukselen-burc-hesaplayici": {
       "title": "Yükselen Burç Hesaplayıcı",
       "description": "Doğum tarihi, saati ve yerine göre yükselen burcunuzu hesaplayın"
+    },
+    "yildiz-haritasi": {
+      "title": "Yıldız Haritası Oluşturucu",
+      "description": "Doğum tarihi, saati ve yerine göre kişisel natal chart ve astrolojik analizler"
+    },
+    "ay-burcu-hesaplayici": {
+      "title": "Ay Burcu Hesaplayıcı",
+      "description": "Doğum tarihi, saati ve yerine göre ay burcunuzu ve duygusal özelliklerinizi keşfedin"
+    },
+    "astroloji-takvimi": {
+      "title": "Astroloji Takvimi 2024",
+      "description": "Gezegen retroları, tutulmalar, ay fazları ve önemli astrolojik olaylar takvimi"
+    },
+    "burc-onerileri": {
+      "title": "Burçlara Göre Öneriler",
+      "description": "Her burç için sağlık, beslenme, kariyer, finans, seyahat ve yaşam önerileri"
     }
   },
   "meta": {

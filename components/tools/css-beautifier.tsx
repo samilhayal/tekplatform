@@ -1,9 +1,10 @@
 "use client"
 
 import { useState, useCallback } from "react"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Copy, Check, AlertCircle, Download, Upload, Trash2, Minimize2, Maximize2, Palette, Code } from "lucide-react"
+import { Copy, Check, AlertCircle, Download, Upload, Trash2, Minimize2, Maximize2, Palette, Code, Home, Lightbulb, BookOpen, HelpCircle, Info, Paintbrush } from "lucide-react"
+import Link from "next/link"
 
 export function CSSBeautifier() {
   const [input, setInput] = useState("")
@@ -317,19 +318,46 @@ body{margin:0;padding:0;font-family:'Segoe UI',Tahoma,sans-serif;background-colo
   }
 
   return (
-    <div className="w-full max-w-7xl mx-auto">
+    <div className="w-full max-w-7xl mx-auto p-4 space-y-6">
+      {/* Ana Sayfa Butonu */}
+      <Link href="/">
+        <Button variant="ghost" className="gap-2 hover:bg-violet-50">
+          <Home className="h-4 w-4" />
+          Ana Sayfa
+        </Button>
+      </Link>
+
+      {/* Hero Section */}
+      <div className="text-center mb-8">
+        <div className="relative inline-block">
+          <div className="absolute -inset-4 bg-gradient-to-r from-violet-400 via-purple-500 to-violet-400 rounded-full blur-2xl opacity-20 animate-pulse" />
+          <div className="relative bg-gradient-to-br from-violet-100 to-purple-100 p-6 rounded-3xl">
+            <Palette className="h-16 w-16 text-violet-600 mx-auto mb-2" />
+            <Paintbrush className="h-8 w-8 text-purple-500 absolute -top-2 -right-2 animate-bounce" />
+            <Code className="h-6 w-6 text-violet-500 absolute -bottom-1 -left-1 animate-pulse" />
+          </div>
+        </div>
+        <h1 className="text-3xl md:text-4xl font-bold mt-6 bg-gradient-to-r from-violet-600 via-purple-600 to-violet-600 bg-clip-text text-transparent">
+          CSS Beautifier
+        </h1>
+        <p className="text-slate-600 mt-3 max-w-2xl mx-auto">
+          CSS verilerinizi güzelleştirin, doğrulayın ve profesyonel formata dönüştürün
+        </p>
+        <div className="flex flex-wrap gap-2 justify-center mt-4">
+          <span className="px-3 py-1 bg-violet-100 text-violet-700 rounded-full text-sm font-medium">
+            🎨 Güzelleştir
+          </span>
+          <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">
+            ✅ Doğrula
+          </span>
+          <span className="px-3 py-1 bg-fuchsia-100 text-fuchsia-700 rounded-full text-sm font-medium">
+            📦 Küçült
+          </span>
+        </div>
+      </div>
+
       <Card className="border-2 border-violet-100/50 shadow-xl">
         <CardContent className="pt-8 pb-8 px-6 sm:px-8">
-          <div className="mb-8 text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500 to-purple-600 shadow-lg mb-4">
-              <Palette className="h-8 w-8 text-white" />
-            </div>
-            <h2 className="text-3xl font-bold bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text text-transparent mb-2">
-              CSS Beautifier
-            </h2>
-            <p className="text-slate-600">CSS verilerinizi düzenleyin, doğrulayın ve güzelleştirin</p>
-          </div>
-
           {/* Toolbar */}
           <div className="flex flex-wrap gap-3 mb-6 p-4 bg-slate-50 rounded-xl">
             <div className="flex items-center gap-2">
@@ -459,6 +487,117 @@ body{margin:0;padding:0;font-family:'Segoe UI',Tahoma,sans-serif;background-colo
           </div>
         </CardContent>
       </Card>
+
+      {/* Eğitici Bölümler */}
+      <div className="grid md:grid-cols-2 gap-6 mt-8">
+        {/* Nasıl Kullanılır? */}
+        <Card className="border-2 border-violet-200 hover:border-violet-300 transition-colors">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-violet-700">
+              <HelpCircle className="h-5 w-5" />
+              Nasıl Kullanılır?
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="flex items-start gap-3">
+              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-violet-100 text-violet-700 text-sm font-bold shrink-0">1</span>
+              <p className="text-slate-600">CSS kodunuzu yapıştırın veya dosya yükleyin</p>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-violet-100 text-violet-700 text-sm font-bold shrink-0">2</span>
+              <p className="text-slate-600">Girinti boyutunu seçin (2, 4 veya 8 boşluk)</p>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-violet-100 text-violet-700 text-sm font-bold shrink-0">3</span>
+              <p className="text-slate-600">&quot;Güzelleştir&quot;, &quot;Küçült&quot; veya &quot;Doğrula&quot; butonuna tıklayın</p>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-violet-100 text-violet-700 text-sm font-bold shrink-0">4</span>
+              <p className="text-slate-600">Sonucu kopyalayın veya dosya olarak indirin</p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Örnek Kullanımlar */}
+        <Card className="border-2 border-purple-200 hover:border-purple-300 transition-colors">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-purple-700">
+              <BookOpen className="h-5 w-5" />
+              Örnek Kullanımlar
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="p-3 bg-purple-50 rounded-lg">
+              <p className="font-medium text-purple-800">🎨 Stil Geliştirme</p>
+              <p className="text-sm text-purple-600">Karmaşık CSS dosyalarını okunabilir hale getirin</p>
+            </div>
+            <div className="p-3 bg-purple-50 rounded-lg">
+              <p className="font-medium text-purple-800">🚀 Performans Optimizasyonu</p>
+              <p className="text-sm text-purple-600">CSS&apos;i küçültüp sayfa yükleme hızını artırın</p>
+            </div>
+            <div className="p-3 bg-purple-50 rounded-lg">
+              <p className="font-medium text-purple-800">🔧 Hata Ayıklama</p>
+              <p className="text-sm text-purple-600">Sözdizimi hatalarını tespit edip düzeltin</p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Önemli Bilgiler */}
+        <Card className="border-2 border-fuchsia-200 hover:border-fuchsia-300 transition-colors">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-fuchsia-700">
+              <Info className="h-5 w-5" />
+              Önemli Bilgiler
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="flex items-start gap-2">
+              <span className="text-fuchsia-600">⚡</span>
+              <p className="text-slate-600 text-sm">Her özellik noktalı virgül ile bitmelidir</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-fuchsia-600">📋</span>
+              <p className="text-slate-600 text-sm">Seçiciler süslü parantez ile sarmalanmalıdır</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-fuchsia-600">🔢</span>
+              <p className="text-slate-600 text-sm">Renk değerleri # ile veya rgb() formatında olabilir</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-fuchsia-600">✓</span>
+              <p className="text-slate-600 text-sm">@media kuralları responsive tasarım için kullanılır</p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* İlginç Bilgiler */}
+        <Card className="border-2 border-indigo-200 hover:border-indigo-300 transition-colors">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-indigo-700">
+              <Lightbulb className="h-5 w-5" />
+              İlginç Bilgiler
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="flex items-start gap-2">
+              <span className="text-indigo-600">🌟</span>
+              <p className="text-slate-600 text-sm">CSS, Håkon Wium Lie tarafından 1994&apos;te önerildi</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-indigo-600">📈</span>
+              <p className="text-slate-600 text-sm">CSS3 ile 500&apos;den fazla özellik kullanılabilir hale geldi</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-indigo-600">🌐</span>
+              <p className="text-slate-600 text-sm">Küçültülmüş CSS, orijinalinden %30-50 daha az yer kaplar</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-indigo-600">💡</span>
+              <p className="text-slate-600 text-sm">CSS&apos;in tam adı &quot;Cascading Style Sheets&quot;dir</p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   )
 }

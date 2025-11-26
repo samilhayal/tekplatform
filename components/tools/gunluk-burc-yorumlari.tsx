@@ -1,10 +1,12 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
-import { Star, Heart, Briefcase, Coins, Calendar, Sparkles, Moon, Sun, Flame, Droplet, Wind, Mountain } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Star, Heart, Briefcase, Coins, Calendar, Sparkles, Moon, Sun, Flame, Droplet, Wind, Mountain, Home, Info, Lightbulb, BookOpen, HelpCircle } from "lucide-react"
+import Link from "next/link"
 
 interface ZodiacSign {
   id: string
@@ -248,7 +250,38 @@ export function GunlukBurcYorumlari() {
   const selectedZodiac = zodiacSigns.find(z => z.id === selectedSign)
 
   return (
-    <div className="w-full max-w-5xl mx-auto space-y-8">
+    <div className="w-full max-w-6xl mx-auto space-y-8">
+      {/* Ana Sayfaya Dön Butonu */}
+      <div className="flex justify-between items-center">
+        <Link href="/">
+          <Button variant="outline" className="gap-2">
+            <Home className="h-4 w-4" />
+            Ana Sayfaya Dön
+          </Button>
+        </Link>
+        <Badge variant="secondary" className="text-lg px-4 py-2">
+          <Calendar className="h-4 w-4 mr-2" />
+          {currentDate}
+        </Badge>
+      </div>
+
+      {/* Hero Section */}
+      <Card className="border-2 border-purple-200 bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50">
+        <CardHeader className="text-center pb-8">
+          <div className="flex justify-center mb-4">
+            <div className="relative">
+              <Moon className="h-20 w-20 text-purple-500 animate-pulse" />
+              <Sparkles className="h-8 w-8 text-pink-500 absolute -top-2 -right-2 animate-bounce" />
+            </div>
+          </div>
+          <CardTitle className="text-4xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
+            Günlük Burç Yorumları
+          </CardTitle>
+          <CardDescription className="text-lg mt-2">
+            Bugün için kişisel astrolojik rehberiniz
+          </CardDescription>
+        </CardHeader>
+      </Card>
       {/* Tarih */}
       <div className="text-center">
         <div className="flex items-center justify-center gap-2 text-lg text-slate-600">
@@ -258,19 +291,34 @@ export function GunlukBurcYorumlari() {
       </div>
 
       {/* Burç Seçici */}
-      <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-12 gap-2">
-        {zodiacSigns.map(sign => (
+      <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-12 gap-3">
+        {zodiacSigns.map((sign, index) => (
           <button
             key={sign.id}
             onClick={() => setSelectedSign(sign.id)}
-            className={`p-3 rounded-xl transition-all text-center ${
+            className={`group p-4 rounded-2xl transition-all duration-300 text-center relative overflow-hidden ${
               selectedSign === sign.id 
-                ? "bg-gradient-to-br from-purple-500 to-pink-500 text-white shadow-lg scale-105" 
-                : "bg-slate-100 hover:bg-slate-200"
+                ? "bg-gradient-to-br from-purple-500 via-pink-500 to-blue-500 text-white shadow-2xl scale-110 z-10" 
+                : "bg-gradient-to-br from-slate-50 to-slate-100 hover:from-purple-100 hover:to-pink-100 hover:shadow-lg hover:scale-105"
             }`}
+            style={{
+              animationDelay: `${index * 30}ms`,
+              animation: 'fadeIn 0.4s ease-out forwards',
+            }}
           >
-            <div className="text-2xl mb-1">{sign.symbol}</div>
-            <div className="text-xs font-medium truncate">{sign.name}</div>
+            <div className={`text-3xl mb-2 transition-transform duration-300 ${
+              selectedSign === sign.id ? 'scale-110' : 'group-hover:scale-125'
+            }`}>
+              {sign.symbol}
+            </div>
+            <div className={`text-xs font-semibold truncate ${
+              selectedSign === sign.id ? 'text-white' : 'text-slate-700 group-hover:text-purple-600'
+            }`}>
+              {sign.name}
+            </div>
+            {selectedSign === sign.id && (
+              <div className="absolute inset-0 bg-white/20 animate-pulse pointer-events-none" />
+            )}
           </button>
         ))}
       </div>
@@ -411,6 +459,155 @@ export function GunlukBurcYorumlari() {
           </Card>
         </div>
       )}
+
+      {/* Nasıl Kullanılır */}
+      <Card className="border-2 border-blue-200">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <HelpCircle className="h-6 w-6 text-blue-500" />
+            Nasıl Kullanılır?
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <div className="flex gap-3">
+            <Badge className="bg-blue-500">1</Badge>
+            <p className="text-slate-700">Yukarıdaki burç listesinden kendi burcunuzu seçin</p>
+          </div>
+          <div className="flex gap-3">
+            <Badge className="bg-blue-500">2</Badge>
+            <p className="text-slate-700">Günlük yorumunuz otomatik olarak yüklenecektir</p>
+          </div>
+          <div className="flex gap-3">
+            <Badge className="bg-blue-500">3</Badge>
+            <p className="text-slate-700">Genel, Aşk, Kariyer, Para ve Sağlık sekmelerini inceleyebilirsiniz</p>
+          </div>
+          <div className="flex gap-3">
+            <Badge className="bg-blue-500">4</Badge>
+            <p className="text-slate-700">Şanslı sayılar, renkler ve uyumlu burç bilgilerini kontrol edin</p>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Örnek Kullanımlar */}
+      <Card className="border-2 border-green-200">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <BookOpen className="h-6 w-6 text-green-500" />
+            Örnek Kullanımlar
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="p-4 bg-green-50 rounded-lg">
+            <h4 className="font-semibold text-green-700 mb-2">📅 Sabah Rutini</h4>
+            <p className="text-slate-600">Her sabah kahvaltıdan önce günlük burcunuzu okuyun ve güne hazırlanın.</p>
+          </div>
+          <div className="p-4 bg-blue-50 rounded-lg">
+            <h4 className="font-semibold text-blue-700 mb-2">💼 İş Kararları</h4>
+            <p className="text-slate-600">Önemli toplantı veya karar öncesi kariyer yorumlarınıza göz atın.</p>
+          </div>
+          <div className="p-4 bg-pink-50 rounded-lg">
+            <h4 className="font-semibold text-pink-700 mb-2">❤️ İlişki Planlaması</h4>
+            <p className="text-slate-600">Aşk yorumlarınıza göre partnerinizle özel zaman planlayın.</p>
+          </div>
+          <div className="p-4 bg-purple-50 rounded-lg">
+            <h4 className="font-semibold text-purple-700 mb-2">🎨 Renk Seçimi</h4>
+            <p className="text-slate-600">Günün şanslı rengine göre kıyafet seçimi yapabilirsiniz.</p>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Önemli Bilgiler */}
+      <Card className="border-2 border-orange-200">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Info className="h-6 w-6 text-orange-500" />
+            Önemli Bilgiler
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <div className="flex items-start gap-3">
+            <Star className="h-5 w-5 text-orange-500 flex-shrink-0 mt-0.5" />
+            <p className="text-slate-700">
+              <strong>Güncellik:</strong> Burç yorumları her gün güncellenir ve o güne özgüdür.
+            </p>
+          </div>
+          <div className="flex items-start gap-3">
+            <Star className="h-5 w-5 text-orange-500 flex-shrink-0 mt-0.5" />
+            <p className="text-slate-700">
+              <strong>Kişiselleştirme:</strong> Yorumlar doğum haritanıza değil, burç özelliklerinize göre hazırlanır.
+            </p>
+          </div>
+          <div className="flex items-start gap-3">
+            <Star className="h-5 w-5 text-orange-500 flex-shrink-0 mt-0.5" />
+            <p className="text-slate-700">
+              <strong>Rehberlik:</strong> Astroloji yorumları rehberlik amaçlıdır, kesin tahmin değildir.
+            </p>
+          </div>
+          <div className="flex items-start gap-3">
+            <Star className="h-5 w-5 text-orange-500 flex-shrink-0 mt-0.5" />
+            <p className="text-slate-700">
+              <strong>Element Bilgisi:</strong> Her burcun elementi (Ateş, Toprak, Hava, Su) karakterini etkiler.
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* İlginç Bilgiler */}
+      <Card className="border-2 border-purple-200 bg-gradient-to-br from-purple-50 to-pink-50">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Lightbulb className="h-6 w-6 text-purple-500" />
+            Bilmeniz İlginç Olabilecek Şeyler
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="p-4 bg-white rounded-lg shadow-sm">
+            <h4 className="font-semibold text-purple-700 mb-2 flex items-center gap-2">
+              <Moon className="h-5 w-5" />
+              Ay'ın Etkisi
+            </h4>
+            <p className="text-slate-600">
+              Ay'ın bulunduğu burç, günlük ruh halinizi ve duygusal durumunuzu etkiler. Her 2.5 günde bir burç değiştirir.
+            </p>
+          </div>
+          <div className="p-4 bg-white rounded-lg shadow-sm">
+            <h4 className="font-semibold text-blue-700 mb-2 flex items-center gap-2">
+              <Sparkles className="h-5 w-5" />
+              Retro Dönemler
+            </h4>
+            <p className="text-slate-600">
+              Merkür retrosu gibi gezegen geri gidişleri, iletişim ve teknoloji konularında ekstra dikkat gerektirir.
+            </p>
+          </div>
+          <div className="p-4 bg-white rounded-lg shadow-sm">
+            <h4 className="font-semibold text-green-700 mb-2 flex items-center gap-2">
+              <Sun className="h-5 w-5" />
+              Güneş ve Yükselen Burç
+            </h4>
+            <p className="text-slate-600">
+              Sadece güneş burcunuz değil, yükselen burcunuz da kişiliğinizi şekillendirir. Tam doğum saati önemlidir.
+            </p>
+          </div>
+          <div className="p-4 bg-white rounded-lg shadow-sm">
+            <h4 className="font-semibold text-orange-700 mb-2 flex items-center gap-2">
+              <Heart className="h-5 w-5" />
+              Venüs ve Mars
+            </h4>
+            <p className="text-slate-600">
+              Venüs aşk ve ilişkileri, Mars ise enerji ve tutkuyu yönetir. Bu gezegenlerin konumu önemlidir.
+            </p>
+          </div>
+          <div className="p-4 bg-white rounded-lg shadow-sm">
+            <h4 className="font-semibold text-pink-700 mb-2 flex items-center gap-2">
+              <Star className="h-5 w-5" />
+              12 Ev Sistemi
+            </h4>
+            <p className="text-slate-600">
+              Astrolojide 12 ev vardır ve her biri hayatın farklı alanlarını temsil eder: kariyer, aşk, sağlık vs.
+            </p>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   )
 }

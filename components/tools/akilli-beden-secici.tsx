@@ -8,7 +8,8 @@ import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
-import { Ruler, User, Shirt, Info, ChevronRight } from "lucide-react"
+import { Ruler, User, Shirt, Info, ChevronRight, Home, Lightbulb, BookOpen, HelpCircle, Sparkles } from "lucide-react"
+import Link from "next/link"
 
 interface SizeChart {
   [size: string]: {
@@ -266,8 +267,49 @@ export function AkillBedenSecici() {
 
   return (
     <div className="w-full max-w-5xl mx-auto space-y-8">
+      {/* Home Button */}
+      <div className="flex justify-start">
+        <Link href="/">
+          <Button variant="outline" size="sm" className="gap-2">
+            <Home className="h-4 w-4" />
+            Ana Sayfaya Dön
+          </Button>
+        </Link>
+      </div>
+
+      {/* Hero Section */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 p-8 text-white">
+        <div className="absolute inset-0 bg-black/10" />
+        <div className="absolute top-4 right-4 opacity-20">
+          <Shirt className="h-32 w-32 animate-pulse" />
+        </div>
+        <div className="absolute bottom-4 left-4 opacity-20">
+          <Ruler className="h-24 w-24" />
+        </div>
+        <div className="relative z-10 text-center">
+          <div className="flex justify-center gap-3 mb-4">
+            <Shirt className="h-12 w-12 animate-bounce" style={{ animationDuration: '2s' }} />
+          </div>
+          <h1 className="text-4xl font-bold mb-3">Akıllı Beden Seçici</h1>
+          <p className="text-lg opacity-90 max-w-2xl mx-auto">
+            Vücut ölçülerinize göre Zara, H&M, Mavi ve daha birçok markada doğru bedeninizi bulun
+          </p>
+          <div className="flex justify-center gap-4 mt-6 flex-wrap">
+            <div className="bg-white/20 rounded-full px-4 py-2 text-sm backdrop-blur-sm">
+              👔 {mensBrands.length} Erkek Marka
+            </div>
+            <div className="bg-white/20 rounded-full px-4 py-2 text-sm backdrop-blur-sm">
+              👗 {womensBrands.length} Kadın Marka
+            </div>
+            <div className="bg-white/20 rounded-full px-4 py-2 text-sm backdrop-blur-sm">
+              📏 3 Kritik Ölçü
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Nasıl Ölçüm Yapılır */}
-      <Card className="border-2 border-blue-200 bg-blue-50/50">
+      <Card className="border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-indigo-50">
         <CardHeader className="pb-2">
           <CardTitle className="flex items-center gap-2 text-lg text-blue-700">
             <Info className="h-5 w-5" />
@@ -276,20 +318,20 @@ export function AkillBedenSecici() {
         </CardHeader>
         <CardContent className="space-y-3 text-sm text-blue-800">
           <div className="grid md:grid-cols-3 gap-4">
-            <div className="flex items-start gap-2">
-              <span className="font-bold text-blue-600">1.</span>
+            <div className="flex items-start gap-2 p-3 bg-white/50 rounded-xl">
+              <span className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold">1</span>
               <div>
                 <strong>Göğüs:</strong> Mezura ile göğsün en geniş noktasından, koltuk altlarının hizasından ölçün.
               </div>
             </div>
-            <div className="flex items-start gap-2">
-              <span className="font-bold text-blue-600">2.</span>
+            <div className="flex items-start gap-2 p-3 bg-white/50 rounded-xl">
+              <span className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold">2</span>
               <div>
                 <strong>Bel:</strong> Belin en ince yerinden, göbek deliğinin hemen üstünden ölçün.
               </div>
             </div>
-            <div className="flex items-start gap-2">
-              <span className="font-bold text-blue-600">3.</span>
+            <div className="flex items-start gap-2 p-3 bg-white/50 rounded-xl">
+              <span className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold">3</span>
               <div>
                 <strong>Kalça:</strong> Kalçanın en geniş noktasından, yere paralel şekilde ölçün.
               </div>
@@ -547,10 +589,80 @@ export function AkillBedenSecici() {
         </CardContent>
       </Card>
 
+      {/* Educational Sections */}
+      <div className="grid gap-6 md:grid-cols-2">
+        <Card className="border-indigo-200 bg-gradient-to-br from-indigo-50 to-white">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-indigo-700">
+              <HelpCircle className="h-5 w-5" />
+              Nasıl Kullanılır?
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3 text-sm text-slate-600">
+            <p>• Cinsiyetinizi seçin (Erkek/Kadın)</p>
+            <p>• Göğüs, bel ve kalça çevrenizi cm olarak girin</p>
+            <p>• İsterseniz belirli bir marka için filtreleme yapın</p>
+            <p>• "Beden Öner" butonuna tıklayın</p>
+            <p>• Farklı markalarda size uygun bedenleri görün</p>
+            <p>• Uyum skoruna göre en iyi bedeni seçin</p>
+          </CardContent>
+        </Card>
+
+        <Card className="border-purple-200 bg-gradient-to-br from-purple-50 to-white">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-purple-700">
+              <BookOpen className="h-5 w-5" />
+              Örnek Kullanımlar
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3 text-sm text-slate-600">
+            <p>• <strong>Online alışveriş:</strong> Mağazaya gitmeden doğru bedeni bulun</p>
+            <p>• <strong>Hediye alırken:</strong> Yakınlarınızın ölçülerini girerek beden öğrenin</p>
+            <p>• <strong>Yurt dışı alışveriş:</strong> Uluslararası beden dönüşümünü kontrol edin</p>
+            <p>• <strong>Marka karşılaştırma:</strong> Aynı ölçüler için farklı markaların bedenlerini görün</p>
+            <p>• <strong>İade azaltma:</strong> Doğru beden seçerek iade ihtimalini azaltın</p>
+          </CardContent>
+        </Card>
+
+        <Card className="border-amber-200 bg-gradient-to-br from-amber-50 to-white">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-amber-700">
+              <Info className="h-5 w-5" />
+              Önemli Bilgiler
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3 text-sm text-slate-600">
+            <p>• Beden ölçüleri markadan markaya farklılık gösterebilir</p>
+            <p>• Avrupa markaları genellikle daha dar kesim kullanır</p>
+            <p>• Amerikan markaları genellikle daha geniş kalıptır</p>
+            <p>• Türk markaları standart kesim kullanır</p>
+            <p>• Ölçüm yaparken mezurayı çok sıkmayın</p>
+            <p>• İç giyim üzerine ölçüm yapmanız önerilir</p>
+          </CardContent>
+        </Card>
+
+        <Card className="border-teal-200 bg-gradient-to-br from-teal-50 to-white">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-teal-700">
+              <Lightbulb className="h-5 w-5" />
+              İlginç Bilgiler
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3 text-sm text-slate-600">
+            <p>• "Vanity sizing" nedeniyle markalar zamanla bedenlerini büyüttü</p>
+            <p>• 1950'lerin M bedeni bugünün XS'i kadar küçüktü</p>
+            <p>• Online alışverişte iade oranının %30'u yanlış beden seçiminden</p>
+            <p>• Zara, dünyanın en dar kesimli markalarından biri</p>
+            <p>• H&M ülkeden ülkeye farklı beden sistemi kullanabilir</p>
+            <p>• Japonya ve Kore bedenleri genellikle 1-2 beden küçük gelir</p>
+          </CardContent>
+        </Card>
+      </div>
+
       {/* Uyarı */}
-      <div className="text-center text-sm text-slate-500 p-4 bg-slate-50 rounded-lg">
+      <div className="text-center text-sm text-slate-500 p-4 bg-slate-50 rounded-lg border">
         <p>
-          <strong>Not:</strong> Beden ölçüleri markadan markaya farklılık gösterebilir. 
+          <strong>⚠️ Not:</strong> Beden ölçüleri markadan markaya farklılık gösterebilir. 
           Kesin bilgi için mağazanın kendi beden tablosunu kontrol etmenizi öneririz.
         </p>
       </div>

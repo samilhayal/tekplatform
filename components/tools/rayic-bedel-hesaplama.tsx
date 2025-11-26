@@ -1,10 +1,11 @@
 "use client"
 
 import { useState, useCallback, useMemo } from "react"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { MapPin, Calculator, Info, Search, Building2 } from "lucide-react"
+import { MapPin, Calculator, Info, Search, Building2, Home, Lightbulb, BookOpen, HelpCircle } from "lucide-react"
+import Link from "next/link"
 
 // Örnek rayiç bedel veritabanı (gerçek uygulamada API'den alınmalı)
 const rayicVeritabani: Record<string, Record<string, Record<string, { m2Fiyat: number; yil: number }>>> = {
@@ -171,19 +172,46 @@ export function RayicBedelHesaplama() {
   }
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className="w-full max-w-4xl mx-auto p-4 space-y-6">
+      {/* Ana Sayfa Butonu */}
+      <Link href="/">
+        <Button variant="ghost" className="gap-2 hover:bg-amber-50">
+          <Home className="h-4 w-4" />
+          Ana Sayfa
+        </Button>
+      </Link>
+
+      {/* Hero Section */}
+      <div className="text-center mb-8">
+        <div className="relative inline-block">
+          <div className="absolute -inset-4 bg-gradient-to-r from-amber-400 via-orange-500 to-amber-400 rounded-full blur-2xl opacity-20 animate-pulse" />
+          <div className="relative bg-gradient-to-br from-amber-100 to-orange-100 p-6 rounded-3xl">
+            <MapPin className="h-16 w-16 text-amber-600 mx-auto mb-2" />
+            <Building2 className="h-8 w-8 text-orange-500 absolute -top-2 -right-2 animate-bounce" />
+            <Search className="h-6 w-6 text-amber-500 absolute -bottom-1 -left-1 animate-pulse" />
+          </div>
+        </div>
+        <h1 className="text-3xl md:text-4xl font-bold mt-6 bg-gradient-to-r from-amber-600 via-orange-600 to-amber-600 bg-clip-text text-transparent">
+          Rayiç Bedel Hesaplama
+        </h1>
+        <p className="text-slate-600 mt-3 max-w-2xl mx-auto">
+          Türkiye&apos;deki emlak rayiç bedellerini sorgulayın ve gayrimenkul değerini hesaplayın
+        </p>
+        <div className="flex flex-wrap gap-2 justify-center mt-4">
+          <span className="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm font-medium">
+            📍 5 İl
+          </span>
+          <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm font-medium">
+            🏘️ Güncel Veriler
+          </span>
+          <span className="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-sm font-medium">
+            ₺ M² Hesabı
+          </span>
+        </div>
+      </div>
+
       <Card className="border-2 border-amber-100/50 shadow-xl">
         <CardContent className="pt-8 pb-8 px-6 sm:px-8">
-          <div className="mb-8 text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 shadow-lg mb-4">
-              <MapPin className="h-8 w-8 text-white" />
-            </div>
-            <h2 className="text-3xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent mb-2">
-              Rayiç Bedel Hesaplama
-            </h2>
-            <p className="text-slate-600">Gayrimenkulünüzün bulunduğu konuma göre rayiç bedelini öğrenin</p>
-          </div>
-
           {/* Bilgi Butonu */}
           <div className="mb-6">
             <button
@@ -331,6 +359,117 @@ export function RayicBedelHesaplama() {
           )}
         </CardContent>
       </Card>
+
+      {/* Eğitici Bölümler */}
+      <div className="grid md:grid-cols-2 gap-6 mt-8">
+        {/* Nasıl Kullanılır? */}
+        <Card className="border-2 border-amber-200 hover:border-amber-300 transition-colors">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-amber-700">
+              <HelpCircle className="h-5 w-5" />
+              Nasıl Kullanılır?
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="flex items-start gap-3">
+              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-amber-100 text-amber-700 text-sm font-bold shrink-0">1</span>
+              <p className="text-slate-600">Gayrimenkulün bulunduğu ili seçin</p>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-amber-100 text-amber-700 text-sm font-bold shrink-0">2</span>
+              <p className="text-slate-600">İlçe ve mahalle seçimlerini yapın</p>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-amber-100 text-amber-700 text-sm font-bold shrink-0">3</span>
+              <p className="text-slate-600">Gayrimenkulün m² alanını girin</p>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-amber-100 text-amber-700 text-sm font-bold shrink-0">4</span>
+              <p className="text-slate-600">&quot;Rayiç Bedel Hesapla&quot; butonuna tıklayın</p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Örnek Kullanımlar */}
+        <Card className="border-2 border-orange-200 hover:border-orange-300 transition-colors">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-orange-700">
+              <BookOpen className="h-5 w-5" />
+              Örnek Kullanımlar
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="p-3 bg-orange-50 rounded-lg">
+              <p className="font-medium text-orange-800">🏢 Tapu Harcı Kontrolü</p>
+              <p className="text-sm text-orange-600">Satın alacağınız evin tapu harcının minimum değerini öğrenin</p>
+            </div>
+            <div className="p-3 bg-orange-50 rounded-lg">
+              <p className="font-medium text-orange-800">📊 Emlak Vergisi Hesabı</p>
+              <p className="text-sm text-orange-600">Gayrimenkulünüzün emlak vergisi matrahını belirleyin</p>
+            </div>
+            <div className="p-3 bg-orange-50 rounded-lg">
+              <p className="font-medium text-orange-800">💰 Yatırım Analizi</p>
+              <p className="text-sm text-orange-600">Farklı bölgelerin m² değerlerini karşılaştırın</p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Önemli Bilgiler */}
+        <Card className="border-2 border-yellow-200 hover:border-yellow-300 transition-colors">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-yellow-700">
+              <Info className="h-5 w-5" />
+              Önemli Bilgiler
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="flex items-start gap-2">
+              <span className="text-yellow-600">⚡</span>
+              <p className="text-slate-600 text-sm">Rayiç bedeller her yıl yeniden değerleme oranına göre güncellenir</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-yellow-600">📋</span>
+              <p className="text-slate-600 text-sm">Tapu harcı beyanı rayiç bedelden düşük olamaz</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-yellow-600">🏛️</span>
+              <p className="text-slate-600 text-sm">Rayiç bedeller Maliye Bakanlığı tarafından belirlenir</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-yellow-600">📍</span>
+              <p className="text-slate-600 text-sm">Her mahalle için farklı m² birim değerleri uygulanır</p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* İlginç Bilgiler */}
+        <Card className="border-2 border-emerald-200 hover:border-emerald-300 transition-colors">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-emerald-700">
+              <Lightbulb className="h-5 w-5" />
+              İlginç Bilgiler
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="flex items-start gap-2">
+              <span className="text-emerald-600">🌟</span>
+              <p className="text-slate-600 text-sm">İstanbul&apos;un en yüksek rayiç bedeli Nişantaşı ve Bebek bölgelerinde</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-emerald-600">📈</span>
+              <p className="text-slate-600 text-sm">Son 5 yılda rayiç bedeller ortalama %300 artış gösterdi</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-emerald-600">🏘️</span>
+              <p className="text-slate-600 text-sm">Türkiye&apos;de 30.000&apos;den fazla mahalle için rayiç bedel belirleniyor</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-emerald-600">💡</span>
+              <p className="text-slate-600 text-sm">Rayiç bedel, gerçek piyasa değerinin genellikle %40-60&apos;ı kadardır</p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   )
 }

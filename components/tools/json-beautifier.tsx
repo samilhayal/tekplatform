@@ -1,9 +1,10 @@
 "use client"
 
 import { useState, useCallback } from "react"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Code, Copy, Check, AlertCircle, Download, Upload, Trash2, Minimize2, Maximize2, FileJson } from "lucide-react"
+import { Code, Copy, Check, AlertCircle, Download, Upload, Trash2, Minimize2, Maximize2, FileJson, Home, Lightbulb, BookOpen, HelpCircle, Info, Braces } from "lucide-react"
+import Link from "next/link"
 
 export function JSONBeautifier() {
   const [input, setInput] = useState("")
@@ -131,18 +132,46 @@ export function JSONBeautifier() {
   }
 
   return (
-    <div className="w-full max-w-7xl mx-auto">
+    <div className="w-full max-w-7xl mx-auto p-4 space-y-6">
+      {/* Ana Sayfa Butonu */}
+      <Link href="/">
+        <Button variant="ghost" className="gap-2 hover:bg-blue-50">
+          <Home className="h-4 w-4" />
+          Ana Sayfa
+        </Button>
+      </Link>
+
+      {/* Hero Section */}
+      <div className="text-center mb-8">
+        <div className="relative inline-block">
+          <div className="absolute -inset-4 bg-gradient-to-r from-blue-400 via-cyan-500 to-blue-400 rounded-full blur-2xl opacity-20 animate-pulse" />
+          <div className="relative bg-gradient-to-br from-blue-100 to-cyan-100 p-6 rounded-3xl">
+            <FileJson className="h-16 w-16 text-blue-600 mx-auto mb-2" />
+            <Braces className="h-8 w-8 text-cyan-500 absolute -top-2 -right-2 animate-bounce" />
+            <Code className="h-6 w-6 text-blue-500 absolute -bottom-1 -left-1 animate-pulse" />
+          </div>
+        </div>
+        <h1 className="text-3xl md:text-4xl font-bold mt-6 bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-600 bg-clip-text text-transparent">
+          JSON Beautifier
+        </h1>
+        <p className="text-slate-600 mt-3 max-w-2xl mx-auto">
+          JSON verilerinizi güzelleştirin, doğrulayın ve profesyonel formata dönüştürün
+        </p>
+        <div className="flex flex-wrap gap-2 justify-center mt-4">
+          <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+            🎨 Güzelleştir
+          </span>
+          <span className="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full text-sm font-medium">
+            ✅ Doğrula
+          </span>
+          <span className="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm font-medium">
+            📦 Küçült
+          </span>
+        </div>
+      </div>
+
       <Card className="border-2 border-blue-100/50 shadow-xl">
         <CardContent className="pt-8 pb-8 px-6 sm:px-8">
-          <div className="mb-8 text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-600 shadow-lg mb-4">
-              <FileJson className="h-8 w-8 text-white" />
-            </div>
-            <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-2">
-              JSON Beautifier
-            </h2>
-            <p className="text-slate-600">JSON verilerinizi düzenleyin, doğrulayın ve güzelleştirin</p>
-          </div>
 
           {/* Toolbar */}
           <div className="flex flex-wrap gap-3 mb-6 p-4 bg-slate-50 rounded-xl">
@@ -285,6 +314,117 @@ export function JSONBeautifier() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Eğitici Bölümler */}
+      <div className="grid md:grid-cols-2 gap-6 mt-8">
+        {/* Nasıl Kullanılır? */}
+        <Card className="border-2 border-blue-200 hover:border-blue-300 transition-colors">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-blue-700">
+              <HelpCircle className="h-5 w-5" />
+              Nasıl Kullanılır?
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="flex items-start gap-3">
+              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-100 text-blue-700 text-sm font-bold shrink-0">1</span>
+              <p className="text-slate-600">JSON verinizi sol panele yapıştırın veya dosya yükleyin</p>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-100 text-blue-700 text-sm font-bold shrink-0">2</span>
+              <p className="text-slate-600">Girinti boyutunu seçin (2, 4 veya 8 boşluk)</p>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-100 text-blue-700 text-sm font-bold shrink-0">3</span>
+              <p className="text-slate-600">&quot;Güzelleştir&quot;, &quot;Küçült&quot; veya &quot;Doğrula&quot; butonuna tıklayın</p>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-100 text-blue-700 text-sm font-bold shrink-0">4</span>
+              <p className="text-slate-600">Sonucu kopyalayın veya dosya olarak indirin</p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Örnek Kullanımlar */}
+        <Card className="border-2 border-cyan-200 hover:border-cyan-300 transition-colors">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-cyan-700">
+              <BookOpen className="h-5 w-5" />
+              Örnek Kullanımlar
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="p-3 bg-cyan-50 rounded-lg">
+              <p className="font-medium text-cyan-800">🔧 API Geliştirme</p>
+              <p className="text-sm text-cyan-600">API yanıtlarını okunabilir hale getirin ve hata ayıklayın</p>
+            </div>
+            <div className="p-3 bg-cyan-50 rounded-lg">
+              <p className="font-medium text-cyan-800">📝 Konfigürasyon Dosyaları</p>
+              <p className="text-sm text-cyan-600">package.json, tsconfig.json gibi dosyaları düzenleyin</p>
+            </div>
+            <div className="p-3 bg-cyan-50 rounded-lg">
+              <p className="font-medium text-cyan-800">🗃️ Veri Aktarımı</p>
+              <p className="text-sm text-cyan-600">NoSQL veritabanı verilerini formatlamak için kullanın</p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Önemli Bilgiler */}
+        <Card className="border-2 border-teal-200 hover:border-teal-300 transition-colors">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-teal-700">
+              <Info className="h-5 w-5" />
+              Önemli Bilgiler
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="flex items-start gap-2">
+              <span className="text-teal-600">⚡</span>
+              <p className="text-slate-600 text-sm">JSON anahtarları mutlaka çift tırnak içinde olmalıdır</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-teal-600">📋</span>
+              <p className="text-slate-600 text-sm">Son elemandan sonra virgül (trailing comma) JSON&apos;da geçersizdir</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-teal-600">🔢</span>
+              <p className="text-slate-600 text-sm">Sayılar tırnak içinde yazılmamalıdır</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-teal-600">✓</span>
+              <p className="text-slate-600 text-sm">Boolean değerler küçük harfle yazılmalıdır (true, false)</p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* İlginç Bilgiler */}
+        <Card className="border-2 border-indigo-200 hover:border-indigo-300 transition-colors">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-indigo-700">
+              <Lightbulb className="h-5 w-5" />
+              İlginç Bilgiler
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="flex items-start gap-2">
+              <span className="text-indigo-600">🌟</span>
+              <p className="text-slate-600 text-sm">JSON, Douglas Crockford tarafından 2001&apos;de popülerleştirildi</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-indigo-600">📈</span>
+              <p className="text-slate-600 text-sm">JSON, XML&apos;e göre %30-40 daha az yer kaplar</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-indigo-600">🌐</span>
+              <p className="text-slate-600 text-sm">Dünya genelinde API&apos;lerin %90&apos;ından fazlası JSON kullanır</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-indigo-600">💡</span>
+              <p className="text-slate-600 text-sm">JSON&apos;ın tam adı &quot;JavaScript Object Notation&quot;dur</p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   )
 }

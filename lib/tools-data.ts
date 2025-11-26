@@ -83,6 +83,15 @@ export const tools: Tool[] = [
     keywords: ['kredi', 'loan', 'mortgage', 'ödeme', 'faiz']
   },
   {
+    id: 'brut-net-maas-hesaplayici',
+    title: 'Brüt-Net Maaş Hesaplayıcı',
+    description: '2025 Türkiye vergi dilimlerine göre brüt-net maaş hesaplama, SGK, AGI ve kesinti detayları',
+    category: 'Finans & Matematik',
+    icon: 'Wallet',
+    href: '/tools/brut-net-maas-hesaplayici',
+    keywords: ['brüt maaş', 'net maaş', 'maaş hesaplama', 'vergi', 'sgk', 'agi', 'gelir vergisi', 'damga vergisi', 'salary calculator']
+  },
+  {
     id: 'investment-calculator',
     title: 'Yatırım Getiri Hesaplama',
     description: 'Hisse, tahvil ve fon getiri projeksiyonları',
@@ -579,7 +588,7 @@ export const tools: Tool[] = [
     description: '3D animasyonlu madeni para atma',
     category: 'Şans & Oyun',
     icon: 'Coins',
-    href: '/tools/randomizer?tool=coin',
+    href: '/tools/coin-flip',
     keywords: ['yazı tura', 'coin flip', 'heads', 'tails', 'madeni para']
   },
   {
@@ -588,7 +597,7 @@ export const tools: Tool[] = [
     description: '3D animasyonlu iskambil kartı çekme',
     category: 'Şans & Oyun',
     icon: 'Spade',
-    href: '/tools/randomizer?tool=card',
+    href: '/tools/card-picker',
     keywords: ['kart', 'card', 'iskambil', 'çekme', 'pick']
   },
   {
@@ -597,7 +606,7 @@ export const tools: Tool[] = [
     description: 'Özelleştirilebilir şans çarkı',
     category: 'Şans & Oyun',
     icon: 'Disc',
-    href: '/tools/randomizer?tool=wheel',
+    href: '/tools/wheel-spinner',
     keywords: ['çarkıfelek', 'wheel', 'spin', 'şans', 'luck']
   },
 
@@ -762,6 +771,42 @@ export const tools: Tool[] = [
     icon: 'Sunrise',
     href: '/tools/yukselen-burc-hesaplayici',
     keywords: ['yükselen burç', 'ascendant', 'astroloji', 'doğum haritası']
+  },
+  {
+    id: 'yildiz-haritasi',
+    title: 'Yıldız Haritası Oluşturucu',
+    description: 'Doğum tarihi, saati ve yerine göre kişisel natal chart ve astrolojik analizler',
+    category: 'Astroloji',
+    icon: 'Sparkles',
+    href: '/tools/yildiz-haritasi',
+    keywords: ['yıldız haritası', 'natal chart', 'doğum haritası', 'astroloji', 'gezegen konumları', 'burç analizi']
+  },
+  {
+    id: 'ay-burcu-hesaplayici',
+    title: 'Ay Burcu Hesaplayıcı',
+    description: 'Doğum tarihi, saati ve yerine göre ay burcunuzu ve duygusal özelliklerinizi keşfedin',
+    category: 'Astroloji',
+    icon: 'Moon',
+    href: '/tools/ay-burcu-hesaplayici',
+    keywords: ['ay burcu', 'moon sign', 'astroloji', 'duygusal karakter', 'ay fazı', 'natal chart']
+  },
+  {
+    id: 'astroloji-takvimi',
+    title: 'Astroloji Takvimi',
+    description: '2024 yılı için gezegen retroları, tutulmalar, ay fazları ve önemli astrolojik olaylar',
+    category: 'Astroloji',
+    icon: 'Calendar',
+    href: '/tools/astroloji-takvimi',
+    keywords: ['astroloji takvimi', 'retro', 'tutulma', 'ay fazları', 'gezegen hareketleri', 'astrolojik olaylar']
+  },
+  {
+    id: 'burc-onerileri',
+    title: 'Burçlara Göre Öneriler',
+    description: 'Her burç için sağlık, beslenme, kariyer, finans, seyahat ve yaşam önerileri',
+    category: 'Astroloji',
+    icon: 'Sparkles',
+    href: '/tools/burc-onerileri',
+    keywords: ['burç önerileri', 'sağlık', 'beslenme', 'kariyer', 'finans', 'seyahat', 'kişisel gelişim', 'hediye önerileri']
   }
 ];
 

@@ -11,7 +11,8 @@ import {
   Banknote, Landmark, BadgeMinus, ArrowUp, BarChart, Hash, Binary,
   Heart, Activity, Target, Flame, Baby, Calendar, Cigarette, Cake,
   Briefcase, CalendarDays, DollarSign, Users, FileText, Scissors, Image, FileImage, Minimize2, Edit,
-  GraduationCap, Award
+  GraduationCap, Award, FileJson, FileCode, FileSpreadsheet, FileCode2, Palette,
+  Sun, Stars, Sunrise, Sparkles, Moon, Home, MapPin, Receipt, Shirt, Wallet
 } from "lucide-react"
 import { cn, getCategoryKey } from "@/lib/utils"
 
@@ -63,6 +64,26 @@ const iconMap: Record<string, any> = {
   Edit,
   GraduationCap,
   Award,
+  // Kod Araçları
+  FileJson,
+  FileCode,
+  FileSpreadsheet,
+  FileCode2,
+  Palette,
+  // Astroloji
+  Sun,
+  Stars,
+  Sunrise,
+  Sparkles,
+  Moon,
+  // Emlak
+  Home,
+  MapPin,
+  Receipt,
+  // Moda & Stil
+  Shirt,
+  // Finans
+  Wallet,
 }
 
 export function BentoGrid() {
