@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
+import { useLocale, useTranslations } from 'next-intl'
 import { Command } from "cmdk"
 import { Search, Calculator, ArrowLeftRight, Clock, Expand, Type, Timer, Dice5,
   TrendingUp, Percent, PiggyBank, Ruler, Weight, Thermometer,
@@ -11,7 +12,7 @@ import { Search, Calculator, ArrowLeftRight, Clock, Expand, Type, Timer, Dice5,
   Briefcase, CalendarDays, DollarSign, Sparkles, TrendingDown, Users, FileText, Scissors, Image, FileImage, Minimize2, Edit,
   GraduationCap, Award } from "lucide-react"
 import { tools, categories } from "@/lib/tools-data"
-import { cn } from "@/lib/utils"
+import { cn, getCategoryKey } from "@/lib/utils"
 
 const iconMap: Record<string, any> = {
   Calculator,
@@ -76,6 +77,10 @@ const popularTools = [
 ]
 
 export function CommandPalette() {
+  const locale = useLocale()
+  const t = useTranslations('common')
+  const tTools = useTranslations('tools')
+  const tCategories = useTranslations('home.categories')
   const [open, setOpen] = useState(false)
   const [search, setSearch] = useState("")
   const router = useRouter()
@@ -98,7 +103,7 @@ export function CommandPalette() {
   const handleSelect = (href: string) => {
     setOpen(false)
     setSearch("")
-    router.push(href)
+    router.push(`/${locale}${href}`)
   }
 
   // Filter tools based on search
@@ -131,7 +136,7 @@ export function CommandPalette() {
         <div className="p-1 sm:p-1.5 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 group-hover:scale-110 transition-transform">
           <Search className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
         </div>
-        <span className="font-semibold group-hover:text-indigo-700 transition-colors flex-1 text-left">Araç ara...</span>
+        <span className="font-semibold group-hover:text-indigo-700 transition-colors flex-1 text-left">{t('searchTools')}</span>
         <kbd className="hidden sm:inline-flex pointer-events-none h-7 select-none items-center gap-1 rounded-lg border-2 border-slate-300 bg-gradient-to-b from-white to-slate-100 px-2.5 font-mono text-xs font-bold text-slate-700 shadow-md group-hover:border-indigo-300 group-hover:shadow-lg transition-all">
           <span className="text-sm">⌘</span>K
         </kbd>
@@ -158,7 +163,7 @@ export function CommandPalette() {
                   <Command.Input
                     value={search}
                     onValueChange={setSearch}
-                    placeholder="Araç adı veya kelime yazın..."
+                    placeholder={t('searchTools')}
                     className="flex h-14 sm:h-16 w-full bg-transparent py-3 sm:py-4 text-sm sm:text-base font-medium outline-none placeholder:text-slate-400"
                     autoFocus
                   />
@@ -175,8 +180,8 @@ export function CommandPalette() {
                       <Search className="w-8 h-8 sm:w-10 sm:h-10 text-slate-400" />
                     </div>
                     <div>
-                      <p className="text-sm sm:text-base font-semibold text-slate-700 mb-1">Araç bulunamadı</p>
-                      <p className="text-xs sm:text-sm text-slate-500">Farklı bir arama terimi deneyin</p>
+                      <p className="text-sm sm:text-base font-semibold text-slate-700 mb-1">{t('noToolsFound')}</p>
+                      <p className="text-xs sm:text-sm text-slate-500">{t('tryDifferentSearch')}</p>
                     </div>
                   </div>
                 </Command.Empty>
@@ -184,7 +189,7 @@ export function CommandPalette() {
                 {search.length === 0 && (
                   <div className="px-3 sm:px-4 py-2 mb-3 text-xs font-semibold text-indigo-700 flex items-center gap-2">
                     <Sparkles className="h-4 w-4" />
-                    <span>Popüler Araçlar</span>
+                    <span>{t('popularTools')}</span>
                   </div>
                 )}
 
@@ -192,7 +197,7 @@ export function CommandPalette() {
                   <Command.Group key={category} className="mb-3 sm:mb-4">
                     {search.length > 0 && (
                       <div className="px-3 sm:px-4 py-2 mb-2 sm:mb-3 text-xs font-bold text-indigo-700 uppercase tracking-wider bg-gradient-to-r from-indigo-50 via-purple-50 to-indigo-50 rounded-xl border border-indigo-100">
-                        {category}
+                        {tCategories(getCategoryKey(category))}
                       </div>
                     )}
                     <div className="space-y-1.5 sm:space-y-2">
@@ -217,10 +222,10 @@ export function CommandPalette() {
                             </div>
                             <div className="flex-1 min-w-0">
                               <div className="font-bold text-slate-900 truncate text-sm sm:text-base mb-0.5 group-hover:text-indigo-700 transition-colors">
-                                {tool.title}
+                                {tTools.has(`${tool.id}.title`) ? tTools(`${tool.id}.title`) : tool.title}
                               </div>
                               <div className="text-xs sm:text-sm text-slate-600 truncate group-hover:text-slate-700">
-                                {tool.description}
+                                {tTools.has(`${tool.id}.description`) ? tTools(`${tool.id}.description`) : tool.description}
                               </div>
                             </div>
                             <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 group-aria-selected:opacity-100 transition-opacity">
@@ -245,15 +250,15 @@ export function CommandPalette() {
                     <span className="hidden sm:flex items-center gap-1.5">
                       <kbd className="px-1.5 py-0.5 rounded bg-white border border-slate-300 font-mono font-semibold">↑</kbd>
                       <kbd className="px-1.5 py-0.5 rounded bg-white border border-slate-300 font-mono font-semibold">↓</kbd>
-                      <span className="text-slate-500">gezin</span>
+                      <span className="text-slate-500">{t('navigate')}</span>
                     </span>
                     <span className="flex items-center gap-1.5">
                       <kbd className="px-2 py-0.5 rounded bg-white border border-slate-300 font-mono font-semibold text-xs">Enter</kbd>
-                      <span className="text-slate-500">seç</span>
+                      <span className="text-slate-500">{t('select')}</span>
                     </span>
                   </div>
                   <span className="text-slate-500">
-                    <span className="font-semibold text-indigo-600">{filteredTools.length}</span> araç
+                    <span className="font-semibold text-indigo-600">{filteredTools.length}</span> {t('tools')}
                   </span>
                 </div>
               </div>

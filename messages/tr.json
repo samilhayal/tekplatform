@@ -1,0 +1,349 @@
+{
+  "common": {
+    "appName": "Tek Platform",
+    "slogan": "Ücretsiz Online Araç",
+    "home": "Ana Sayfa",
+    "about": "Hakkımızda",
+    "contact": "İletişim",
+    "privacy": "Gizlilik Politikası",
+    "terms": "Kullanım Koşulları",
+    "allRightsReserved": "Tüm hakları saklıdır",
+    "search": "Ara...",
+    "searchTools": "Araç ara...",
+    "loading": "Yükleniyor...",
+    "error": "Hata",
+    "success": "Başarılı",
+    "popularTools": "Popüler Araçlar",
+    "noToolsFound": "Araç bulunamadı",
+    "tryDifferentSearch": "Farklı bir arama terimi deneyin",
+    "navigate": "gezin",
+    "select": "seç",
+    "tools": "araç"
+  },
+  "header": {
+    "navigation": {
+      "home": "Ana Sayfa",
+      "about": "Hakkımızda",
+      "contact": "İletişim"
+    },
+    "language": {
+      "tr": "Türkçe",
+      "en": "English"
+    }
+  },
+  "footer": {
+    "quickLinks": "Hızlı Bağlantılar",
+    "categories": "Kategoriler",
+    "popularTools": "Popüler Araçlar",
+    "legalInfo": "Yasal Bilgiler",
+    "description": "Türkiye'nin en kapsamlı ücretsiz online araçlar platformu. Finans hesaplama, PDF işlemleri, sağlık hesaplama, dönüştürücüler ve 100+ ücretsiz araç.",
+    "copyright": "© 2024 Tek Platform. Tüm hakları saklıdır."
+  },
+  "home": {
+    "title": "100+ Ücretsiz Online Hesaplama ve Dönüştürme Aracı",
+    "subtitle": "Türkiye'nin en kapsamlı ücretsiz online araçlar platformu",
+    "description": "İhtiyacınız olan tüm online araçlar bir arada. Finans hesaplamalarından metin işlemeye, birim dönüştürmeden tasarım araçlarına kadar her şey burada.",
+    "featuredTools": "Öne Çıkan Araçlar",
+    "allTools": "Tümü",
+    "useTool": "Aracı Kullan",
+    "features": {
+      "free": "Tamamen Ücretsiz",
+      "noRegistration": "Kayıt Gerekmez",
+      "fast": "Hızlı & Güvenli"
+    },
+    "categories": {
+      "all": "Tümü",
+      "finance": "Finans & Matematik",
+      "health": "Sağlık & Yaşam",
+      "education": "Eğitim & Sınav",
+      "pdf": "PDF Araçları",
+      "converters": "Dönüştürücüler",
+      "generators": "Oluşturucular",
+      "calculators": "Hesaplayıcılar",
+      "text": "Metin & String",
+      "productivity": "Zaman & Verimlilik",
+      "work": "Çalışma & İş",
+      "games": "Şans & Oyun",
+      "design": "Görsel & Tasarım"
+    }
+  },
+  "tools": {
+    "percentage-calculator": {
+      "title": "Yüzde Hesaplayıcı",
+      "description": "X sayısının %Y'si, yüzde oranı ve artış/azalış hesaplamaları"
+    },
+    "change-rate-calculator": {
+      "title": "Değişim Oranı Hesaplayıcı",
+      "description": "Eski ve yeni değer arasındaki artış/azalış oranını hesaplayın"
+    },
+    "simple-interest": {
+      "title": "Basit Faiz Hesaplayıcı",
+      "description": "Anapara, faiz oranı ve süreye göre basit faiz hesaplama"
+    },
+    "compound-interest": {
+      "title": "Bileşik Faiz Hesaplayıcı",
+      "description": "Bileşik faiz hesaplama ve yatırım getiri analizi"
+    },
+    "gold-calculator": {
+      "title": "Altın Hesaplama",
+      "description": "Altın fiyatları, dönüşüm ve grafik analizi"
+    },
+    "currency-converter": {
+      "title": "Döviz Kurları",
+      "description": "Güncel döviz kurları ve dönüşüm hesaplamaları"
+    },
+    "savings-calculator": {
+      "title": "Birikim Hesaplama",
+      "description": "Aylık, yıllık veya tek seferlik birikim projeksiyonları"
+    },
+    "loan-calculator": {
+      "title": "Kredi Hesaplama",
+      "description": "Konut, taşıt ve ihtiyaç kredisi hesaplamaları"
+    },
+    "investment-calculator": {
+      "title": "Yatırım Getiri Hesaplama",
+      "description": "Hisse, tahvil ve fon getiri projeksiyonları"
+    },
+    "commission-calculator": {
+      "title": "Komisyon Hesaplama",
+      "description": "Hizmet komisyon oranları ve tutarları"
+    },
+    "expense-splitter": {
+      "title": "Harcama Paylaşım Hesaplayıcı",
+      "description": "Grup harcamalarını adil paylaştırın, kim kime ne kadar borçlu hesaplayın"
+    },
+    "zakat-calculator": {
+      "title": "Zekat Hesaplama",
+      "description": "İslami yükümlülük olan zekât miktarını hesaplayın"
+    },
+    "rent-increase-calculator": {
+      "title": "Kira Zammı Hesaplama",
+      "description": "Kira sözleşmesi yenileme döneminde yasal artış hesaplama"
+    },
+    "pdf-merge": {
+      "title": "PDF Birleştirme",
+      "description": "Birden fazla PDF dosyasını tek bir PDF'de birleştirin"
+    },
+    "pdf-split": {
+      "title": "PDF Bölme",
+      "description": "PDF dosyalarını sayfa aralığı veya belirli sayfalara göre bölün"
+    },
+    "pdf-to-image": {
+      "title": "PDF to Image",
+      "description": "PDF sayfalarını PNG veya JPEG formatında görüntülere dönüştürün"
+    },
+    "image-to-pdf": {
+      "title": "Image to PDF",
+      "description": "Görüntüleri PDF formatına dönüştürün ve birleştirin"
+    },
+    "pdf-compress": {
+      "title": "PDF Sıkıştırma",
+      "description": "PDF dosyalarınızı boyutlarını küçülterek optimize edin"
+    },
+    "pdf-edit": {
+      "title": "PDF Düzenleme",
+      "description": "PDF dosyalarınıza metin, şekil ve açıklama ekleyin"
+    },
+    "profit-calculator": {
+      "title": "Kâr Hesaplama",
+      "description": "Satış fiyatı, maliyet ve kâr marjı hesaplamaları"
+    },
+    "loss-calculator": {
+      "title": "Zarar Hesaplama",
+      "description": "Zarar analizi ve maliyet hesaplamaları"
+    },
+    "raise-calculator": {
+      "title": "Zam Hesaplama",
+      "description": "Yüzdelik zam hesaplamaları ve maaş artışı"
+    },
+    "inflation-calculator": {
+      "title": "Enflasyon Hesaplama",
+      "description": "Dönemsel enflasyon oranları ve analizi"
+    },
+    "price-index-calculator": {
+      "title": "Fiyat Endeksi Hesaplama",
+      "description": "Ürün ve hizmet fiyat endeksi analizi"
+    },
+    "average-cost-calculator": {
+      "title": "Ortalama Maliyet Hesaplama",
+      "description": "Ürün ve hizmet ortalama maliyet analizi"
+    },
+    "ratio-calculator": {
+      "title": "Oran Hesaplama",
+      "description": "İki veya daha fazla değer arasında oran hesaplama"
+    },
+    "random-number-generator": {
+      "title": "Rastgele Sayı Üreteci",
+      "description": "Belirli aralıkta rastgele sayı oluşturma"
+    },
+    "standard-deviation-calculator": {
+      "title": "Standart Sapma Hesaplama",
+      "description": "Veri seti standart sapma ve varyans analizi"
+    },
+    "base-converter": {
+      "title": "Taban Dönüşümü",
+      "description": "İkili, ondalık, onaltılık sayı sistemleri arası dönüşüm"
+    },
+    "length-converter": {
+      "title": "Uzunluk Dönüştürücü",
+      "description": "Metre, kilometre, mil, feet ve daha fazlası"
+    },
+    "weight-converter": {
+      "title": "Ağırlık Dönüştürücü",
+      "description": "Kilogram, gram, pound ve ons dönüşümleri"
+    },
+    "temperature-converter": {
+      "title": "Sıcaklık Dönüştürücü",
+      "description": "Celsius, Fahrenheit ve Kelvin dönüşümleri"
+    },
+    "timezone-converter": {
+      "title": "Saat Dilimi Dönüştürücü",
+      "description": "Dünyanın farklı şehirlerindeki saatleri karşılaştırın"
+    },
+    "bmi-calculator": {
+      "title": "BMI Hesaplama",
+      "description": "Vücut kitle indeksi ve sağlık önerileri"
+    },
+    "ideal-weight-calculator": {
+      "title": "İdeal Kilo Hesaplama",
+      "description": "Yaş, cinsiyet ve boya göre ideal kilo aralığı"
+    },
+    "target-weight-calculator": {
+      "title": "Hedef Kilo Hesaplama",
+      "description": "Kilo verme/alma planları ve kalori ihtiyacı"
+    },
+    "calorie-calculator": {
+      "title": "Günlük Kalori İhtiyacı",
+      "description": "Aktivite seviyesine göre kalori hesaplama"
+    },
+    "body-fat-calculator": {
+      "title": "Vücut Yağ Oranı",
+      "description": "Vücut yağ yüzdesi ve sağlık analizi"
+    },
+    "pregnancy-calculator": {
+      "title": "Gebelik Hesaplama",
+      "description": "Tahmini doğum tarihi ve gebelik haftası"
+    },
+    "baby-weight-calculator": {
+      "title": "Bebek Kilosu Hesaplama",
+      "description": "Yaş ve cinsiyete göre ideal bebek kilosu"
+    },
+    "baby-height-calculator": {
+      "title": "Bebek Boyu Hesaplama",
+      "description": "Yaş ve cinsiyete göre ideal bebek boyu"
+    },
+    "period-calculator": {
+      "title": "Adet Günü Hesaplama",
+      "description": "Adet döngüsü takibi ve tahmin"
+    },
+    "smoking-cost-calculator": {
+      "title": "Sigara Maliyeti Hesaplama",
+      "description": "Yıllık sigara harcaması ve sağlık analizi"
+    },
+    "aspect-ratio": {
+      "title": "Aspect Ratio Hesaplayıcı",
+      "description": "Video ve görsel için aspect ratio hesaplama ve görselleştirme"
+    },
+    "case-converter": {
+      "title": "Case Converter",
+      "description": "Büyük harf, küçük harf, title case ve daha fazlası"
+    },
+    "morse-translator": {
+      "title": "Morse Kod Çevirici",
+      "description": "Metin ve Morse kodu arasında çeviri yapın"
+    },
+    "anagram-generator": {
+      "title": "Anagram Oluşturucu",
+      "description": "Kelimelerin farklı kombinasyonlarını oluşturun"
+    },
+    "username-generator": {
+      "title": "Username Generator",
+      "description": "Yaratıcı ve benzersiz kullanıcı adları oluşturun"
+    },
+    "focus-timer": {
+      "title": "Odak Zamanlayıcı",
+      "description": "Pomodoro timer ile verimliliğinizi artırın"
+    },
+    "age-calculator": {
+      "title": "Yaş Hesaplama",
+      "description": "Doğum tarihinden yaş, burç ve gün sayısı"
+    },
+    "date-calculator": {
+      "title": "Tarih Hesaplama",
+      "description": "Tarih aralığı, gün, hafta, ay hesaplama"
+    },
+    "business-days-calculator": {
+      "title": "İş Günü Hesaplama",
+      "description": "Tatiller hariç iş günü sayısı"
+    },
+    "hijri-calendar": {
+      "title": "Hicri Takvim",
+      "description": "Miladi-Hicri tarih dönüşümü"
+    },
+    "time-difference-calculator": {
+      "title": "Saat Farkı Hesaplama",
+      "description": "Şehirler arası saat dilimi farkı"
+    },
+    "processing-time-calculator": {
+      "title": "İşlem Süresi Hesaplama",
+      "description": "Farklı hızlarda işlem süresi karşılaştırması"
+    },
+    "maternity-leave-calculator": {
+      "title": "Doğum İzni Hesaplama",
+      "description": "Çalışma süresine göre doğum izni"
+    },
+    "severance-pay-calculator": {
+      "title": "Kıdem Tazminatı Hesaplama",
+      "description": "Çalışma süresi ve maaşa göre kıdem tazminatı"
+    },
+    "annual-leave-pay-calculator": {
+      "title": "Yıllık İzin Ücreti",
+      "description": "Kullanılmayan yıllık izin ücreti hesaplama"
+    },
+    "marriage-leave-calculator": {
+      "title": "Evlenme İzni Hesaplama",
+      "description": "Evlenme izni süresi hesaplama"
+    },
+    "annual-leave-calculator": {
+      "title": "Yıllık İzin Hesaplama",
+      "description": "Çalışma süresine göre yıllık izin hakları"
+    },
+    "dice-roller": {
+      "title": "Zar Atma",
+      "description": "3D animasyonlu sanal zar atma aracı"
+    },
+    "coin-flip": {
+      "title": "Yazı Tura",
+      "description": "3D animasyonlu madeni para atma"
+    },
+    "card-picker": {
+      "title": "Kart Çekme",
+      "description": "3D animasyonlu iskambil kartı çekme"
+    },
+    "wheel-spinner": {
+      "title": "Çarkıfelek",
+      "description": "Özelleştirilebilir şans çarkı"
+    },
+    "retirement-calculator": {
+      "title": "Emekliliğe Kalan Süre",
+      "description": "4A, 4B, 4C sigortalılar için emeklilik süre hesaplama"
+    },
+    "gpa-calculator": {
+      "title": "GANO/DNO Hesaplama",
+      "description": "Üniversite genel not ortalaması ve dönem not ortalaması hesaplama"
+    },
+    "yks-calculator": {
+      "title": "YKS Net Hesaplama",
+      "description": "TYT ve AYT net hesaplayıcı - Sayısal, Eşit Ağırlık, Sözel"
+    },
+    "kpss-calculator": {
+      "title": "KPSS Net Hesaplama",
+      "description": "Genel Yetenek ve Genel Kültür net hesaplayıcı"
+    }
+  },
+  "meta": {
+    "defaultTitle": "Tek Platform - 100+ Ücretsiz Online Hesaplama ve Dönüştürme Aracı",
+    "defaultDescription": "Türkiye'nin en kapsamlı ücretsiz online araçlar platformu. Finans hesaplama, PDF işlemleri, sağlık hesaplama, dönüştürücüler, eğitim araçları ve 100+ ücretsiz araç. Hızlı, güvenli, reklamsız!",
+    "keywords": "online araçlar, ücretsiz hesaplama, yüzde hesaplama, bmi hesaplama, kredi hesaplama, döviz çevirici, pdf birleştirme"
+  }
+}

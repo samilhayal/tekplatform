@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useLocale, useTranslations } from 'next-intl'
 import Link from "next/link"
 import { tools, categories } from "@/lib/tools-data"
 import { 
@@ -12,7 +13,7 @@ import {
   Briefcase, CalendarDays, DollarSign, Users, FileText, Scissors, Image, FileImage, Minimize2, Edit,
   GraduationCap, Award
 } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { cn, getCategoryKey } from "@/lib/utils"
 
 const iconMap: Record<string, any> = {
   Calculator,
@@ -65,6 +66,10 @@ const iconMap: Record<string, any> = {
 }
 
 export function BentoGrid() {
+  const locale = useLocale()
+  const t = useTranslations('home')
+  const tTools = useTranslations('tools')
+  const tCategories = useTranslations('home.categories')
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
   const [toolsStatus, setToolsStatus] = useState<Record<string, boolean>>({})
 
@@ -100,22 +105,25 @@ export function BentoGrid() {
               : "bg-white text-slate-700 border border-slate-200 hover:border-indigo-300 hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50"
           )}
         >
-          ✨ Tümü
+          ✨ {t('allTools')}
         </button>
-        {categories.map((category) => (
-          <button
-            key={category}
-            onClick={() => setSelectedCategory(category)}
-            className={cn(
-              "px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-sm sm:text-base font-semibold transition-all duration-300 whitespace-nowrap shadow-sm hover:shadow-md transform hover:-translate-y-0.5",
-              selectedCategory === category
-                ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-500/50"
-                : "bg-white text-slate-700 border border-slate-200 hover:border-indigo-300 hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50"
-            )}
-          >
-            {category}
-          </button>
-        ))}
+        {categories.map((category) => {
+          const categoryKey = getCategoryKey(category)
+          return (
+            <button
+              key={category}
+              onClick={() => setSelectedCategory(category)}
+              className={cn(
+                "px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-sm sm:text-base font-semibold transition-all duration-300 whitespace-nowrap shadow-sm hover:shadow-md transform hover:-translate-y-0.5",
+                selectedCategory === category
+                  ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-500/50"
+                  : "bg-white text-slate-700 border border-slate-200 hover:border-indigo-300 hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50"
+              )}
+            >
+              {tCategories(categoryKey)}
+            </button>
+          )
+        })}
       </div>
 
       {/* Bento Grid */}
@@ -127,7 +135,7 @@ export function BentoGrid() {
           return (
             <Link
               key={tool.id}
-              href={tool.href}
+              href={`/${locale}${tool.href}`}
               className={cn(
                 "group relative overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-white via-white to-slate-50 p-6 shadow-sm transition-all duration-300 hover:shadow-2xl hover:border-indigo-300 hover:-translate-y-1 block w-full min-h-[200px]",
                 isLarge && "sm:col-span-2"
@@ -146,20 +154,20 @@ export function BentoGrid() {
                     {Icon && <Icon className="h-7 w-7 text-white" />}
                   </div>
                   <span className="text-xs sm:text-sm font-semibold text-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-full whitespace-nowrap border border-indigo-100 group-hover:bg-indigo-100 transition-colors">
-                    {tool.category}
+                    {tCategories(getCategoryKey(tool.category))}
                   </span>
                 </div>
                 
                 <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors duration-300 leading-tight">
-                  {tool.title}
+                  {tTools.has(`${tool.id}.title`) ? tTools(`${tool.id}.title`) : tool.title}
                 </h3>
                 
                 <p className="text-sm sm:text-base text-slate-600 flex-1 mb-4 leading-relaxed">
-                  {tool.description}
+                  {tTools.has(`${tool.id}.description`) ? tTools(`${tool.id}.description`) : tool.description}
                 </p>
 
                 <div className="flex items-center text-sm sm:text-base font-semibold text-indigo-600 mt-auto group-hover:text-indigo-700 transition-colors">
-                  <span className="mr-2">Aracı Kullan</span>
+                  <span className="mr-2">{t('useTool')}</span>
                   <svg
                     className="h-5 w-5 transition-transform group-hover:translate-x-2 flex-shrink-0"
                     fill="none"
