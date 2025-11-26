@@ -24,11 +24,11 @@ export async function GET() {
   }
 }
 
-// POST - Araç durumunu güncelle
+// POST - Araç durumunu veya kategorisini güncelle
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { toolId, isActive } = body
+    const { toolId, isActive, category } = body
 
     if (!toolId) {
       return NextResponse.json(
@@ -37,16 +37,24 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    await adminDb.collection('tools').doc(toolId).update({
-      isActive: isActive,
+    const updateData: Record<string, unknown> = {
       updatedAt: new Date()
-    })
+    }
+
+    if (isActive !== undefined) {
+      updateData.isActive = isActive
+    }
+
+    if (category !== undefined) {
+      updateData.category = category
+    }
+
+    await adminDb.collection('tools').doc(toolId).update(updateData)
 
     return NextResponse.json({
       success: true,
-      message: `Tool ${isActive ? 'activated' : 'deactivated'} successfully`,
-      toolId,
-      isActive
+      message: 'Tool updated successfully',
+      toolId
     })
   } catch (error) {
     console.error('Error updating tool:', error)

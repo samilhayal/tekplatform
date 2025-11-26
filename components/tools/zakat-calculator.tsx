@@ -67,47 +67,37 @@ interface ZakatResult {
 }
 
 export function ZakatCalculator() {
-  // Load admin prices from localStorage
+  // Load prices from API (Firestore)
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const storedPrices = localStorage.getItem('adminPrices')
-      if (storedPrices) {
-        try {
-          const prices = JSON.parse(storedPrices)
-          
-          // Update exchange rates
-          if (prices.currency) {
-            setExchangeRates({
-              usdToTry: prices.currency.usdTry || 34.50,
-              eurToTry: prices.currency.eurTry || 37.20
-            })
-          }
-          
-          // Update gold and silver prices
-          if (prices.gold) {
+    const loadPrices = async () => {
+      try {
+        const response = await fetch('/api/prices?type=zakat')
+        const data = await response.json()
+        
+        if (data.success) {
+          // Zekat ayarlarından altın ve gümüş fiyatları
+          if (data.zakat) {
             setPreciousMetals(prev => ({
               ...prev,
-              goldPricePerGram: prices.gold.gram || 3000
+              goldPricePerGram: data.zakat.goldGramPrice || prev.goldPricePerGram,
+              silverPricePerGram: data.zakat.silverGramPrice || prev.silverPricePerGram
             }))
           }
           
-          if (prices.zakat) {
-            setPreciousMetals(prev => ({
-              ...prev,
-              goldPricePerGram: prices.zakat.goldPrice || prev.goldPricePerGram,
-              silverPricePerGram: prices.zakat.silverPrice || prev.silverPricePerGram
-            }))
-            
+          // Döviz kurları
+          if (data.usdRate && data.eurRate) {
             setExchangeRates({
-              usdToTry: prices.zakat.usdTry || 34.50,
-              eurToTry: prices.zakat.eurTry || 37.20
+              usdToTry: data.usdRate,
+              eurToTry: data.eurRate
             })
           }
-        } catch (error) {
-          console.error('Failed to load admin prices:', error)
         }
+      } catch (error) {
+        console.error('Failed to load prices:', error)
       }
     }
+    
+    loadPrices()
   }, [])
 
   // Para ve Nakit

@@ -215,7 +215,7 @@ export function GayrimenkulGelirVergisi() {
         </p>
         <div className="flex flex-wrap gap-2 justify-center mt-4">
           <span className="px-3 py-1 bg-rose-100 text-rose-700 rounded-full text-sm font-medium">
-            📋 2024 Vergi Dilimleri
+            📋 Vergi Dilimleri
           </span>
           <span className="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-sm font-medium">
             🏠 5 Yıl Muafiyet
@@ -529,7 +529,7 @@ export function GayrimenkulGelirVergisi() {
             </div>
             <div className="flex items-start gap-2">
               <span className="text-fuchsia-600">📋</span>
-              <p className="text-slate-600 text-sm">Vergi dilimleri 2024 için %15-%40 arasında değişiyor</p>
+              <p className="text-slate-600 text-sm">Vergi dilimleri 2025 için %15-%40 arasında değişiyor</p>
             </div>
             <div className="flex items-start gap-2">
               <span className="text-fuchsia-600">🏛️</span>

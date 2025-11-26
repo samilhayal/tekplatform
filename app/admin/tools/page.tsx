@@ -5,8 +5,9 @@ import { tools as localTools, categories } from '@/lib/tools-data'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Search, Eye, EyeOff, TrendingUp, Save, RefreshCw, Database } from 'lucide-react'
+import { Search, Eye, EyeOff, TrendingUp, Save, RefreshCw, Database, Star, FolderOpen, Edit2 } from 'lucide-react'
 
 interface Tool {
   id: string
@@ -17,6 +18,7 @@ interface Tool {
   href: string
   keywords: string[]
   isActive: boolean
+  isPopular?: boolean
 }
 
 export default function ToolsManagementPage() {
@@ -26,6 +28,8 @@ export default function ToolsManagementPage() {
   const [loading, setLoading] = useState(true)
   const [syncing, setSyncing] = useState(false)
   const [tools, setTools] = useState<Tool[]>([])
+  const [popularTools, setPopularTools] = useState<string[]>([])
+  const [editingCategory, setEditingCategory] = useState<string | null>(null)
 
   // Load tools from Firestore
   const loadTools = async () => {
@@ -36,6 +40,10 @@ export default function ToolsManagementPage() {
       
       if (data.success) {
         setTools(data.tools)
+        // Load popular tools
+        if (data.popularTools) {
+          setPopularTools(data.popularTools)
+        }
       } else {
         console.error('Failed to load tools:', data.error)
         // Fallback to local data
@@ -50,8 +58,22 @@ export default function ToolsManagementPage() {
     }
   }
 
+  // Load popular tools from settings
+  const loadPopularTools = async () => {
+    try {
+      const response = await fetch('/api/admin/popular-tools')
+      const data = await response.json()
+      if (data.success && data.popularTools) {
+        setPopularTools(data.popularTools)
+      }
+    } catch (error) {
+      console.error('Error loading popular tools:', error)
+    }
+  }
+
   useEffect(() => {
     loadTools()
+    loadPopularTools()
   }, [])
 
   // Save to localStorage for backward compatibility
@@ -81,8 +103,9 @@ export default function ToolsManagementPage() {
     const total = tools.length
     const active = tools.filter(t => t.isActive).length
     const inactive = total - active
-    return { total, active, inactive }
-  }, [tools])
+    const popular = popularTools.length
+    return { total, active, inactive, popular }
+  }, [tools, popularTools])
 
   const toggleToolStatus = async (toolId: string) => {
     const tool = tools.find(t => t.id === toolId)
@@ -112,6 +135,79 @@ export default function ToolsManagementPage() {
       }
     } catch (error) {
       console.error('Error toggling tool:', error)
+      setSaveMessage('❌ Hata oluştu!')
+      setTimeout(() => setSaveMessage(''), 3000)
+    } finally {
+      setSyncing(false)
+    }
+  }
+
+  // Update tool category
+  const updateToolCategory = async (toolId: string, newCategory: string) => {
+    try {
+      setSyncing(true)
+      const response = await fetch('/api/tools', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ toolId, category: newCategory })
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        setTools(prev => prev.map(t => 
+          t.id === toolId ? { ...t, category: newCategory } : t
+        ))
+        setEditingCategory(null)
+        setSaveMessage('Kategori güncellendi ✓')
+        setTimeout(() => setSaveMessage(''), 3000)
+      } else {
+        throw new Error(data.error)
+      }
+    } catch (error) {
+      console.error('Error updating category:', error)
+      setSaveMessage('❌ Hata oluştu!')
+      setTimeout(() => setSaveMessage(''), 3000)
+    } finally {
+      setSyncing(false)
+    }
+  }
+
+  // Toggle popular status
+  const togglePopular = async (toolId: string) => {
+    const isCurrentlyPopular = popularTools.includes(toolId)
+    let newPopularTools: string[]
+
+    if (isCurrentlyPopular) {
+      newPopularTools = popularTools.filter(id => id !== toolId)
+    } else {
+      if (popularTools.length >= 5) {
+        setSaveMessage('❌ En fazla 5 popüler araç seçebilirsiniz!')
+        setTimeout(() => setSaveMessage(''), 3000)
+        return
+      }
+      newPopularTools = [...popularTools, toolId]
+    }
+
+    try {
+      setSyncing(true)
+      const response = await fetch('/api/admin/popular-tools', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ popularTools: newPopularTools })
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        setPopularTools(newPopularTools)
+        setSaveMessage(isCurrentlyPopular ? 'Popülerden çıkarıldı ✓' : 'Popülerlere eklendi ✓')
+        setTimeout(() => setSaveMessage(''), 3000)
+      } else {
+        throw new Error(data.error)
+      }
+    } catch (error) {
+      console.error('Error updating popular tools:', error)
       setSaveMessage('❌ Hata oluştu!')
       setTimeout(() => setSaveMessage(''), 3000)
     } finally {
@@ -163,7 +259,7 @@ export default function ToolsManagementPage() {
       </div>
 
       {/* Statistics Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
         <Card className="p-6 bg-gradient-to-br from-indigo-500 to-indigo-600 text-white">
           <div className="flex items-center justify-between">
             <div>
@@ -200,6 +296,18 @@ export default function ToolsManagementPage() {
           </div>
         </Card>
 
+        <Card className="p-6 bg-gradient-to-br from-amber-500 to-amber-600 text-white">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-amber-100 text-sm font-medium mb-1">Popüler</p>
+              <p className="text-3xl font-bold">{stats.popular}/5</p>
+            </div>
+            <div className="w-12 h-12 rounded-lg bg-white/20 flex items-center justify-center">
+              <Star className="w-6 h-6" />
+            </div>
+          </div>
+        </Card>
+
         <Card className="p-6 bg-gradient-to-br from-purple-500 to-purple-600 text-white">
           <Button
             onClick={loadTools}
@@ -211,6 +319,39 @@ export default function ToolsManagementPage() {
           </Button>
         </Card>
       </div>
+
+      {/* Popular Tools Section */}
+      {popularTools.length > 0 && (
+        <Card className="p-6 mb-6 border-2 border-amber-200 bg-amber-50">
+          <h3 className="text-lg font-semibold text-amber-800 mb-4 flex items-center gap-2">
+            <Star className="w-5 h-5 text-amber-600" />
+            Popüler Araçlar ({popularTools.length}/5)
+          </h3>
+          <div className="flex flex-wrap gap-3">
+            {popularTools.map((toolId, index) => {
+              const tool = tools.find(t => t.id === toolId)
+              return tool ? (
+                <Badge 
+                  key={toolId} 
+                  variant="outline" 
+                  className="px-4 py-2 bg-white border-amber-300 text-amber-800 flex items-center gap-2"
+                >
+                  <span className="w-5 h-5 rounded-full bg-amber-500 text-white text-xs flex items-center justify-center">
+                    {index + 1}
+                  </span>
+                  {tool.title}
+                  <button 
+                    onClick={() => togglePopular(toolId)}
+                    className="ml-1 text-amber-600 hover:text-red-600"
+                  >
+                    ×
+                  </button>
+                </Badge>
+              ) : null
+            })}
+          </div>
+        </Card>
+      )}
 
       {/* Filters and Actions */}
       <Card className="p-6 mb-6">
@@ -278,17 +419,24 @@ export default function ToolsManagementPage() {
           </Card>
         ) : filteredTools.map(tool => {
           const isActive = tool.isActive
+          const isPopular = popularTools.includes(tool.id)
           return (
             <Card
               key={tool.id}
               className={`p-6 transition-all ${
                 isActive ? 'bg-white' : 'bg-slate-50 opacity-60'
-              }`}
+              } ${isPopular ? 'ring-2 ring-amber-400' : ''}`}
             >
               <div className="flex items-center justify-between">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
                     <h3 className="text-lg font-semibold text-slate-900">{tool.title}</h3>
+                    {isPopular && (
+                      <Badge className="bg-amber-100 text-amber-700 border-amber-300">
+                        <Star className="w-3 h-3 mr-1" />
+                        Popüler
+                      </Badge>
+                    )}
                     <span className={`px-3 py-1 rounded-full text-xs font-medium ${
                       isActive 
                         ? 'bg-green-100 text-green-700' 
@@ -299,9 +447,37 @@ export default function ToolsManagementPage() {
                   </div>
                   <p className="text-slate-600 mb-2">{tool.description}</p>
                   <div className="flex items-center gap-4 text-sm text-slate-500">
-                    <span className="flex items-center gap-1">
-                      <span className="font-medium">Kategori:</span> {tool.category}
-                    </span>
+                    {/* Editable Category */}
+                    <div className="flex items-center gap-2">
+                      <FolderOpen className="w-4 h-4" />
+                      {editingCategory === tool.id ? (
+                        <Select 
+                          defaultValue={tool.category} 
+                          onValueChange={(value) => updateToolCategory(tool.id, value)}
+                        >
+                          <SelectTrigger className="w-48 h-8">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {categories.map(category => (
+                              <SelectItem key={category} value={category}>
+                                {category}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      ) : (
+                        <span className="flex items-center gap-1">
+                          <span className="font-medium">Kategori:</span> {tool.category}
+                          <button 
+                            onClick={() => setEditingCategory(tool.id)}
+                            className="ml-1 p-1 hover:bg-slate-100 rounded"
+                          >
+                            <Edit2 className="w-3 h-3 text-slate-400" />
+                          </button>
+                        </span>
+                      )}
+                    </div>
                     <span className="flex items-center gap-1">
                       <span className="font-medium">ID:</span> {tool.id}
                     </span>
@@ -325,7 +501,16 @@ export default function ToolsManagementPage() {
                   )}
                 </div>
 
-                <div className="ml-6">
+                <div className="ml-6 flex flex-col gap-2">
+                  <Button
+                    onClick={() => togglePopular(tool.id)}
+                    disabled={syncing}
+                    variant={isPopular ? "default" : "outline"}
+                    className={isPopular ? "bg-amber-500 hover:bg-amber-600" : ""}
+                  >
+                    <Star className={`w-4 h-4 mr-2 ${isPopular ? 'fill-white' : ''}`} />
+                    {isPopular ? 'Popüler' : 'Popüler Yap'}
+                  </Button>
                   <Button
                     onClick={() => toggleToolStatus(tool.id)}
                     disabled={syncing}

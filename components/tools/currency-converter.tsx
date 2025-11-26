@@ -11,30 +11,27 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { ArrowLeftRight, DollarSign, TrendingUp, RefreshCw, Sparkles, Copy, Home } from "lucide-react"
+import { ArrowLeftRight, DollarSign, TrendingUp, RefreshCw, Sparkles, Copy, Home, Loader2 } from "lucide-react"
 import Link from "next/link"
 
 // Popular currencies
 const currencies = [
+  { code: 'TRY', name: 'Türk Lirası', symbol: '₺', flag: '🇹🇷' },
   { code: 'USD', name: 'ABD Doları', symbol: '$', flag: '🇺🇸' },
   { code: 'EUR', name: 'Euro', symbol: '€', flag: '🇪🇺' },
   { code: 'GBP', name: 'İngiliz Sterlini', symbol: '£', flag: '🇬🇧' },
-  { code: 'TRY', name: 'Türk Lirası', symbol: '₺', flag: '🇹🇷' },
-  { code: 'JPY', name: 'Japon Yeni', symbol: '¥', flag: '🇯🇵' },
   { code: 'CHF', name: 'İsviçre Frangı', symbol: 'Fr', flag: '🇨🇭' },
+  { code: 'JPY', name: 'Japon Yeni', symbol: '¥', flag: '🇯🇵' },
+  { code: 'SAR', name: 'Suudi Riyali', symbol: 'SR', flag: '🇸🇦' },
+  { code: 'AED', name: 'BAE Dirhemi', symbol: 'AED', flag: '🇦🇪' },
   { code: 'CAD', name: 'Kanada Doları', symbol: 'C$', flag: '🇨🇦' },
   { code: 'AUD', name: 'Avustralya Doları', symbol: 'A$', flag: '🇦🇺' },
   { code: 'CNY', name: 'Çin Yuanı', symbol: '¥', flag: '🇨🇳' },
-  { code: 'INR', name: 'Hint Rupisi', symbol: '₹', flag: '🇮🇳' },
   { code: 'RUB', name: 'Rus Rublesi', symbol: '₽', flag: '🇷🇺' },
-  { code: 'SAR', name: 'Suudi Riyali', symbol: 'ر.س', flag: '🇸🇦' },
-  { code: 'AED', name: 'BAE Dirhemi', symbol: 'د.إ', flag: '🇦🇪' },
-  { code: 'KRW', name: 'Güney Kore Wonu', symbol: '₩', flag: '🇰🇷' },
-  { code: 'SEK', name: 'İsveç Kronu', symbol: 'kr', flag: '🇸🇪' },
 ]
 
-interface ExchangeRates {
-  [key: string]: number
+interface CrossRates {
+  [from: string]: { [to: string]: number }
 }
 
 export function CurrencyConverter() {
@@ -42,63 +39,37 @@ export function CurrencyConverter() {
   const [toCurrency, setToCurrency] = useState("TRY")
   const [amount, setAmount] = useState("100")
   const [result, setResult] = useState<number | null>(null)
-  const [rates, setRates] = useState<ExchangeRates>({})
-  const [loading, setLoading] = useState(false)
+  const [crossRates, setCrossRates] = useState<CrossRates>({})
+  const [loading, setLoading] = useState(true)
   const [lastUpdate, setLastUpdate] = useState<string>("")
 
   const fetchRates = async () => {
     setLoading(true)
     try {
-      // Check if admin has set custom rates for TRY pairs
-      let customRates: ExchangeRates = {}
+      const response = await fetch('/api/prices?type=currency')
+      const data = await response.json()
       
-      if (typeof window !== 'undefined') {
-        const storedPrices = localStorage.getItem('adminPrices')
-        if (storedPrices) {
-          try {
-            const prices = JSON.parse(storedPrices)
-            if (prices.currency) {
-              // If we have admin rates and converting from/to TRY
-              if (fromCurrency === 'TRY' || toCurrency === 'TRY') {
-                customRates = {
-                  'USD': prices.currency.usdTry || 34.50,
-                  'EUR': prices.currency.eurTry || 37.20,
-                  'GBP': prices.currency.gbpTry || 43.50,
-                  'TRY': 1
-                }
-              }
-            }
-          } catch (error) {
-            console.error('Failed to load admin currency rates:', error)
-          }
-        }
-      }
-      
-      // If we have custom rates for this conversion, use them
-      if (Object.keys(customRates).length > 0 && (fromCurrency === 'TRY' || toCurrency === 'TRY')) {
-        if (fromCurrency === 'TRY') {
-          // Convert TRY to others
-          const converted: ExchangeRates = { 'TRY': 1 }
-          Object.keys(customRates).forEach(code => {
-            if (code !== 'TRY') {
-              converted[code] = 1 / customRates[code]
-            }
-          })
-          setRates(converted)
-        } else {
-          // Convert others to TRY
-          setRates(customRates)
-        }
-        setLastUpdate(new Date().toLocaleString('tr-TR') + ' (Admin)')
+      if (data.success && data.currency?.crossRates) {
+        setCrossRates(data.currency.crossRates)
+        setLastUpdate(
+          data.currency.lastUpdate?._seconds 
+            ? new Date(data.currency.lastUpdate._seconds * 1000).toLocaleString('tr-TR')
+            : new Date().toLocaleString('tr-TR')
+        )
       } else {
-        // Use API for other conversions
-        const response = await fetch(`https://api.exchangerate-api.com/v4/latest/${fromCurrency}`)
-        const data = await response.json()
-        setRates(data.rates)
-        setLastUpdate(new Date().toLocaleString('tr-TR'))
+        // Fallback: Default rates if database is empty
+        const defaultRates: CrossRates = {
+          USD: { TRY: 34.50, EUR: 0.92, GBP: 0.79, CHF: 0.88, JPY: 149.50, SAR: 3.75, AED: 3.67, CAD: 1.36, AUD: 1.53, CNY: 7.24, RUB: 92.50, USD: 1 },
+          TRY: { USD: 0.029, EUR: 0.027, GBP: 0.023, TRY: 1 },
+          EUR: { USD: 1.09, TRY: 37.50, EUR: 1 },
+          GBP: { USD: 1.27, TRY: 43.80, GBP: 1 },
+        }
+        setCrossRates(defaultRates)
+        setLastUpdate(new Date().toLocaleString('tr-TR') + ' (Varsayılan)')
       }
     } catch (error) {
       console.error('Kur bilgileri alınamadı:', error)
+      setLastUpdate(new Date().toLocaleString('tr-TR') + ' (Hata)')
     } finally {
       setLoading(false)
     }
@@ -106,16 +77,18 @@ export function CurrencyConverter() {
 
   useEffect(() => {
     fetchRates()
-  }, [fromCurrency])
+  }, [])
 
   useEffect(() => {
-    if (amount && rates[toCurrency]) {
+    if (amount && crossRates[fromCurrency]?.[toCurrency]) {
       const numAmount = parseFloat(amount)
       if (!isNaN(numAmount)) {
-        setResult(numAmount * rates[toCurrency])
+        setResult(numAmount * crossRates[fromCurrency][toCurrency])
       }
+    } else if (amount && fromCurrency === toCurrency) {
+      setResult(parseFloat(amount))
     }
-  }, [amount, rates, toCurrency])
+  }, [amount, crossRates, fromCurrency, toCurrency])
 
   const swapCurrencies = () => {
     setFromCurrency(toCurrency)
@@ -128,6 +101,7 @@ export function CurrencyConverter() {
 
   const getFromCurrency = currencies.find(c => c.code === fromCurrency)
   const getToCurrency = currencies.find(c => c.code === toCurrency)
+  const currentRate = crossRates[fromCurrency]?.[toCurrency] || 0
 
   return (
     <div className="w-full max-w-5xl mx-auto space-y-8">
@@ -285,7 +259,7 @@ export function CurrencyConverter() {
                   </div>
                 </div>
                 <p className="text-sm text-slate-600 mb-4">
-                  Kur: 1 {fromCurrency} = {rates[toCurrency]?.toFixed(4)} {toCurrency}
+                  Kur: 1 {fromCurrency} = {currentRate?.toFixed(4)} {toCurrency}
                 </p>
                 <div className="flex gap-3 justify-center">
                   <Button 
@@ -312,7 +286,7 @@ export function CurrencyConverter() {
           )}
 
           {/* Popular Rates */}
-          {rates && Object.keys(rates).length > 0 && (
+          {crossRates[fromCurrency] && Object.keys(crossRates[fromCurrency]).length > 0 && (
             <div className="mt-8">
               <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
                 <TrendingUp className="h-5 w-5 text-green-600" />
@@ -330,7 +304,7 @@ export function CurrencyConverter() {
                       <span className="font-bold text-slate-900">{currency.code}</span>
                     </div>
                     <p className="text-xl font-bold text-green-600 group-hover:text-green-700">
-                      {rates[currency.code]?.toFixed(4)}
+                      {crossRates[fromCurrency]?.[currency.code]?.toFixed(4) || '-'}
                     </p>
                     <p className="text-xs text-slate-500 mt-1">{currency.name}</p>
                   </div>

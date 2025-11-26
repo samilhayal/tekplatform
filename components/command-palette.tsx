@@ -11,8 +11,19 @@ import { Search, Calculator, ArrowLeftRight, Clock, Expand, Type, Timer, Dice5,
   Heart, Activity, Target, Flame, Baby, Calendar, Cigarette, Cake,
   Briefcase, CalendarDays, DollarSign, Sparkles, TrendingDown, Users, FileText, Scissors, Image, FileImage, Minimize2, Edit,
   GraduationCap, Award } from "lucide-react"
-import { tools, categories } from "@/lib/tools-data"
+import { tools as localTools } from "@/lib/tools-data"
 import { cn, getCategoryKey } from "@/lib/utils"
+
+interface Tool {
+  id: string
+  title: string
+  description: string
+  category: string
+  icon: string
+  href: string
+  keywords: string[]
+  isActive: boolean
+}
 
 const iconMap: Record<string, any> = {
   Calculator,
@@ -66,16 +77,6 @@ const iconMap: Record<string, any> = {
   Award,
 }
 
-// Popular/featured tools to show initially
-const popularTools = [
-  'percentage-calculator',
-  'currency-converter',
-  'bmi-calculator',
-  'investment-calculator',
-  'loan-calculator',
-  'unit-converter'
-]
-
 export function CommandPalette() {
   const locale = useLocale()
   const t = useTranslations('common')
@@ -83,7 +84,43 @@ export function CommandPalette() {
   const tCategories = useTranslations('home.categories')
   const [open, setOpen] = useState(false)
   const [search, setSearch] = useState("")
+  const [tools, setTools] = useState<Tool[]>([])
+  const [popularToolIds, setPopularToolIds] = useState<string[]>([])
+  const [dataLoaded, setDataLoaded] = useState(false)
   const router = useRouter()
+
+  // Load tools and popular tools from API
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const response = await fetch('/api/homepage')
+        const data = await response.json()
+        
+        if (data.success) {
+          // Only active tools from Firestore
+          if (data.tools && data.tools.length > 0) {
+            setTools(data.tools)
+          } else {
+            // Fallback to local tools (all active)
+            setTools(localTools.map(t => ({ ...t, isActive: true })))
+          }
+          
+          // Popular tools from admin settings
+          if (data.popularTools && data.popularTools.length > 0) {
+            setPopularToolIds(data.popularTools)
+          }
+        } else {
+          setTools(localTools.map(t => ({ ...t, isActive: true })))
+        }
+      } catch (error) {
+        console.error('Error loading tools:', error)
+        setTools(localTools.map(t => ({ ...t, isActive: true })))
+      } finally {
+        setDataLoaded(true)
+      }
+    }
+    loadData()
+  }, [])
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -106,7 +143,7 @@ export function CommandPalette() {
     router.push(`/${locale}${href}`)
   }
 
-  // Filter tools based on search
+  // Filter tools based on search - only active tools are in the list already
   const filteredTools = search.length > 0 
     ? tools.filter(tool => {
         const searchLower = search.toLowerCase()
@@ -116,7 +153,7 @@ export function CommandPalette() {
           tool.keywords.some(keyword => keyword.toLowerCase().includes(searchLower))
         )
       })
-    : tools.filter(tool => popularTools.includes(tool.id))
+    : tools.filter(tool => popularToolIds.includes(tool.id))
 
   // Group filtered tools by category
   const groupedTools: Record<string, typeof tools> = {}

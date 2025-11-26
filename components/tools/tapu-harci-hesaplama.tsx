@@ -106,7 +106,7 @@ export function TapuHarciHesaplama() {
           </div>
           <h1 className="text-4xl font-bold mb-3">Tapu Harcı Hesaplama</h1>
           <p className="text-lg opacity-90 max-w-2xl mx-auto">
-            2024 güncel oranlarıyla tapu harcı, döner sermaye ve tescil ücretlerini kolayca hesaplayın
+            Güncel oranlarla tapu harcı, döner sermaye ve tescil ücretlerini kolayca hesaplayın
           </p>
           <div className="flex justify-center gap-4 mt-6 flex-wrap">
             <div className="bg-white/20 rounded-full px-4 py-2 text-sm backdrop-blur-sm">
@@ -116,7 +116,7 @@ export function TapuHarciHesaplama() {
               💰 Döner Sermaye %0.1
             </div>
             <div className="bg-white/20 rounded-full px-4 py-2 text-sm backdrop-blur-sm">
-              📝 Güncel 2024 Oranları
+              📝 Güncel Oranlar
             </div>
           </div>
         </div>
@@ -136,7 +136,7 @@ export function TapuHarciHesaplama() {
             
             {showInfo && (
               <div className="mt-3 p-4 bg-emerald-50 rounded-xl text-sm text-emerald-800">
-                <h4 className="font-semibold mb-2">2024 Tapu Harcı Oranları:</h4>
+                <h4 className="font-semibold mb-2">Tapu Harcı Oranları:</h4>
                 <ul className="space-y-1 list-disc list-inside">
                   <li>Tapu harcı toplam oranı: <strong>%4</strong> (Satış bedeli üzerinden)</li>
                   <li>Alıcı payı: <strong>%2</strong></li>
@@ -252,7 +252,7 @@ export function TapuHarciHesaplama() {
                 <div className="flex justify-between items-center p-4 bg-slate-50 rounded-xl">
                   <div>
                     <p className="text-sm text-slate-600">Tapu Kayıt Ücreti</p>
-                    <p className="text-xs text-slate-500">2024 yılı sabit ücret</p>
+                    <p className="text-xs text-slate-500">Sabit ücret</p>
                   </div>
                   <p className="text-xl font-bold text-slate-700">{formatCurrency(result.tapuKayitUcreti)}</p>
                 </div>
@@ -340,7 +340,7 @@ export function TapuHarciHesaplama() {
           </CardHeader>
           <CardContent className="space-y-3 text-sm text-slate-600">
             <p>• Türkiye'de yıllık yaklaşık 1.5 milyon tapu işlemi yapılıyor</p>
-            <p>• Tapu harcı oranları 2024'te %4 olarak sabit kaldı</p>
+            <p>• Tapu harcı oranları 2025'te %4 olarak sabit kaldı</p>
             <p>• İlk konut alımında bazı indirimler uygulanabilir</p>
             <p>• Miras yoluyla intikalde farklı oranlar geçerli</p>
             <p>• Tapu harcı, işlem günü tapu müdürlüğüne ödenir</p>

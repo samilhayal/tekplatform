@@ -1,89 +1,65 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { adminDb } from '@/lib/firebase-admin'
 
-// GET - Fiyatları getir
-export async function GET() {
+export const revalidate = 60 // 60 saniyede bir revalidate
+
+// GET - Public fiyatları getir (altın, döviz, zekat için)
+export async function GET(request: NextRequest) {
   try {
-    const pricesDoc = await adminDb.collection('settings').doc('prices').get()
-    
-    if (!pricesDoc.exists) {
-      return NextResponse.json(
-        { success: false, error: 'Prices not found' },
-        { status: 404 }
-      )
+    const { searchParams } = new URL(request.url)
+    const type = searchParams.get('type') // gold, currency, zakat, all
+
+    if (type === 'gold') {
+      const goldDoc = await adminDb.collection('prices').doc('gold').get()
+      return NextResponse.json({
+        success: true,
+        gold: goldDoc.exists ? goldDoc.data() : null
+      })
     }
+
+    if (type === 'currency') {
+      const currencyDoc = await adminDb.collection('prices').doc('currency').get()
+      return NextResponse.json({
+        success: true,
+        currency: currencyDoc.exists ? currencyDoc.data() : null
+      })
+    }
+
+    if (type === 'zakat') {
+      const [zakatDoc, currencyDoc] = await Promise.all([
+        adminDb.collection('prices').doc('zakat').get(),
+        adminDb.collection('prices').doc('currency').get()
+      ])
+      
+      const zakatData = zakatDoc.exists ? zakatDoc.data() : null
+      const currencyData = currencyDoc.exists ? currencyDoc.data() : null
+      
+      return NextResponse.json({
+        success: true,
+        zakat: zakatData,
+        // Zekat hesaplama için gerekli döviz kurları
+        usdRate: currencyData?.crossRates?.USD?.TRY || currencyData?.usdRates?.TRY || 0,
+        eurRate: currencyData?.crossRates?.EUR?.TRY || (currencyData?.usdRates?.TRY / currencyData?.usdRates?.EUR) || 0
+      })
+    }
+
+    // Tüm fiyatları getir
+    const [goldDoc, currencyDoc, zakatDoc] = await Promise.all([
+      adminDb.collection('prices').doc('gold').get(),
+      adminDb.collection('prices').doc('currency').get(),
+      adminDb.collection('prices').doc('zakat').get()
+    ])
 
     return NextResponse.json({
       success: true,
-      prices: pricesDoc.data()
+      gold: goldDoc.exists ? goldDoc.data() : null,
+      currency: currencyDoc.exists ? currencyDoc.data() : null,
+      zakat: zakatDoc.exists ? zakatDoc.data() : null
     })
   } catch (error) {
     console.error('Error fetching prices:', error)
     return NextResponse.json(
       { success: false, error: 'Failed to fetch prices' },
-      { status: 500 }
-    )
-  }
-}
-
-// POST - Fiyatları güncelle
-export async function POST(request: NextRequest) {
-  try {
-    const body = await request.json()
-    const { type, data } = body
-
-    if (!type || !data) {
-      return NextResponse.json(
-        { success: false, error: 'Type and data are required' },
-        { status: 400 }
-      )
-    }
-
-    const pricesRef = adminDb.collection('settings').doc('prices')
-    const updateData: any = {
-      updatedAt: new Date()
-    }
-
-    // Update specific price type
-    if (type === 'gold') {
-      updateData.gold = {
-        ...data,
-        lastUpdate: new Date()
-      }
-    } else if (type === 'currency') {
-      updateData.currency = {
-        ...data,
-        lastUpdate: new Date()
-      }
-    } else if (type === 'tufe') {
-      updateData.tufe = {
-        ...data,
-        lastUpdate: new Date()
-      }
-    } else if (type === 'zakat') {
-      updateData.zakat = {
-        ...data,
-        lastUpdate: new Date()
-      }
-    } else if (type === 'all') {
-      updateData.gold = { ...data.gold, lastUpdate: new Date() }
-      updateData.currency = { ...data.currency, lastUpdate: new Date() }
-      updateData.tufe = { ...data.tufe, lastUpdate: new Date() }
-      updateData.zakat = { ...data.zakat, lastUpdate: new Date() }
-    }
-
-    await pricesRef.update(updateData)
-
-    return NextResponse.json({
-      success: true,
-      message: 'Prices updated successfully',
-      type,
-      updatedAt: new Date()
-    })
-  } catch (error) {
-    console.error('Error updating prices:', error)
-    return NextResponse.json(
-      { success: false, error: 'Failed to update prices' },
       { status: 500 }
     )
   }

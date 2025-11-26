@@ -13,17 +13,61 @@ import {
   Menu,
   X,
   ChevronRight,
-  Database
+  ChevronDown,
+  Database,
+  Wrench,
+  FolderTree,
+  Star,
+  Coins,
+  Calculator,
+  Home,
+  MapPin,
+  Clock,
+  Shirt,
+  Sun
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
-const navigation = [
+// Ana menü öğeleri
+const mainNavigation = [
   { name: 'Dashboard', href: '/admin/dashboard', icon: LayoutDashboard },
   { name: 'İstatistikler', href: '/admin/statistics', icon: BarChart3 },
-  { name: 'Araç Yönetimi', href: '/admin/tools', icon: Settings },
+]
+
+// Yönetim menü grupları
+const managementGroups = [
+  {
+    title: 'Araç Yönetimi',
+    icon: Wrench,
+    items: [
+      { name: 'Tüm Araçlar', href: '/admin/tools', icon: Settings },
+      { name: 'Kategoriler', href: '/admin/categories', icon: FolderTree },
+    ]
+  },
+  {
+    title: 'İçerik Yönetimi',
+    icon: Star,
+    items: [
+      { name: 'Burç Yorumları', href: '/admin/horoscopes', icon: Sun },
+      { name: 'Fiyatlar (Altın/Döviz)', href: '/admin/prices', icon: Coins },
+    ]
+  },
+  {
+    title: 'Hesaplama Ayarları',
+    icon: Calculator,
+    items: [
+      { name: 'Maaş Ayarları', href: '/admin/salary-settings', icon: DollarSign },
+      { name: 'Tapu & Rayiç', href: '/admin/tapu-settings', icon: Home },
+      { name: 'Emeklilik Ayarları', href: '/admin/retirement-settings', icon: Clock },
+      { name: 'Marka Bedenleri', href: '/admin/brands', icon: Shirt },
+    ]
+  }
+]
+
+// Diğer menü öğeleri
+const otherNavigation = [
   { name: 'Geri Bildirimler', href: '/admin/feedback', icon: MessageSquare },
-  { name: 'Fiyat Güncelleme', href: '/admin/prices', icon: DollarSign },
-  { name: 'Database Başlat', href: '/admin/init-database', icon: Database, badge: 'Yeni' },
+  { name: 'Database Başlat', href: '/admin/init-database', icon: Database, badge: 'Kurulum' },
 ]
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -32,6 +76,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const [expandedGroups, setExpandedGroups] = useState<string[]>(['Araç Yönetimi', 'İçerik Yönetimi', 'Hesaplama Ayarları'])
 
   useEffect(() => {
     // Check authentication
@@ -54,6 +99,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     sessionStorage.removeItem('admin_authenticated')
     sessionStorage.removeItem('admin_username')
     router.push('/admin/login')
+  }
+
+  const toggleGroup = (title: string) => {
+    setExpandedGroups(prev => 
+      prev.includes(title) 
+        ? prev.filter(g => g !== title)
+        : [...prev, title]
+    )
   }
 
   // If on login page, render without layout
@@ -91,7 +144,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-40 w-64 bg-gradient-to-b from-slate-900 to-slate-800 text-white transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-40 w-72 bg-gradient-to-b from-slate-900 to-slate-800 text-white transform transition-transform duration-300 ease-in-out lg:translate-x-0 overflow-y-auto ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
@@ -105,8 +158,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 p-4 space-y-2">
-            {navigation.map((item) => {
+          <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
+            {/* Ana Menü */}
+            {mainNavigation.map((item) => {
               const isActive = pathname === item.href
               const Icon = item.icon
 
@@ -115,7 +169,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   key={item.name}
                   href={item.href}
                   onClick={() => setIsSidebarOpen(false)}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all relative ${
+                  className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
                     isActive
                       ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg'
                       : 'text-slate-300 hover:bg-slate-700/50 hover:text-white'
@@ -123,15 +177,94 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 >
                   <Icon className="h-5 w-5" />
                   <span className="font-medium">{item.name}</span>
-                  {item.badge && (
-                    <span className="ml-auto px-2 py-0.5 bg-green-500 text-white text-xs rounded-full">
-                      {item.badge}
-                    </span>
-                  )}
-                  {isActive && !item.badge && <ChevronRight className="h-4 w-4 ml-auto" />}
+                  {isActive && <ChevronRight className="h-4 w-4 ml-auto" />}
                 </Link>
               )
             })}
+
+            {/* Yönetim Grupları */}
+            <div className="pt-4">
+              <p className="px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Yönetim</p>
+              
+              {managementGroups.map((group) => {
+                const isExpanded = expandedGroups.includes(group.title)
+                const hasActiveItem = group.items.some(item => pathname === item.href)
+                const GroupIcon = group.icon
+
+                return (
+                  <div key={group.title} className="mb-1">
+                    <button
+                      onClick={() => toggleGroup(group.title)}
+                      className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all ${
+                        hasActiveItem 
+                          ? 'bg-slate-700/70 text-white' 
+                          : 'text-slate-400 hover:bg-slate-700/30 hover:text-white'
+                      }`}
+                    >
+                      <GroupIcon className="h-4 w-4" />
+                      <span className="font-medium text-sm">{group.title}</span>
+                      <ChevronDown className={`h-4 w-4 ml-auto transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+                    </button>
+
+                    {isExpanded && (
+                      <div className="ml-4 mt-1 space-y-1 border-l border-slate-700 pl-4">
+                        {group.items.map((item) => {
+                          const isActive = pathname === item.href
+                          const Icon = item.icon
+
+                          return (
+                            <Link
+                              key={item.name}
+                              href={item.href}
+                              onClick={() => setIsSidebarOpen(false)}
+                              className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all text-sm ${
+                                isActive
+                                  ? 'bg-purple-600/80 text-white'
+                                  : 'text-slate-400 hover:bg-slate-700/50 hover:text-white'
+                              }`}
+                            >
+                              <Icon className="h-4 w-4" />
+                              <span>{item.name}</span>
+                            </Link>
+                          )
+                        })}
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+
+            {/* Diğer Menü */}
+            <div className="pt-4">
+              <p className="px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Diğer</p>
+              
+              {otherNavigation.map((item) => {
+                const isActive = pathname === item.href
+                const Icon = item.icon
+
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    onClick={() => setIsSidebarOpen(false)}
+                    className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all ${
+                      isActive
+                        ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg'
+                        : 'text-slate-300 hover:bg-slate-700/50 hover:text-white'
+                    }`}
+                  >
+                    <Icon className="h-5 w-5" />
+                    <span className="font-medium text-sm">{item.name}</span>
+                    {item.badge && (
+                      <span className="ml-auto px-2 py-0.5 bg-amber-500 text-white text-xs rounded-full">
+                        {item.badge}
+                      </span>
+                    )}
+                  </Link>
+                )
+              })}
+            </div>
           </nav>
 
           {/* Logout */}
@@ -149,7 +282,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </aside>
 
       {/* Main content */}
-      <main className="lg:pl-64 min-h-screen">
+      <main className="lg:pl-72 min-h-screen">
         <div className="p-4 lg:p-8">
           {children}
         </div>

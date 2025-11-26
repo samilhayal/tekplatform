@@ -3,7 +3,8 @@
 import { useState } from 'react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Database, CheckCircle, XCircle, RefreshCw } from 'lucide-react'
+import { Database, CheckCircle, XCircle, RefreshCw, ArrowLeft } from 'lucide-react'
+import Link from 'next/link'
 
 export default function InitDatabasePage() {
   const [loading, setLoading] = useState(false)
@@ -23,8 +24,8 @@ export default function InitDatabasePage() {
     } catch (error) {
       setResult({
         success: false,
-        error: 'Failed to initialize database',
-        details: error instanceof Error ? error.message : 'Unknown error'
+        error: 'Veritabanı başlatılamadı',
+        details: error instanceof Error ? error.message : 'Bilinmeyen hata'
       })
     } finally {
       setLoading(false)
@@ -33,17 +34,23 @@ export default function InitDatabasePage() {
 
   return (
     <div className="p-8">
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-3xl mx-auto">
+        {/* Geri Butonu */}
+        <Link href="/admin/dashboard" className="inline-flex items-center gap-2 text-slate-600 hover:text-slate-900 mb-6">
+          <ArrowLeft className="w-4 h-4" />
+          Dashboard'a Dön
+        </Link>
+
         <Card className="p-8">
           <div className="text-center mb-8">
             <div className="w-20 h-20 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
               <Database className="w-10 h-10 text-white" />
             </div>
             <h1 className="text-3xl font-bold text-slate-900 mb-2">
-              Firestore Database Başlatma
+              Firestore Veritabanı Başlatma
             </h1>
             <p className="text-slate-600">
-              Bu işlem database'i ilk verilerle dolduracaktır
+              Bu işlem tüm collection ve dokümanları oluşturacaktır
             </p>
           </div>
 
@@ -51,11 +58,18 @@ export default function InitDatabasePage() {
             <div className="flex items-start gap-3 p-4 bg-blue-50 rounded-lg">
               <div className="mt-0.5">ℹ️</div>
               <div>
-                <p className="font-medium text-blue-900">Yapılacaklar:</p>
-                <ul className="mt-2 space-y-1 text-sm text-blue-800">
-                  <li>• Tüm araçlar (98 adet) aktif olarak eklenecek</li>
-                  <li>• Varsayılan fiyatlar ayarlanacak (Altın, Döviz, TUFE, Zekat)</li>
-                  <li>• Admin ayarları oluşturulacak</li>
+                <p className="font-medium text-blue-900">Oluşturulacak Collections:</p>
+                <ul className="mt-2 space-y-1 text-sm text-blue-800 grid grid-cols-2 gap-x-4">
+                  <li>• <strong>tools</strong> - Tüm araçlar</li>
+                  <li>• <strong>categories</strong> - Kategoriler</li>
+                  <li>• <strong>horoscopes</strong> - Burç yorumları</li>
+                  <li>• <strong>prices</strong> - Altın & Döviz</li>
+                  <li>• <strong>salarySettings</strong> - Maaş ayarları</li>
+                  <li>• <strong>tapuSettings</strong> - Tapu harçları</li>
+                  <li>• <strong>rayicBedel</strong> - Rayiç bedeller</li>
+                  <li>• <strong>gayrimenkulSettings</strong> - GV dilimleri</li>
+                  <li>• <strong>retirementSettings</strong> - Emeklilik</li>
+                  <li>• <strong>brands</strong> - Marka bedenleri</li>
                 </ul>
               </div>
             </div>
@@ -65,7 +79,7 @@ export default function InitDatabasePage() {
               <div>
                 <p className="font-medium text-amber-900">Uyarı:</p>
                 <p className="text-sm text-amber-800 mt-1">
-                  Bu işlem database'deki mevcut verilerin üzerine yazabilir. 
+                  Bu işlem mevcut verilerin üzerine yazacaktır. 
                   Sadece ilk kurulumda veya sıfırlama gerektiğinde kullanın.
                 </p>
               </div>
@@ -80,12 +94,12 @@ export default function InitDatabasePage() {
             {loading ? (
               <>
                 <RefreshCw className="w-5 h-5 mr-2 animate-spin" />
-                Database Başlatılıyor...
+                Veritabanı Oluşturuluyor...
               </>
             ) : (
               <>
                 <Database className="w-5 h-5 mr-2" />
-                Database'i Başlat
+                Veritabanını Başlat
               </>
             )}
           </Button>
@@ -116,25 +130,50 @@ export default function InitDatabasePage() {
               </p>
 
               {result.stats && (
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-green-700">Oluşturulan Araçlar:</span>
-                    <span className="font-bold text-green-900">
-                      {result.stats.toolsCreated}
-                    </span>
+                <div className="space-y-3 text-sm">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="bg-white p-3 rounded-lg">
+                      <span className="text-green-700 block">Araçlar:</span>
+                      <span className="font-bold text-green-900 text-lg">{result.stats.tools}</span>
+                    </div>
+                    <div className="bg-white p-3 rounded-lg">
+                      <span className="text-green-700 block">Kategoriler:</span>
+                      <span className="font-bold text-green-900 text-lg">{result.stats.categories}</span>
+                    </div>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-green-700">Fiyat Ayarları:</span>
-                    <span className="font-bold text-green-900">
-                      {result.stats.pricesSet ? '✓ Hazır' : '✗ Hata'}
-                    </span>
+                  
+                  {result.stats.horoscopes && (
+                    <div className="bg-white p-3 rounded-lg">
+                      <span className="text-green-700 block mb-2">Burç Yorumları:</span>
+                      <div className="grid grid-cols-4 gap-2 text-xs">
+                        <span>Günlük: <strong>{result.stats.horoscopes.daily}</strong></span>
+                        <span>Haftalık: <strong>{result.stats.horoscopes.weekly}</strong></span>
+                        <span>Aylık: <strong>{result.stats.horoscopes.monthly}</strong></span>
+                        <span>Yıllık: <strong>{result.stats.horoscopes.yearly}</strong></span>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="grid grid-cols-3 gap-2 text-xs">
+                    <div className="bg-white p-2 rounded">
+                      <span className="text-green-700">Maaş Ayarları:</span>
+                      <span className="font-bold block">{result.stats.salarySettings}</span>
+                    </div>
+                    <div className="bg-white p-2 rounded">
+                      <span className="text-green-700">Rayiç Bedel:</span>
+                      <span className="font-bold block">{result.stats.rayicBedel}</span>
+                    </div>
+                    <div className="bg-white p-2 rounded">
+                      <span className="text-green-700">Markalar:</span>
+                      <span className="font-bold block">{result.stats.brands}</span>
+                    </div>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-green-700">Admin Ayarları:</span>
-                    <span className="font-bold text-green-900">
-                      {result.stats.adminSettingsSet ? '✓ Hazır' : '✗ Hata'}
-                    </span>
-                  </div>
+
+                  {result.timestamp && (
+                    <div className="text-xs text-green-600 mt-2">
+                      Oluşturma zamanı: {new Date(result.timestamp).toLocaleString('tr-TR')}
+                    </div>
+                  )}
                 </div>
               )}
 

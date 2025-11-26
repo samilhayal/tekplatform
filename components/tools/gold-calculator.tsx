@@ -4,66 +4,79 @@ import { useState, useEffect } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Sparkles, TrendingUp, RefreshCw, Copy, Crown, Home } from "lucide-react"
+import { Sparkles, TrendingUp, RefreshCw, Copy, Crown, Home, Loader2 } from "lucide-react"
 import Link from "next/link"
 
 interface GoldPrices {
-  gram24k: number
-  gram22k: number
-  gram18k: number
-  quarter: number
-  half: number
-  full: number
-  lastUpdate: string
+  gram24: number
+  gram22: number
+  gram18: number
+  ceyrek: number
+  yarim: number
+  tam: number
+  cumhuriyet: number
+  ata: number
+  resat: number
+  onsUsd: number
+  lastUpdate?: string
 }
 
 const goldTypes = [
-  { id: 'gram24k', name: '24 Ayar Altın (Gram)', key: 'gram24k', purity: 1, icon: '🥇' },
-  { id: 'gram22k', name: '22 Ayar Altın (Gram)', key: 'gram22k', purity: 0.916, icon: '🥈' },
-  { id: 'gram18k', name: '18 Ayar Altın (Gram)', key: 'gram18k', purity: 0.75, icon: '🥉' },
-  { id: 'quarter', name: 'Çeyrek Altın', key: 'quarter', weight: 1.75, icon: '💰' },
-  { id: 'half', name: 'Yarım Altın', key: 'half', weight: 3.5, icon: '💎' },
-  { id: 'full', name: 'Tam Altın', key: 'full', weight: 7, icon: '👑' },
+  { id: 'gram24', name: '24 Ayar Altın (Gram)', key: 'gram24', purity: 1, icon: '🥇' },
+  { id: 'gram22', name: '22 Ayar Altın (Gram)', key: 'gram22', purity: 0.916, icon: '🥈' },
+  { id: 'gram18', name: '18 Ayar Altın (Gram)', key: 'gram18', purity: 0.75, icon: '🥉' },
+  { id: 'ceyrek', name: 'Çeyrek Altın', key: 'ceyrek', weight: 1.75, icon: '💰' },
+  { id: 'yarim', name: 'Yarım Altın', key: 'yarim', weight: 3.5, icon: '💎' },
+  { id: 'tam', name: 'Tam Altın', key: 'tam', weight: 7, icon: '👑' },
 ]
+
+// Varsayılan fiyatlar (Firestore'dan veri gelmezse)
+const DEFAULT_PRICES: GoldPrices = {
+  gram24: 3200,
+  gram22: 2930,
+  gram18: 2400,
+  ceyrek: 5200,
+  yarim: 10400,
+  tam: 20800,
+  cumhuriyet: 22000,
+  ata: 21500,
+  resat: 22500,
+  onsUsd: 2650,
+}
 
 export function GoldCalculator() {
   const [prices, setPrices] = useState<GoldPrices | null>(null)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [amount, setAmount] = useState("1")
-  const [selectedType, setSelectedType] = useState("gram24k")
+  const [selectedType, setSelectedType] = useState("gram24")
 
   const fetchGoldPrices = async () => {
     setLoading(true)
     try {
-      // Check if admin has set custom prices
-      let mockPricePerGram = 2100 // Default TRY per gram
+      const response = await fetch('/api/prices?type=gold')
+      const data = await response.json()
       
-      if (typeof window !== 'undefined') {
-        const storedPrices = localStorage.getItem('adminPrices')
-        if (storedPrices) {
-          try {
-            const prices = JSON.parse(storedPrices)
-            if (prices.gold && prices.gold.gram) {
-              mockPricePerGram = prices.gold.gram
-            }
-          } catch (error) {
-            console.error('Failed to load admin gold prices:', error)
-          }
-        }
+      if (data.success && data.gold) {
+        setPrices({
+          ...data.gold,
+          lastUpdate: data.gold.lastUpdate 
+            ? new Date(data.gold.lastUpdate._seconds * 1000).toLocaleString('tr-TR')
+            : new Date().toLocaleString('tr-TR')
+        })
+      } else {
+        // Fallback to default prices
+        setPrices({
+          ...DEFAULT_PRICES,
+          lastUpdate: new Date().toLocaleString('tr-TR')
+        })
       }
-      
-      setPrices({
-        gram24k: mockPricePerGram,
-        gram22k: mockPricePerGram * 0.916,
-        gram18k: mockPricePerGram * 0.75,
-        quarter: mockPricePerGram * 1.75, // Çeyrek = 1.75 gram
-        half: mockPricePerGram * 3.5,     // Yarım = 3.5 gram
-        full: mockPricePerGram * 7,       // Tam = 7 gram
-        lastUpdate: new Date().toLocaleString('tr-TR')
-      })
     } catch (error) {
       console.error('Altın fiyatları alınamadı:', error)
+      // Fallback to default prices
+      setPrices({
+        ...DEFAULT_PRICES,
+        lastUpdate: new Date().toLocaleString('tr-TR')
+      })
     } finally {
       setLoading(false)
     }
