@@ -1,0 +1,1 @@
+- saat ve tarih formatlarında Türkiye standartlarını kullan.

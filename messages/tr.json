@@ -64,7 +64,11 @@
       "productivity": "Zaman & Verimlilik",
       "work": "Çalışma & İş",
       "games": "Şans & Oyun",
-      "design": "Görsel & Tasarım"
+      "design": "Görsel & Tasarım",
+      "code": "Kod Araçları",
+      "realestate": "Emlak",
+      "fashion": "Moda & Stil",
+      "astrology": "Astroloji"
     }
   },
   "tools": {
@@ -339,6 +343,58 @@
     "kpss-calculator": {
       "title": "KPSS Net Hesaplama",
       "description": "Genel Yetenek ve Genel Kültür net hesaplayıcı"
+    },
+    "json-beautifier": {
+      "title": "JSON Beautifier",
+      "description": "JSON verilerinizi güzelleştirin, doğrulayın ve düzenleyin"
+    },
+    "xml-beautifier": {
+      "title": "XML Beautifier",
+      "description": "XML verilerinizi güzelleştirin, doğrulayın ve düzenleyin"
+    },
+    "csv-beautifier": {
+      "title": "CSV Beautifier",
+      "description": "CSV verilerinizi görüntüleyin, düzenleyin ve dışa aktarın"
+    },
+    "html-beautifier": {
+      "title": "HTML Beautifier",
+      "description": "HTML verilerinizi güzelleştirin, doğrulayın ve önizleyin"
+    },
+    "css-beautifier": {
+      "title": "CSS Beautifier",
+      "description": "CSS verilerinizi güzelleştirin, doğrulayın ve düzenleyin"
+    },
+    "tapu-harci-hesaplama": {
+      "title": "Tapu Harcı Hesaplama",
+      "description": "2024 güncel oranlarıyla tapu harcı, döner sermaye ve tescil ücretleri hesaplama"
+    },
+    "rayic-bedel-hesaplama": {
+      "title": "Rayiç Bedel Hesaplama",
+      "description": "Gayrimenkul rayiç bedeli ve m² birim fiyatı sorgulama"
+    },
+    "gayrimenkul-gelir-vergisi": {
+      "title": "Gayrimenkul Gelir Vergisi",
+      "description": "Gayrimenkul satışından doğan gelir vergisi ve 5 yıl istisnası hesaplama"
+    },
+    "akilli-beden-secici": {
+      "title": "Akıllı Beden Seçici",
+      "description": "Vücut ölçülerinize göre farklı markalarda doğru bedeninizi bulun"
+    },
+    "burc-uyumu": {
+      "title": "Burç Uyumu Hesaplama",
+      "description": "İki burç arasındaki aşk, dostluk ve iş uyumunu hesaplayın"
+    },
+    "gunluk-burc-yorumlari": {
+      "title": "Günlük Burç Yorumları",
+      "description": "12 burç için günlük astroloji yorumları ve tahminler"
+    },
+    "burc-ozellikleri": {
+      "title": "Burç Özellikleri",
+      "description": "12 burcun karakter özellikleri, uyumlu burçlar ve şans bilgileri"
+    },
+    "yukselen-burc-hesaplayici": {
+      "title": "Yükselen Burç Hesaplayıcı",
+      "description": "Doğum tarihi, saati ve yerine göre yükselen burcunuzu hesaplayın"
     }
   },
   "meta": {

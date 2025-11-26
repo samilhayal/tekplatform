@@ -18,7 +18,11 @@ export const categoryMap: Record<string, string> = {
   'Zaman & Verimlilik': 'productivity',
   'Çalışma & İş': 'work',
   'Şans & Oyun': 'games',
-  'Görsel & Tasarım': 'design'
+  'Görsel & Tasarım': 'design',
+  'Kod Araçları': 'code',
+  'Emlak': 'realestate',
+  'Moda & Stil': 'fashion',
+  'Astroloji': 'astrology'
 }
 
 export function getCategoryKey(category: string): string {

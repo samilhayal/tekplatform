@@ -637,6 +637,131 @@ export const tools: Tool[] = [
     icon: 'Award',
     href: '/tools/kpss-calculator',
     keywords: ['KPSS', 'net hesaplama', 'genel yetenek', 'genel kültür', 'kamu personeli', 'ÖSYM', 'sınav neti', 'GY', 'GK']
+  },
+
+  // Kod Araçları
+  {
+    id: 'json-beautifier',
+    title: 'JSON Beautifier',
+    description: 'JSON verilerinizi güzelleştirin, doğrulayın ve düzenleyin',
+    category: 'Kod Araçları',
+    icon: 'FileJson',
+    href: '/tools/json-beautifier',
+    keywords: ['json', 'beautifier', 'formatter', 'validator', 'prettify', 'minify', 'json düzenleme', 'güzelleştirici']
+  },
+  {
+    id: 'xml-beautifier',
+    title: 'XML Beautifier',
+    description: 'XML verilerinizi güzelleştirin, doğrulayın ve düzenleyin',
+    category: 'Kod Araçları',
+    icon: 'FileCode',
+    href: '/tools/xml-beautifier',
+    keywords: ['xml', 'beautifier', 'formatter', 'validator', 'prettify', 'minify', 'xml düzenleme', 'güzelleştirici']
+  },
+  {
+    id: 'csv-beautifier',
+    title: 'CSV Beautifier',
+    description: 'CSV verilerinizi görüntüleyin, düzenleyin ve dışa aktarın',
+    category: 'Kod Araçları',
+    icon: 'FileSpreadsheet',
+    href: '/tools/csv-beautifier',
+    keywords: ['csv', 'beautifier', 'viewer', 'formatter', 'tablo', 'excel', 'csv düzenleme', 'veri']
+  },
+  {
+    id: 'html-beautifier',
+    title: 'HTML Beautifier',
+    description: 'HTML verilerinizi güzelleştirin, doğrulayın ve önizleyin',
+    category: 'Kod Araçları',
+    icon: 'FileCode2',
+    href: '/tools/html-beautifier',
+    keywords: ['html', 'beautifier', 'formatter', 'validator', 'prettify', 'minify', 'html düzenleme', 'web']
+  },
+  {
+    id: 'css-beautifier',
+    title: 'CSS Beautifier',
+    description: 'CSS verilerinizi güzelleştirin, doğrulayın ve düzenleyin',
+    category: 'Kod Araçları',
+    icon: 'Palette',
+    href: '/tools/css-beautifier',
+    keywords: ['css', 'beautifier', 'formatter', 'validator', 'prettify', 'minify', 'css düzenleme', 'stil']
+  },
+
+  // Emlak
+  {
+    id: 'tapu-harci-hesaplama',
+    title: 'Tapu Harcı Hesaplama',
+    description: '2024 güncel oranlarıyla tapu harcı, döner sermaye ve tescil ücretleri hesaplama',
+    category: 'Emlak',
+    icon: 'Home',
+    href: '/tools/tapu-harci-hesaplama',
+    keywords: ['tapu harcı', 'tapu masrafı', 'döner sermaye', 'tescil ücreti', 'emlak', 'konut', 'gayrimenkul', 'alım satım']
+  },
+  {
+    id: 'rayic-bedel-hesaplama',
+    title: 'Rayiç Bedel Hesaplama',
+    description: 'Gayrimenkul rayiç bedeli ve m² birim fiyatı sorgulama',
+    category: 'Emlak',
+    icon: 'MapPin',
+    href: '/tools/rayic-bedel-hesaplama',
+    keywords: ['rayiç bedel', 'emlak değeri', 'arsa değeri', 'metrekare fiyatı', 'belediye rayici', 'gayrimenkul değerleme']
+  },
+  {
+    id: 'gayrimenkul-gelir-vergisi',
+    title: 'Gayrimenkul Gelir Vergisi',
+    description: 'Gayrimenkul satışından doğan gelir vergisi ve 5 yıl istisnası hesaplama',
+    category: 'Emlak',
+    icon: 'Receipt',
+    href: '/tools/gayrimenkul-gelir-vergisi',
+    keywords: ['gayrimenkul vergisi', 'emlak satış vergisi', 'değer artış kazancı', '5 yıl istisnası', 'konut satış vergisi', 'ÜFE']
+  },
+
+  // Moda & Stil
+  {
+    id: 'akilli-beden-secici',
+    title: 'Akıllı Beden Seçici',
+    description: 'Vücut ölçülerinize göre farklı markalarda doğru bedeninizi bulun',
+    category: 'Moda & Stil',
+    icon: 'Shirt',
+    href: '/tools/akilli-beden-secici',
+    keywords: ['beden hesaplama', 'beden seçici', 'giysi bedeni', 'marka beden tablosu', 'Zara beden', 'H&M beden', 'vücut ölçüsü']
+  },
+
+  // Astroloji
+  {
+    id: 'burc-uyumu',
+    title: 'Burç Uyumu Hesaplama',
+    description: 'İki burç arasındaki aşk, dostluk ve iş uyumunu hesaplayın',
+    category: 'Astroloji',
+    icon: 'Heart',
+    href: '/tools/burc-uyumu',
+    keywords: ['burç uyumu', 'astroloji', 'zodyak uyumu', 'aşk uyumu', 'burç eşleşmesi']
+  },
+  {
+    id: 'gunluk-burc-yorumlari',
+    title: 'Günlük Burç Yorumları',
+    description: '12 burç için günlük astroloji yorumları ve tahminler',
+    category: 'Astroloji',
+    icon: 'Sun',
+    href: '/tools/gunluk-burc-yorumlari',
+    keywords: ['günlük burç', 'burç yorumu', 'astroloji', 'günlük fal', 'burç falı']
+  },
+  {
+    id: 'burc-ozellikleri',
+    title: 'Burç Özellikleri',
+    description: '12 burcun karakter özellikleri, uyumlu burçlar ve şans bilgileri',
+    category: 'Astroloji',
+    icon: 'Stars',
+    href: '/tools/burc-ozellikleri',
+    keywords: ['burç özellikleri', 'burç karakteri', 'zodyak', 'burç analizi']
+  },
+  {
+    id: 'yukselen-burc-hesaplayici',
+    title: 'Yükselen Burç Hesaplayıcı',
+    description: 'Doğum tarihi, saati ve yerine göre yükselen burcunuzu hesaplayın',
+    category: 'Astroloji',
+    icon: 'Sunrise',
+    href: '/tools/yukselen-burc-hesaplayici',
+    keywords: ['yükselen burç', 'ascendant', 'astroloji', 'doğum haritası']
   }
 ];
 

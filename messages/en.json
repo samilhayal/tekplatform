@@ -64,7 +64,11 @@
       "productivity": "Time & Productivity",
       "work": "Work & Business",
       "games": "Chance & Games",
-      "design": "Visual & Design"
+      "design": "Visual & Design",
+      "code": "Code Tools",
+      "realestate": "Real Estate",
+      "fashion": "Fashion & Style",
+      "astrology": "Astrology"
     }
   },
   "tools": {
@@ -339,6 +343,58 @@
     "kpss-calculator": {
       "title": "KPSS Score Calculator",
       "description": "General Ability and General Knowledge score calculator"
+    },
+    "json-beautifier": {
+      "title": "JSON Beautifier",
+      "description": "Beautify, validate and edit your JSON data"
+    },
+    "xml-beautifier": {
+      "title": "XML Beautifier",
+      "description": "Beautify, validate and edit your XML data"
+    },
+    "csv-beautifier": {
+      "title": "CSV Beautifier",
+      "description": "View, edit and export your CSV data"
+    },
+    "html-beautifier": {
+      "title": "HTML Beautifier",
+      "description": "Beautify, validate and preview your HTML data"
+    },
+    "css-beautifier": {
+      "title": "CSS Beautifier",
+      "description": "Beautify, validate and edit your CSS data"
+    },
+    "tapu-harci-hesaplama": {
+      "title": "Title Deed Fee Calculator",
+      "description": "Calculate title deed fees, revolving fund and registration fees with 2024 rates"
+    },
+    "rayic-bedel-hesaplama": {
+      "title": "Property Fair Value Calculator",
+      "description": "Query real estate fair value and per square meter price"
+    },
+    "gayrimenkul-gelir-vergisi": {
+      "title": "Real Estate Income Tax",
+      "description": "Calculate real estate sales income tax and 5-year exemption"
+    },
+    "akilli-beden-secici": {
+      "title": "Smart Size Selector",
+      "description": "Find your correct size at different brands based on your body measurements"
+    },
+    "burc-uyumu": {
+      "title": "Zodiac Compatibility",
+      "description": "Calculate love, friendship and work compatibility between two zodiac signs"
+    },
+    "gunluk-burc-yorumlari": {
+      "title": "Daily Horoscope",
+      "description": "Daily astrology readings and predictions for all 12 zodiac signs"
+    },
+    "burc-ozellikleri": {
+      "title": "Zodiac Sign Traits",
+      "description": "Character traits, compatible signs and lucky information for 12 zodiac signs"
+    },
+    "yukselen-burc-hesaplayici": {
+      "title": "Rising Sign Calculator",
+      "description": "Calculate your rising sign based on birth date, time and location"
     }
   },
   "meta": {
