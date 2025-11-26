@@ -1,5 +1,5 @@
 import { Metadata } from "next"
-import { PomodoroTimer } from "@/components/tools/pomodoro-timer"
+import { FocusTimer } from "@/components/tools/focus-timer"
 
 export const metadata: Metadata = {
   title: "Pomodoro Zamanlayıcı | Online Araçlar",
@@ -18,7 +18,7 @@ export default function PomodoroTimerPage() {
         </h1>
         <p className="text-xl text-slate-600">Odaklanarak daha fazlasını başarın</p>
       </div>
-      <PomodoroTimer />
+      <FocusTimer />
     </div>
   )
 }
