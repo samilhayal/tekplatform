@@ -1,6 +1,6 @@
 {
   "common": {
-    "appName": "Tüm Araçlar",
+    "appName": "Kolay Hesapla",
     "slogan": "Free Online Tools",
     "home": "Home",
     "about": "About",
@@ -37,7 +37,7 @@
     "popularTools": "Popular Tools",
     "legalInfo": "Legal Information",
     "description": "Turkey's most comprehensive free online tools platform. Financial calculations, PDF operations, health calculations, converters and 100+ free tools.",
-    "copyright": "© 2024 Tüm Araçlar. All rights reserved."
+    "copyright": "© 2024 Kolay Hesapla. All rights reserved."
   },
   "home": {
     "title": "100+ Free Online Calculation and Conversion Tools",
@@ -418,7 +418,7 @@
     }
   },
   "meta": {
-    "defaultTitle": "Tüm Araçlar - Free Online Tools",
+    "defaultTitle": "Kolay Hesapla - Free Online Tools",
     "defaultDescription": "Free online tools platform. Financial calculators, PDF tools, health calculators, converters and 100+ free tools. Fast and secure!",
     "keywords": "free online tools, financial calculators, PDF tools, health calculators, converters, loan calculator, BMI calculator, currency converter"
   }

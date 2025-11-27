@@ -141,7 +141,7 @@ Kalan ~70 araç için:
 
 ### Google Search Console Kurulumu:
 1. Domain property ekle
-2. Sitemap.xml submit et: `https://tumaraclar.net/sitemap.xml`
+2. Sitemap.xml submit et: `https://kolayhesapla.org/sitemap.xml`
 3. URL inspection kullan
 4. Performance raporu incele
 

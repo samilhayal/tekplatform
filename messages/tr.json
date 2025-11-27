@@ -1,6 +1,6 @@
 {
   "common": {
-    "appName": "Tüm Araçlar",
+    "appName": "Kolay Hesapla",
     "slogan": "Ücretsiz Online Araç",
     "home": "Ana Sayfa",
     "about": "Hakkımızda",
@@ -37,7 +37,7 @@
     "popularTools": "Popüler Araçlar",
     "legalInfo": "Yasal Bilgiler",
     "description": "Türkiye'nin en kapsamlı ücretsiz online araçlar platformu. Finans hesaplama, PDF işlemleri, sağlık hesaplama, dönüştürücüler ve 100+ ücretsiz araç.",
-    "copyright": "© 2024 Tüm Araçlar. Tüm hakları saklıdır."
+    "copyright": "© 2024 Kolay Hesapla. Tüm hakları saklıdır."
   },
   "home": {
     "title": "100+ Ücretsiz Online Hesaplama ve Dönüştürme Aracı",
@@ -418,7 +418,7 @@
     }
   },
   "meta": {
-    "defaultTitle": "Tüm Araçlar - Ücretsiz Online Araçlar",
+    "defaultTitle": "Kolay Hesapla - Ücretsiz Online Araçlar",
     "defaultDescription": "Türkiye'nin en kapsamlı ücretsiz online araçlar platformu. Finans, PDF, sağlık ve eğitim araçlarıyla 100+ ücretsiz araç. Hızlı ve güvenli!",
     "keywords": "ücretsiz online araçlar, finans hesaplama, PDF işlemleri, sağlık hesaplama, dönüştürücüler, kredi hesaplama, bmi hesaplama, döviz çevirici"
   }

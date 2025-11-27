@@ -20,10 +20,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: 'meta' });
 
   return {
-    metadataBase: new URL('https://tumaraclar.net'),
+    metadataBase: new URL('https://kolayhesapla.org'),
     title: {
       default: t('defaultTitle'),
-      template: "%s | Tüm Araçlar"
+      template: "%s | Kolay Hesapla"
     },
     description: t('defaultDescription'),
     keywords: t('keywords').split(', '),
@@ -38,8 +38,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       type: 'website',
       locale: locale === 'tr' ? 'tr_TR' : 'en_US',
-      url: 'https://tumaraclar.net',
-      siteName: 'Tüm Araçlar',
+      url: 'https://kolayhesapla.org',
+      siteName: 'Kolay Hesapla',
       title: t('defaultTitle'),
       description: t('defaultDescription'),
       images: [
@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           url: '/og-image.png',
           width: 1200,
           height: 630,
-          alt: 'Tüm Araçlar - Free Online Tools',
+          alt: 'Kolay Hesapla - Free Online Tools',
         }
       ],
     },
@@ -56,7 +56,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: t('defaultTitle'),
       description: t('defaultDescription'),
       images: ['/twitter-image.png'],
-      creator: '@tumaraclar',
+      creator: '@kolayhesapla',
     },
     robots: {
       index: true,
@@ -76,10 +76,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     manifest: '/site.webmanifest',
     alternates: {
-      canonical: 'https://tumaraclar.net',
+      canonical: 'https://kolayhesapla.org',
       languages: {
-        'tr': 'https://tumaraclar.net/tr',
-        'en': 'https://tumaraclar.net/en',
+        'tr': 'https://kolayhesapla.org/tr',
+        'en': 'https://kolayhesapla.org/en',
       },
     },
   };
@@ -103,23 +103,23 @@ export default async function LocaleLayout({
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'Tüm Araçlar',
+    name: 'Kolay Hesapla',
     description: locale === 'tr' 
       ? 'Türkiye\'nin en kapsamlı ücretsiz online araçlar platformu'
       : 'Turkey\'s most comprehensive free online tools platform',
-    url: 'https://tumaraclar.net',
+    url: 'https://kolayhesapla.org',
     potentialAction: {
       '@type': 'SearchAction',
-      target: 'https://tumaraclar.net/search?q={search_term_string}',
+      target: 'https://kolayhesapla.org/search?q={search_term_string}',
       'query-input': 'required name=search_term_string'
     },
     inLanguage: locale === 'tr' ? 'tr-TR' : 'en-US',
     publisher: {
       '@type': 'Organization',
-      name: 'Tüm Araçlar',
+      name: 'Kolay Hesapla',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://tumaraclar.net/logo.png'
+        url: 'https://kolayhesapla.org/logo.png'
       }
     }
   };

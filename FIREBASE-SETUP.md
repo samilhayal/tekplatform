@@ -178,7 +178,7 @@ npm run dev
 #### 3. `settings/admin` (Admin Ayarları)
 ```typescript
 {
-  appName: "Tüm Araçlar",
+  appName: "Kolay Hesapla",
   totalTools: 98,
   activeTools: 98,
   lastUpdated: Timestamp
@@ -281,5 +281,5 @@ User sees change on homepage
 
 ---
 
-**Hazırlayan:** Tüm Araçlar Development Team  
+**Hazırlayan:** Kolay Hesapla Development Team  
 **Tarih:** 15 Aralık 2024

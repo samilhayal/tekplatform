@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     title: "GANO DNO Hesaplama - Üniversite Not Ortalaması Hesaplayıcı",
     description: "Üniversite not ortalamanızı (GANO) ve dönem ortalamanızı (DNO) ücretsiz hesaplayın. AA-FF harf notları, otomatik kaydetme.",
     type: "website",
-    url: "https://tumaraclar.net/tools/gpa-calculator",
+    url: "https://kolayhesapla.org/tools/gpa-calculator",
     images: [
       {
         url: "/og-gpa-calculator.png",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     images: ["/twitter-gpa-calculator.png"]
   },
   alternates: {
-    canonical: "https://tumaraclar.net/tools/gpa-calculator"
+    canonical: "https://kolayhesapla.org/tools/gpa-calculator"
   },
   robots: {
     index: true,
@@ -148,19 +148,19 @@ export default function GpaCalculatorPage() {
         '@type': 'ListItem',
         position: 1,
         name: 'Ana Sayfa',
-        item: 'https://tumaraclar.net'
+        item: 'https://kolayhesapla.org'
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Eğitim Araçları',
-        item: 'https://tumaraclar.net/category/egitim-sinav'
+        item: 'https://kolayhesapla.org/category/egitim-sinav'
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: 'GANO DNO Hesaplama',
-        item: 'https://tumaraclar.net/tools/gpa-calculator'
+        item: 'https://kolayhesapla.org/tools/gpa-calculator'
       }
     ]
   }

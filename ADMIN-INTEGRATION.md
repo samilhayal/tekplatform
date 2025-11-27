@@ -405,4 +405,4 @@ const filteredTools = tools.filter(tool => {
 ---
 
 **Son Güncelleme:** 15 Aralık 2024  
-**Hazırlayan:** Tüm Araçlar Development Team
+**Hazırlayan:** Kolay Hesapla Development Team

@@ -40,7 +40,7 @@ const managementGroups = [
     title: 'Araç Yönetimi',
     icon: Wrench,
     items: [
-      { name: 'Tüm Araçlar', href: '/admin/tools', icon: Settings },
+      { name: 'Araçlar', href: '/admin/tools', icon: Settings },
       { name: 'Kategoriler', href: '/admin/categories', icon: FolderTree },
     ]
   },
