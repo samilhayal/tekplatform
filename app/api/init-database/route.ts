@@ -434,7 +434,7 @@ export async function POST() {
     // ============================================
     const adminSettingsRef = adminDb.collection('settings').doc('admin')
     await adminSettingsRef.set({
-      appName: 'Tek Platform',
+      appName: 'Tüm Araçlar',
       totalTools: tools.length,
       activeTools: tools.length,
       totalCategories: uniqueCategories.length,

@@ -4,7 +4,7 @@ import { ToolPageHeader } from "@/components/tool-page-header"
 import { SEOContent, seoContentData } from "@/components/seo-content"
 
 export const metadata: Metadata = {
-  title: "BMI Hesaplama - Vücut Kitle İndeksi Hesaplayıcı | Online Araçlar",
+  title: "Vücut Kitle İndeksi (BMI) Hesaplama | Online Araçlar",
   description: "Vücut kitle indeksinizi (BMI) hesaplayın ve sağlık durumunuzu öğrenin. Ücretsiz BMI hesaplayıcı ile ideal kilonuzu belirleyin.",
   keywords: ["bmi hesaplama", "vücut kitle indeksi", "ideal kilo", "kilo hesaplama", "sağlık", "fitness", "bmi calculator"],
 }
@@ -22,8 +22,7 @@ export default function BMICalculatorPage() {
       {/* Header with Social Share - H1 20+ karakter */}
       <ToolPageHeader
         badge="Sağlığınızı Kontrol Edin"
-        title="BMI Hesaplama"
-        subtitle="Vücut Kitle İndeksi Hesaplayıcı"
+        title="Vücut Kitle İndeksi (BMI) Hesaplama"
         description="Vücut kitle indeksinizi hesaplayarak sağlık durumunuz hakkında bilgi edinin. Metrik ve imperial birim desteği."
         badgeColors={{
           bg: 'from-pink-100 to-rose-100',

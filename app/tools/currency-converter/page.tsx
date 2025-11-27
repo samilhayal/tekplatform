@@ -2,7 +2,7 @@ import { Metadata } from "next"
 import { CurrencyConverter } from "@/components/tools/currency-converter"
 
 export const metadata: Metadata = {
-  title: "Döviz Kurları Dönüştürücü | Online Araçlar",
+  title: "Güncel Döviz Kurları | Online Araçlar",
   description: "Güncel kurlarla döviz dönüşümü yapın. USD, EUR, GBP, TRY ve tüm dünya para birimlerini gerçek zamanlı olarak çevirin.",
   keywords: ["döviz kurları", "currency converter", "para birimi", "dolar", "euro", "sterlin", "kur dönüştürme"],
 }
@@ -27,7 +27,7 @@ export default function CurrencyConverterPage() {
         </div>
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 animate-in fade-in slide-in-from-bottom duration-700 delay-100">
           <span className="bg-gradient-to-r from-green-600 via-emerald-600 to-cyan-600 bg-clip-text text-transparent">
-            Döviz Kurları
+            Güncel Döviz Kurları
           </span>
         </h1>
         <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom duration-700 delay-200">

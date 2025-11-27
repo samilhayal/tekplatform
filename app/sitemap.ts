@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import { tools } from '@/lib/tools-data'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://onlinetools.com' // Replace with your actual domain
+  const baseUrl = 'https://tumaraclar.net'
   
   // Homepage
   const routes: MetadataRoute.Sitemap = [

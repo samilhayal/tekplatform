@@ -17,7 +17,7 @@ export function Footer() {
                 </svg>
               </div>
               <h3 className="text-xl font-bold bg-gradient-to-r from-slate-900 to-indigo-900 bg-clip-text text-transparent">
-                Tek Platform
+                Tüm Araçlar
               </h3>
             </div>
             <p className="text-slate-600 mb-4 max-w-md">
@@ -50,7 +50,7 @@ export function Footer() {
                 <Linkedin className="w-5 h-5 text-slate-600 group-hover:text-white transition-colors" />
               </a>
               <a
-                href="mailto:info@tekplatform.com"
+                href="mailto:info@tumaraclar.net"
                 className="w-10 h-10 rounded-lg bg-slate-100 hover:bg-gradient-to-br hover:from-indigo-500 hover:to-purple-600 flex items-center justify-center transition-all duration-300 hover:shadow-lg group"
               >
                 <Mail className="w-5 h-5 text-slate-600 group-hover:text-white transition-colors" />
@@ -117,7 +117,7 @@ export function Footer() {
         <div className="pt-8 border-t border-slate-200">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-slate-600 flex items-center gap-2">
-              © {currentYear} Tek Platform. Tüm hakları saklıdır. 
+              © {currentYear} Tüm Araçlar. Tüm hakları saklıdır. 
               <span className="hidden sm:inline-flex items-center gap-1">
                 Türkiye'den <Heart className="w-4 h-4 text-red-500 fill-red-500" /> ile yapıldı
               </span>

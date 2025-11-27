@@ -3,7 +3,7 @@ import { CurrencyConverter } from "@/components/tools/currency-converter"
 import { ToolPageHeader } from "@/components/tool-page-header"
 
 export const metadata: Metadata = {
-  title: "Döviz Kurları Dönüştürücü | Online Araçlar",
+  title: "Güncel Döviz Kurları | Online Araçlar",
   description: "Güncel kurlarla döviz dönüşümü yapın. USD, EUR, GBP, TRY ve tüm dünya para birimlerini gerçek zamanlı olarak çevirin.",
   keywords: ["döviz kurları", "currency converter", "para birimi", "dolar", "euro", "sterlin", "kur dönüştürme"],
 }
@@ -21,7 +21,7 @@ export default function CurrencyConverterPage() {
       {/* Header with Social Share */}
       <ToolPageHeader
         badge="Gerçek Zamanlı Kur Verileri"
-        title="Döviz Kurları"
+        title="Güncel Döviz Kurları"
         description="150+ para birimi arasında anlık dönüşüm yapın. Güncel kurlarla hızlı ve doğru sonuçlar alın."
         badgeColors={{
           bg: 'from-green-100 to-emerald-100',

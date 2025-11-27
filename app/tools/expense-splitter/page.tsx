@@ -4,7 +4,7 @@ import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Harcama Paylaşım Hesaplayıcı | Online Araçlar",
+  title: "Harcama Paylaşım | Online Araçlar",
   description: "Grup harcamalarını adil bir şekilde paylaştırın. Etkinlik, seyahat veya ortak yaşam alanlarında kim kime ne kadar borçlu hesaplayın. Ücretsiz harcama bölme aracı.",
   keywords: ["harcama paylaşımı", "expense splitter", "grup harcama", "borç hesaplama", "masraf bölme", "tatil harcaması", "ortak hesap", "kim kime borçlu", "harcama hesaplayıcı", "splitwise alternatif"]
 }

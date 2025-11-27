@@ -57,7 +57,7 @@ export const tools: Tool[] = [
   },
   {
     id: 'currency-converter',
-    title: 'Döviz Kurları',
+    title: 'Güncel Döviz Kurları',
     description: 'Güncel döviz kurları ve dönüşüm hesaplamaları',
     category: 'Finans & Matematik',
     icon: 'Banknote',
@@ -84,7 +84,7 @@ export const tools: Tool[] = [
   },
   {
     id: 'brut-net-maas-hesaplayici',
-    title: 'Brüt-Net Maaş Hesaplayıcı',
+    title: 'Brüt – Net Maaş Hesaplama',
     description: '2025 Türkiye vergi dilimlerine göre brüt-net maaş hesaplama, SGK, AGI ve kesinti detayları',
     category: 'Finans & Matematik',
     icon: 'Wallet',
@@ -111,7 +111,7 @@ export const tools: Tool[] = [
   },
   {
     id: 'expense-splitter',
-    title: 'Harcama Paylaşım Hesaplayıcı',
+    title: 'Harcama Paylaşım',
     description: 'Grup harcamalarını adil paylaştırın, kim kime ne kadar borçlu hesaplayın',
     category: 'Finans & Matematik',
     icon: 'Users',
@@ -322,7 +322,7 @@ export const tools: Tool[] = [
   // Sağlık & Yaşam
   {
     id: 'bmi-calculator',
-    title: 'BMI Hesaplama',
+    title: 'Vücut Kitle İndeksi (BMI) Hesaplama',
     description: 'Vücut kitle indeksi ve sağlık önerileri',
     category: 'Sağlık & Yaşam',
     icon: 'Heart',
@@ -349,7 +349,7 @@ export const tools: Tool[] = [
   },
   {
     id: 'calorie-calculator',
-    title: 'Günlük Kalori İhtiyacı',
+    title: 'Günlük Kalori İhtiyacı Hesaplama',
     description: 'Aktivite seviyesine göre kalori hesaplama',
     category: 'Sağlık & Yaşam',
     icon: 'Flame',
@@ -367,7 +367,7 @@ export const tools: Tool[] = [
   },
   {
     id: 'pregnancy-calculator',
-    title: 'Gebelik Hesaplama',
+    title: 'Gebelik Haftası Hesaplama',
     description: 'Tahmini doğum tarihi ve gebelik haftası',
     category: 'Sağlık & Yaşam',
     icon: 'Baby',
@@ -414,7 +414,7 @@ export const tools: Tool[] = [
   // Görsel & Tasarım
   {
     id: 'aspect-ratio',
-    title: 'Aspect Ratio Hesaplayıcı',
+    title: 'Aspect Ratio Hesaplama',
     description: 'Video ve görsel için aspect ratio hesaplama ve görselleştirme',
     category: 'Görsel & Tasarım',
     icon: 'Expand',
@@ -425,7 +425,7 @@ export const tools: Tool[] = [
   // Metin & String
   {
     id: 'case-converter',
-    title: 'Case Converter',
+    title: 'Metin Dönüştürücü (Case Converter)',
     description: 'Büyük harf, küçük harf, title case ve daha fazlası',
     category: 'Metin & String',
     icon: 'CaseSensitive',
@@ -602,7 +602,7 @@ export const tools: Tool[] = [
   },
   {
     id: 'wheel-spinner',
-    title: 'Çarkıfelek',
+    title: 'Çarkı Çevirme',
     description: 'Özelleştirilebilir şans çarkı',
     category: 'Şans & Oyun',
     icon: 'Disc',
@@ -613,7 +613,7 @@ export const tools: Tool[] = [
   // Eğitim & Sınav
   {
     id: 'retirement-calculator',
-    title: 'Emekliliğe Kalan Süre',
+    title: 'Emekliliğe Kalan Süre Hesaplama',
     description: '4A, 4B, 4C sigortalılar için emeklilik süre hesaplama',
     category: 'Eğitim & Sınav',
     icon: 'Calendar',
@@ -622,7 +622,7 @@ export const tools: Tool[] = [
   },
   {
     id: 'gpa-calculator',
-    title: 'GANO/DNO Hesaplama',
+    title: 'GANO / Dönem Notu Hesaplama',
     description: 'Üniversite genel not ortalaması ve dönem not ortalaması hesaplama',
     category: 'Eğitim & Sınav',
     icon: 'GraduationCap',
@@ -727,7 +727,7 @@ export const tools: Tool[] = [
   // Moda & Stil
   {
     id: 'akilli-beden-secici',
-    title: 'Akıllı Beden Seçici',
+    title: 'Akıllı Beden Ölçü Seçici',
     description: 'Vücut ölçülerinize göre farklı markalarda doğru bedeninizi bulun',
     category: 'Moda & Stil',
     icon: 'Shirt',
@@ -774,7 +774,7 @@ export const tools: Tool[] = [
   },
   {
     id: 'yildiz-haritasi',
-    title: 'Yıldız Haritası Oluşturucu',
+    title: 'Yıldız Haritası Oluşturma',
     description: 'Doğum tarihi, saati ve yerine göre kişisel natal chart ve astrolojik analizler',
     category: 'Astroloji',
     icon: 'Sparkles',
@@ -783,7 +783,7 @@ export const tools: Tool[] = [
   },
   {
     id: 'ay-burcu-hesaplayici',
-    title: 'Ay Burcu Hesaplayıcı',
+    title: 'Ay Burcu Hesaplama',
     description: 'Doğum tarihi, saati ve yerine göre ay burcunuzu ve duygusal özelliklerinizi keşfedin',
     category: 'Astroloji',
     icon: 'Moon',

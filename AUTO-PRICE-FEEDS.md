@@ -312,4 +312,4 @@ jobs:
 ---
 
 **Son Güncelleme:** 15 Aralık 2024
-**Hazırlayan:** Tek Platform Development Team
+**Hazırlayan:** Tüm Araçlar Development Team

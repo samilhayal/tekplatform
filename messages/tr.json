@@ -1,6 +1,6 @@
 {
   "common": {
-    "appName": "Tek Platform",
+    "appName": "Tüm Araçlar",
     "slogan": "Ücretsiz Online Araç",
     "home": "Ana Sayfa",
     "about": "Hakkımızda",
@@ -37,7 +37,7 @@
     "popularTools": "Popüler Araçlar",
     "legalInfo": "Yasal Bilgiler",
     "description": "Türkiye'nin en kapsamlı ücretsiz online araçlar platformu. Finans hesaplama, PDF işlemleri, sağlık hesaplama, dönüştürücüler ve 100+ ücretsiz araç.",
-    "copyright": "© 2024 Tek Platform. Tüm hakları saklıdır."
+    "copyright": "© 2024 Tüm Araçlar. Tüm hakları saklıdır."
   },
   "home": {
     "title": "100+ Ücretsiz Online Hesaplama ve Dönüştürme Aracı",
@@ -93,7 +93,7 @@
       "description": "Altın fiyatları, dönüşüm ve grafik analizi"
     },
     "currency-converter": {
-      "title": "Döviz Kurları",
+      "title": "Güncel Döviz Kurları",
       "description": "Güncel döviz kurları ve dönüşüm hesaplamaları"
     },
     "savings-calculator": {
@@ -105,7 +105,7 @@
       "description": "Konut, taşıt ve ihtiyaç kredisi hesaplamaları"
     },
     "brut-net-maas-hesaplayici": {
-      "title": "Brüt-Net Maaş Hesaplayıcı",
+      "title": "Brüt – Net Maaş Hesaplama",
       "description": "2025 Türkiye vergi dilimlerine göre brüt-net maaş hesaplama, SGK, AGI ve kesinti detayları"
     },
     "investment-calculator": {
@@ -117,7 +117,7 @@
       "description": "Hizmet komisyon oranları ve tutarları"
     },
     "expense-splitter": {
-      "title": "Harcama Paylaşım Hesaplayıcı",
+      "title": "Harcama Paylaşım",
       "description": "Grup harcamalarını adil paylaştırın, kim kime ne kadar borçlu hesaplayın"
     },
     "zakat-calculator": {
@@ -209,7 +209,7 @@
       "description": "Dünyanın farklı şehirlerindeki saatleri karşılaştırın"
     },
     "bmi-calculator": {
-      "title": "BMI Hesaplama",
+      "title": "Vücut Kitle İndeksi (BMI) Hesaplama",
       "description": "Vücut kitle indeksi ve sağlık önerileri"
     },
     "ideal-weight-calculator": {
@@ -221,7 +221,7 @@
       "description": "Kilo verme/alma planları ve kalori ihtiyacı"
     },
     "calorie-calculator": {
-      "title": "Günlük Kalori İhtiyacı",
+      "title": "Günlük Kalori İhtiyacı Hesaplama",
       "description": "Aktivite seviyesine göre kalori hesaplama"
     },
     "body-fat-calculator": {
@@ -229,7 +229,7 @@
       "description": "Vücut yağ yüzdesi ve sağlık analizi"
     },
     "pregnancy-calculator": {
-      "title": "Gebelik Hesaplama",
+      "title": "Gebelik Haftası Hesaplama",
       "description": "Tahmini doğum tarihi ve gebelik haftası"
     },
     "baby-weight-calculator": {
@@ -249,11 +249,11 @@
       "description": "Yıllık sigara harcaması ve sağlık analizi"
     },
     "aspect-ratio": {
-      "title": "Aspect Ratio Hesaplayıcı",
+      "title": "Aspect Ratio Hesaplama",
       "description": "Video ve görsel için aspect ratio hesaplama ve görselleştirme"
     },
     "case-converter": {
-      "title": "Case Converter",
+      "title": "Metin Dönüştürücü (Case Converter)",
       "description": "Büyük harf, küçük harf, title case ve daha fazlası"
     },
     "morse-translator": {
@@ -329,15 +329,15 @@
       "description": "3D animasyonlu iskambil kartı çekme"
     },
     "wheel-spinner": {
-      "title": "Çarkıfelek",
+      "title": "Çarkı Çevirme",
       "description": "Özelleştirilebilir şans çarkı"
     },
     "retirement-calculator": {
-      "title": "Emekliliğe Kalan Süre",
+      "title": "Emekliliğe Kalan Süre Hesaplama",
       "description": "4A, 4B, 4C sigortalılar için emeklilik süre hesaplama"
     },
     "gpa-calculator": {
-      "title": "GANO/DNO Hesaplama",
+      "title": "GANO / Dönem Notu Hesaplama",
       "description": "Üniversite genel not ortalaması ve dönem not ortalaması hesaplama"
     },
     "yks-calculator": {
@@ -381,7 +381,7 @@
       "description": "Gayrimenkul satışından doğan gelir vergisi ve 5 yıl istisnası hesaplama"
     },
     "akilli-beden-secici": {
-      "title": "Akıllı Beden Seçici",
+      "title": "Akıllı Beden Ölçü Seçici",
       "description": "Vücut ölçülerinize göre farklı markalarda doğru bedeninizi bulun"
     },
     "burc-uyumu": {
@@ -401,11 +401,11 @@
       "description": "Doğum tarihi, saati ve yerine göre yükselen burcunuzu hesaplayın"
     },
     "yildiz-haritasi": {
-      "title": "Yıldız Haritası Oluşturucu",
+      "title": "Yıldız Haritası Oluşturma",
       "description": "Doğum tarihi, saati ve yerine göre kişisel natal chart ve astrolojik analizler"
     },
     "ay-burcu-hesaplayici": {
-      "title": "Ay Burcu Hesaplayıcı",
+      "title": "Ay Burcu Hesaplama",
       "description": "Doğum tarihi, saati ve yerine göre ay burcunuzu ve duygusal özelliklerinizi keşfedin"
     },
     "astroloji-takvimi": {
@@ -418,7 +418,7 @@
     }
   },
   "meta": {
-    "defaultTitle": "Tek Platform - Ücretsiz Online Araçlar",
+    "defaultTitle": "Tüm Araçlar - Ücretsiz Online Araçlar",
     "defaultDescription": "Türkiye'nin en kapsamlı ücretsiz online araçlar platformu. Finans, PDF, sağlık ve eğitim araçlarıyla 100+ ücretsiz araç. Hızlı ve güvenli!",
     "keywords": "ücretsiz online araçlar, finans hesaplama, PDF işlemleri, sağlık hesaplama, dönüştürücüler, kredi hesaplama, bmi hesaplama, döviz çevirici"
   }

@@ -292,7 +292,7 @@ export function BrutNetMaasHesaplayici() {
           </div>
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">
-              <h1 className="text-2xl sm:text-3xl font-bold">Brüt-Net Maaş Hesaplayıcı</h1>
+              <h1 className="text-2xl sm:text-3xl font-bold">Brüt – Net Maaş Hesaplama</h1>
               <Badge className="bg-yellow-400 text-yellow-900 hover:bg-yellow-500">2025</Badge>
             </div>
             <p className="text-blue-100 text-sm sm:text-base max-w-2xl">
@@ -332,7 +332,7 @@ export function BrutNetMaasHesaplayici() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Calculator className="h-6 w-6 text-blue-600" />
-            Brüt-Net Maaş Hesaplayıcı
+            Brüt – Net Maaş Hesaplama
           </CardTitle>
           <CardDescription>
             Türkiye vergi mevzuatına göre 2025 yılı maaş hesaplaması

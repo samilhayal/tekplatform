@@ -4,7 +4,7 @@ import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Emekliliğe Kalan Süre Hesaplayıcı | Online Araçlar",
+  title: "Emekliliğe Kalan Süre Hesaplama | Online Araçlar",
   description: "4A, 4B, 4C statülerine göre emekliliğe kalan süreyi hesaplayın. SGK emeklilik şartları, yaş ve prim günü hesaplama.",
   keywords: ["emeklilik hesaplama", "SGK emeklilik", "4A emeklilik", "4B emeklilik", "4C emeklilik", "prim günü", "emeklilik yaşı", "SSK", "Bağkur"]
 }

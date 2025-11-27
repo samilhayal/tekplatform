@@ -20,10 +20,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: 'meta' });
 
   return {
-    metadataBase: new URL('https://onlinetools.com'),
+    metadataBase: new URL('https://tumaraclar.net'),
     title: {
       default: t('defaultTitle'),
-      template: "%s | Tek Platform"
+      template: "%s | Tüm Araçlar"
     },
     description: t('defaultDescription'),
     keywords: t('keywords').split(', '),
@@ -38,8 +38,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       type: 'website',
       locale: locale === 'tr' ? 'tr_TR' : 'en_US',
-      url: 'https://onlinetools.com',
-      siteName: 'Tek Platform',
+      url: 'https://tumaraclar.net',
+      siteName: 'Tüm Araçlar',
       title: t('defaultTitle'),
       description: t('defaultDescription'),
       images: [
@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           url: '/og-image.png',
           width: 1200,
           height: 630,
-          alt: 'Online Tools - Free Online Tools',
+          alt: 'Tüm Araçlar - Free Online Tools',
         }
       ],
     },
@@ -56,7 +56,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: t('defaultTitle'),
       description: t('defaultDescription'),
       images: ['/twitter-image.png'],
-      creator: '@tekplatform',
+      creator: '@tumaraclar',
     },
     robots: {
       index: true,
@@ -76,10 +76,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     manifest: '/site.webmanifest',
     alternates: {
-      canonical: 'https://onlinetools.com',
+      canonical: 'https://tumaraclar.net',
       languages: {
-        'tr': 'https://onlinetools.com/tr',
-        'en': 'https://onlinetools.com/en',
+        'tr': 'https://tumaraclar.net/tr',
+        'en': 'https://tumaraclar.net/en',
       },
     },
   };
@@ -103,23 +103,23 @@ export default async function LocaleLayout({
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'Tek Platform',
+    name: 'Tüm Araçlar',
     description: locale === 'tr' 
       ? 'Türkiye\'nin en kapsamlı ücretsiz online araçlar platformu'
       : 'Turkey\'s most comprehensive free online tools platform',
-    url: 'https://onlinetools.com',
+    url: 'https://tumaraclar.net',
     potentialAction: {
       '@type': 'SearchAction',
-      target: 'https://onlinetools.com/search?q={search_term_string}',
+      target: 'https://tumaraclar.net/search?q={search_term_string}',
       'query-input': 'required name=search_term_string'
     },
     inLanguage: locale === 'tr' ? 'tr-TR' : 'en-US',
     publisher: {
       '@type': 'Organization',
-      name: 'Tek Platform',
+      name: 'Tüm Araçlar',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://onlinetools.com/logo.png'
+        url: 'https://tumaraclar.net/logo.png'
       }
     }
   };

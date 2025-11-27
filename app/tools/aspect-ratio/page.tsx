@@ -4,7 +4,7 @@ import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Aspect Ratio Hesaplayıcı & Görselleştirici | Online Tools Hub",
+  title: "Aspect Ratio Hesaplama | Online Tools Hub",
   description: "Video ve görsel tasarımları için aspect ratio hesaplama ve görsel önizleme aracı. 16:9, 4:3, 1:1 ve daha fazlası.",
 }
 

@@ -3,7 +3,7 @@ import { BMICalculator } from "@/components/tools/bmi-calculator"
 import { ToolPageHeader } from "@/components/tool-page-header"
 
 export const metadata: Metadata = {
-  title: "BMI Hesaplama | Online Araçlar",
+  title: "Vücut Kitle İndeksi (BMI) Hesaplama | Online Araçlar",
   description: "Vücut kitle indeksinizi (BMI) hesaplayın ve sağlık durumunuzu öğrenin. Ücretsiz BMI hesaplayıcı ile ideal kilonuzu belirleyin.",
   keywords: ["bmi hesaplama", "vücut kitle indeksi", "ideal kilo", "kilo hesaplama", "sağlık", "fitness", "bmi calculator"],
 }
@@ -21,7 +21,7 @@ export default function BMICalculatorPage() {
       {/* Header with Social Share */}
       <ToolPageHeader
         badge="Sağlığınızı Kontrol Edin"
-        title="BMI Hesaplama"
+        title="Vücut Kitle İndeksi (BMI) Hesaplama"
         description="Vücut kitle indeksinizi hesaplayarak sağlık durumunuz hakkında bilgi edinin. Metrik ve imperial birim desteği."
         badgeColors={{
           bg: 'from-pink-100 to-rose-100',

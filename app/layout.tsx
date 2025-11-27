@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://tekplatform.com'),
+  metadataBase: new URL('https://tumaraclar.net'),
 }
 
 // Root layout must have <html> and <body> tags

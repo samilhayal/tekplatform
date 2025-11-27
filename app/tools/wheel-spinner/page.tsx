@@ -2,7 +2,7 @@ import { Metadata } from "next"
 import { WheelSpinner } from "@/components/tools/wheel-spinner"
 
 export const metadata: Metadata = {
-  title: "3D Çarkıfelek - Şans Çarkı | Online Tools Hub",
+  title: "Çarkı Çevirme - Şans Çarkı | Online Tools Hub",
   description: "Kendi seçeneklerinizi ekleyerek 3D çarkıfelek çevirin. Renkli animasyonlar, ses efektleri, hazır listeler ve istatistiklerle eğlenceli karar verme aracı.",
   keywords: ["çarkıfelek", "wheel of fortune", "şans çarkı", "karar verme", "rastgele seçim", "çekiliş", "3D çark"],
 }

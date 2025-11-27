@@ -4,7 +4,7 @@ import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 
 export const metadata: Metadata = {
-  title: "Case Converter | Online Araçlar",
+  title: "Metin Dönüştürücü (Case Converter) | Online Araçlar",
   description: "Metinleri büyük harf, küçük harf, title case ve diğer formatlara dönüştürün.",
   keywords: ["case converter", "büyük harf", "küçük harf", "title case", "metin dönüştürücü"],
 }

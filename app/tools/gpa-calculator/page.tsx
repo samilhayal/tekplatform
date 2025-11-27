@@ -4,7 +4,7 @@ import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "GANO DNO Hesaplama - Üniversite Not Ortalaması Hesaplayıcı 2024 | Ücretsiz Online Araç",
+  title: "GANO / Dönem Notu Hesaplama - Üniversite Not Ortalaması Hesaplayıcı 2024 | Ücretsiz Online Araç",
   description: "✓ GANO hesaplama ✓ DNO hesaplama ✓ Üniversite not ortalaması ✓ 4'lük sistem AA-FF notları ✓ Otomatik kaydetme ✓ Ücretsiz ✓ Hızlı ve kolay kullanım. Dönem ve genel not ortalamanızı anında hesaplayın!",
   keywords: [
     "GANO hesaplama",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     title: "GANO DNO Hesaplama - Üniversite Not Ortalaması Hesaplayıcı",
     description: "Üniversite not ortalamanızı (GANO) ve dönem ortalamanızı (DNO) ücretsiz hesaplayın. AA-FF harf notları, otomatik kaydetme.",
     type: "website",
-    url: "https://onlinetools.com/tools/gpa-calculator",
+    url: "https://tumaraclar.net/tools/gpa-calculator",
     images: [
       {
         url: "/og-gpa-calculator.png",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     images: ["/twitter-gpa-calculator.png"]
   },
   alternates: {
-    canonical: "https://onlinetools.com/tools/gpa-calculator"
+    canonical: "https://tumaraclar.net/tools/gpa-calculator"
   },
   robots: {
     index: true,
@@ -148,19 +148,19 @@ export default function GpaCalculatorPage() {
         '@type': 'ListItem',
         position: 1,
         name: 'Ana Sayfa',
-        item: 'https://onlinetools.com'
+        item: 'https://tumaraclar.net'
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Eğitim Araçları',
-        item: 'https://onlinetools.com/category/egitim-sinav'
+        item: 'https://tumaraclar.net/category/egitim-sinav'
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: 'GANO DNO Hesaplama',
-        item: 'https://onlinetools.com/tools/gpa-calculator'
+        item: 'https://tumaraclar.net/tools/gpa-calculator'
       }
     ]
   }

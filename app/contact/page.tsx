@@ -3,7 +3,7 @@ import Link from "next/link"
 import { ArrowLeft, Mail, MessageSquare, Send, MapPin, Clock } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "İletişim | Online Tools Hub",
+  title: "İletişim | Tüm Araçlar",
   description: "Bizimle iletişime geçin. Sorularınız, önerileriniz veya geri bildirimleriniz için buradayız.",
 }
 
@@ -34,8 +34,8 @@ export default function ContactPage() {
               <Mail className="w-6 h-6 text-white" />
             </div>
             <h3 className="font-bold text-slate-900 mb-2">E-posta</h3>
-            <a href="mailto:info@onlinetoolshub.com" className="text-indigo-600 hover:text-indigo-700 text-sm">
-              info@onlinetoolshub.com
+            <a href="mailto:info@tumaraclar.net" className="text-indigo-600 hover:text-indigo-700 text-sm">
+              info@tumaraclar.net
             </a>
           </div>
 
