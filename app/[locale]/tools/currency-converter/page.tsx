@@ -1,5 +1,6 @@
 import { Metadata } from "next"
 import { CurrencyConverter } from "@/components/tools/currency-converter"
+import { ToolPageHeader } from "@/components/tool-page-header"
 
 export const metadata: Metadata = {
   title: "Döviz Kurları Dönüştürücü | Online Araçlar",
@@ -17,23 +18,19 @@ export default function CurrencyConverterPage() {
         <div className="absolute -bottom-8 left-1/2 w-72 h-72 bg-gradient-to-br from-emerald-200 to-teal-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
       </div>
 
-      {/* Header */}
-      <div className="max-w-5xl mx-auto mb-12 text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-green-100 to-emerald-100 border border-green-200 mb-6 animate-in fade-in slide-in-from-top duration-700">
-          <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
-          <span className="text-sm font-semibold bg-gradient-to-r from-green-700 to-emerald-700 bg-clip-text text-transparent">
-            Gerçek Zamanlı Kur Verileri
-          </span>
-        </div>
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 animate-in fade-in slide-in-from-bottom duration-700 delay-100">
-          <span className="bg-gradient-to-r from-green-600 via-emerald-600 to-cyan-600 bg-clip-text text-transparent">
-            Döviz Kurları
-          </span>
-        </h1>
-        <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom duration-700 delay-200">
-          150+ para birimi arasında anlık dönüşüm yapın. Güncel kurlarla hızlı ve doğru sonuçlar alın.
-        </p>
-      </div>
+      {/* Header with Social Share */}
+      <ToolPageHeader
+        badge="Gerçek Zamanlı Kur Verileri"
+        title="Döviz Kurları"
+        description="150+ para birimi arasında anlık dönüşüm yapın. Güncel kurlarla hızlı ve doğru sonuçlar alın."
+        badgeColors={{
+          bg: 'from-green-100 to-emerald-100',
+          border: 'border-green-200',
+          dot: 'bg-green-500',
+          text: 'from-green-700 to-emerald-700'
+        }}
+        titleGradient="from-green-600 via-emerald-600 to-cyan-600"
+      />
 
       {/* Main Tool */}
       <div className="animate-in fade-in slide-in-from-bottom duration-700 delay-300">

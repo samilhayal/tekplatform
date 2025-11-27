@@ -1,5 +1,6 @@
 import { Metadata } from "next"
 import { GoldCalculator } from "@/components/tools/gold-calculator"
+import { ToolPageHeader } from "@/components/tool-page-header"
 
 export const metadata: Metadata = {
   title: "Altın Hesaplama | Online Araçlar",
@@ -17,23 +18,19 @@ export default function GoldCalculatorPage() {
         <div className="absolute -bottom-8 left-1/2 w-72 h-72 bg-gradient-to-br from-amber-200 to-orange-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
       </div>
 
-      {/* Header */}
-      <div className="max-w-5xl mx-auto mb-12 text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-yellow-100 to-amber-100 border border-yellow-200 mb-6 animate-in fade-in slide-in-from-top duration-700">
-          <div className="h-2 w-2 rounded-full bg-yellow-500 animate-pulse"></div>
-          <span className="text-sm font-semibold bg-gradient-to-r from-yellow-700 to-amber-700 bg-clip-text text-transparent">
-            Anlık Altın Fiyatları
-          </span>
-        </div>
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 animate-in fade-in slide-in-from-bottom duration-700 delay-100">
-          <span className="bg-gradient-to-r from-yellow-600 via-amber-600 to-orange-600 bg-clip-text text-transparent">
-            Altın Hesaplama
-          </span>
-        </h1>
-        <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom duration-700 delay-200">
-          Güncel altın fiyatlarını öğrenin ve yatırımınızın değerini hesaplayın. 24, 22, 18 ayar altın ve cumhuriyet altınları.
-        </p>
-      </div>
+      {/* Header with Social Share */}
+      <ToolPageHeader
+        badge="Anlık Altın Fiyatları"
+        title="Altın Hesaplama"
+        description="Güncel altın fiyatlarını öğrenin ve yatırımınızın değerini hesaplayın. 24, 22, 18 ayar altın ve cumhuriyet altınları."
+        badgeColors={{
+          bg: 'from-yellow-100 to-amber-100',
+          border: 'border-yellow-200',
+          dot: 'bg-yellow-500',
+          text: 'from-yellow-700 to-amber-700'
+        }}
+        titleGradient="from-yellow-600 via-amber-600 to-orange-600"
+      />
 
       {/* Main Tool */}
       <div className="animate-in fade-in slide-in-from-bottom duration-700 delay-300">

@@ -1,5 +1,6 @@
 import { Metadata } from "next"
 import { BMICalculator } from "@/components/tools/bmi-calculator"
+import { ToolPageHeader } from "@/components/tool-page-header"
 
 export const metadata: Metadata = {
   title: "BMI Hesaplama | Online Araçlar",
@@ -17,23 +18,19 @@ export default function BMICalculatorPage() {
         <div className="absolute -bottom-8 left-1/2 w-72 h-72 bg-gradient-to-br from-rose-200 to-red-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
       </div>
 
-      {/* Header */}
-      <div className="max-w-5xl mx-auto mb-12 text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-pink-100 to-rose-100 border border-pink-200 mb-6 animate-in fade-in slide-in-from-top duration-700">
-          <div className="h-2 w-2 rounded-full bg-pink-500 animate-pulse"></div>
-          <span className="text-sm font-semibold bg-gradient-to-r from-pink-700 to-rose-700 bg-clip-text text-transparent">
-            Sağlığınızı Kontrol Edin
-          </span>
-        </div>
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 animate-in fade-in slide-in-from-bottom duration-700 delay-100">
-          <span className="bg-gradient-to-r from-pink-600 via-rose-600 to-red-600 bg-clip-text text-transparent">
-            BMI Hesaplama
-          </span>
-        </h1>
-        <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom duration-700 delay-200">
-          Vücut kitle indeksinizi hesaplayarak sağlık durumunuz hakkında bilgi edinin. Metrik ve imperial birim desteği.
-        </p>
-      </div>
+      {/* Header with Social Share */}
+      <ToolPageHeader
+        badge="Sağlığınızı Kontrol Edin"
+        title="BMI Hesaplama"
+        description="Vücut kitle indeksinizi hesaplayarak sağlık durumunuz hakkında bilgi edinin. Metrik ve imperial birim desteği."
+        badgeColors={{
+          bg: 'from-pink-100 to-rose-100',
+          border: 'border-pink-200',
+          dot: 'bg-pink-500',
+          text: 'from-pink-700 to-rose-700'
+        }}
+        titleGradient="from-pink-600 via-rose-600 to-red-600"
+      />
 
       {/* Main Tool */}
       <div className="animate-in fade-in slide-in-from-bottom duration-700 delay-300">

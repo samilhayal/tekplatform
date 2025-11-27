@@ -1,5 +1,6 @@
 import { Metadata } from "next"
 import { LoanCalculator } from "@/components/tools/loan-calculator"
+import { ToolPageHeader } from "@/components/tool-page-header"
 
 export const metadata: Metadata = {
   title: "Kredi Hesaplama | Online Araçlar",
@@ -17,23 +18,19 @@ export default function LoanCalculatorPage() {
         <div className="absolute -bottom-8 left-1/2 w-72 h-72 bg-gradient-to-br from-indigo-200 to-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
       </div>
 
-      {/* Header */}
-      <div className="max-w-5xl mx-auto mb-12 text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-100 to-indigo-100 border border-blue-200 mb-6 animate-in fade-in slide-in-from-top duration-700">
-          <div className="h-2 w-2 rounded-full bg-blue-500 animate-pulse"></div>
-          <span className="text-sm font-semibold bg-gradient-to-r from-blue-700 to-indigo-700 bg-clip-text text-transparent">
-            Akıllı Kredi Planlaması
-          </span>
-        </div>
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 animate-in fade-in slide-in-from-bottom duration-700 delay-100">
-          <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-            Kredi Hesaplama
-          </span>
-        </h1>
-        <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom duration-700 delay-200">
-          Konut, taşıt, ihtiyaç ve işletme kredisi hesaplamaları. Aylık ödeme, toplam maliyet ve detaylı ödeme planı.
-        </p>
-      </div>
+      {/* Header with Social Share */}
+      <ToolPageHeader
+        badge="Akıllı Kredi Planlaması"
+        title="Kredi Hesaplama"
+        description="Konut, taşıt, ihtiyaç ve işletme kredisi hesaplamaları. Aylık ödeme, toplam maliyet ve detaylı ödeme planı."
+        badgeColors={{
+          bg: 'from-blue-100 to-indigo-100',
+          border: 'border-blue-200',
+          dot: 'bg-blue-500',
+          text: 'from-blue-700 to-indigo-700'
+        }}
+        titleGradient="from-blue-600 via-indigo-600 to-purple-600"
+      />
 
       {/* Main Tool */}
       <div className="animate-in fade-in slide-in-from-bottom duration-700 delay-300">
