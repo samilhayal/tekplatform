@@ -272,39 +272,36 @@ export function RetirementCalculator() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label>Doğum Tarihi</Label>
-              <div className="grid grid-cols-3 gap-2">
-                <Select value={birthDay} onValueChange={setBirthDay}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Gün" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {Array.from({ length: 31 }, (_, i) => (
-                      <SelectItem key={i + 1} value={String(i + 1)}>{i + 1}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <Select value={birthMonth} onValueChange={setBirthMonth}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Ay" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"].map((ay, i) => (
-                      <SelectItem key={i + 1} value={String(i + 1)}>{ay}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <Select value={birthYear} onValueChange={setBirthYear}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Yıl" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {Array.from({ length: 80 }, (_, i) => 2010 - i).map((yil) => (
-                      <SelectItem key={yil} value={String(yil)}>{yil}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+              <div className="grid grid-cols-3 gap-3">
+                <Input 
+                  type="number" 
+                  value={birthDay} 
+                  onChange={(e) => setBirthDay(e.target.value)} 
+                  placeholder="Gün" 
+                  className="h-14 border-2 text-center text-lg"
+                  min="1" 
+                  max="31"
+                />
+                <Input 
+                  type="number" 
+                  value={birthMonth} 
+                  onChange={(e) => setBirthMonth(e.target.value)} 
+                  placeholder="Ay" 
+                  className="h-14 border-2 text-center text-lg"
+                  min="1" 
+                  max="12"
+                />
+                <Input 
+                  type="number" 
+                  value={birthYear} 
+                  onChange={(e) => setBirthYear(e.target.value)} 
+                  placeholder="Yıl" 
+                  className="h-14 border-2 text-center text-lg"
+                  min="1930" 
+                  max={new Date().getFullYear()}
+                />
               </div>
-              <p className="text-xs text-slate-500">Örnek: 15 Mart 1980</p>
+              <p className="text-xs text-slate-500">Örnek: 15 / 03 / 1980</p>
             </div>
 
             <div className="space-y-2">
@@ -322,39 +319,36 @@ export function RetirementCalculator() {
 
             <div className="space-y-2">
               <Label>Sigorta Başlangıç Tarihi</Label>
-              <div className="grid grid-cols-3 gap-2">
-                <Select value={insuranceDay} onValueChange={setInsuranceDay}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Gün" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {Array.from({ length: 31 }, (_, i) => (
-                      <SelectItem key={i + 1} value={String(i + 1)}>{i + 1}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <Select value={insuranceMonth} onValueChange={setInsuranceMonth}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Ay" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"].map((ay, i) => (
-                      <SelectItem key={i + 1} value={String(i + 1)}>{ay}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <Select value={insuranceYear} onValueChange={setInsuranceYear}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Yıl" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {Array.from({ length: 60 }, (_, i) => 2025 - i).map((yil) => (
-                      <SelectItem key={yil} value={String(yil)}>{yil}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+              <div className="grid grid-cols-3 gap-3">
+                <Input 
+                  type="number" 
+                  value={insuranceDay} 
+                  onChange={(e) => setInsuranceDay(e.target.value)} 
+                  placeholder="Gün" 
+                  className="h-14 border-2 text-center text-lg"
+                  min="1" 
+                  max="31"
+                />
+                <Input 
+                  type="number" 
+                  value={insuranceMonth} 
+                  onChange={(e) => setInsuranceMonth(e.target.value)} 
+                  placeholder="Ay" 
+                  className="h-14 border-2 text-center text-lg"
+                  min="1" 
+                  max="12"
+                />
+                <Input 
+                  type="number" 
+                  value={insuranceYear} 
+                  onChange={(e) => setInsuranceYear(e.target.value)} 
+                  placeholder="Yıl" 
+                  className="h-14 border-2 text-center text-lg"
+                  min="1965" 
+                  max={new Date().getFullYear()}
+                />
               </div>
-              <p className="text-xs text-slate-500">Örnek: 1 Mayıs 2010</p>
+              <p className="text-xs text-slate-500">Örnek: 01 / 05 / 2010</p>
             </div>
 
             <div className="space-y-2">

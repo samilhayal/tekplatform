@@ -214,40 +214,57 @@ export function YukselenBurcHesaplayici() {
   const [showResult, setShowResult] = useState(false)
   const [risingSign, setRisingSign] = useState<ZodiacSign | null>(null)
 
-  // Yıllar (1920-2025)
-  const years = Array.from({ length: 106 }, (_, i) => 2025 - i)
-  // Aylar
-  const monthsList = [
-    { value: '01', label: 'Ocak' },
-    { value: '02', label: 'Şubat' },
-    { value: '03', label: 'Mart' },
-    { value: '04', label: 'Nisan' },
-    { value: '05', label: 'Mayıs' },
-    { value: '06', label: 'Haziran' },
-    { value: '07', label: 'Temmuz' },
-    { value: '08', label: 'Ağustos' },
-    { value: '09', label: 'Eylül' },
-    { value: '10', label: 'Ekim' },
-    { value: '11', label: 'Kasım' },
-    { value: '12', label: 'Aralık' }
-  ]
-  // Günler
-  const days = Array.from({ length: 31 }, (_, i) => String(i + 1).padStart(2, '0'))
-  // Saatler (00-23)
-  const hoursList = Array.from({ length: 24 }, (_, i) => String(i).padStart(2, '0'))
-  // Dakikalar (00-59)
-  const minutesList = Array.from({ length: 60 }, (_, i) => String(i).padStart(2, '0'))
-
   // Şehir arama filtresi
   const filteredCities = turkishCities.filter(city =>
     city.name.toLowerCase().includes(citySearch.toLowerCase())
   )
 
+  // Input validations
+  const handleDayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value
+    if (val === "" || (parseInt(val) >= 1 && parseInt(val) <= 31)) {
+      setBirthDay(val)
+      setShowResult(false)
+    }
+  }
+
+  const handleMonthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value
+    if (val === "" || (parseInt(val) >= 1 && parseInt(val) <= 12)) {
+      setBirthMonth(val)
+      setShowResult(false)
+    }
+  }
+
+  const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value
+    if (val === "" || (parseInt(val) >= 1920 && parseInt(val) <= 2025)) {
+      setBirthYear(val)
+      setShowResult(false)
+    }
+  }
+
+  const handleHourChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value
+    if (val === "" || (parseInt(val) >= 0 && parseInt(val) <= 23)) {
+      setBirthHour(val)
+      setShowResult(false)
+    }
+  }
+
+  const handleMinuteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value
+    if (val === "" || (parseInt(val) >= 0 && parseInt(val) <= 59)) {
+      setBirthMinute(val)
+      setShowResult(false)
+    }
+  }
+
   const calculateRisingSign = () => {
     if (!birthDay || !birthMonth || !birthYear || !birthHour || !birthMinute || !birthCity) return
     
-    const birthDate = `${birthYear}-${birthMonth}-${birthDay}`
-    const birthTime = `${birthHour}:${birthMinute}`
+    const birthDate = `${birthYear}-${birthMonth.padStart(2, '0')}-${birthDay.padStart(2, '0')}`
+    const birthTime = `${birthHour.padStart(2, '0')}:${birthMinute.padStart(2, '0')}`
 
     // Doğum saati ve tarihinden basit yükselen hesaplama
     // Not: Gerçek astrolojik hesaplama çok daha karmaşıktır
@@ -379,36 +396,33 @@ export function YukselenBurcHesaplayici() {
                 Doğum Tarihi (Gün/Ay/Yıl)
               </Label>
               <div className="grid grid-cols-3 gap-2">
-                <Select value={birthDay} onValueChange={(v) => { setBirthDay(v); setShowResult(false); }}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Gün" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {days.map((d) => (
-                      <SelectItem key={d} value={d}>{d}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <Select value={birthMonth} onValueChange={(v) => { setBirthMonth(v); setShowResult(false); }}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Ay" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {monthsList.map((m) => (
-                      <SelectItem key={m.value} value={m.value}>{m.label}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <Select value={birthYear} onValueChange={(v) => { setBirthYear(v); setShowResult(false); }}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Yıl" />
-                  </SelectTrigger>
-                  <SelectContent className="max-h-[200px]">
-                    {years.map((y) => (
-                      <SelectItem key={y} value={String(y)}>{y}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <Input
+                  type="number"
+                  value={birthDay}
+                  onChange={handleDayChange}
+                  placeholder="Gün"
+                  min="1"
+                  max="31"
+                  className="h-14 text-center text-lg font-semibold border-2"
+                />
+                <Input
+                  type="number"
+                  value={birthMonth}
+                  onChange={handleMonthChange}
+                  placeholder="Ay"
+                  min="1"
+                  max="12"
+                  className="h-14 text-center text-lg font-semibold border-2"
+                />
+                <Input
+                  type="number"
+                  value={birthYear}
+                  onChange={handleYearChange}
+                  placeholder="Yıl"
+                  min="1920"
+                  max="2025"
+                  className="h-14 text-center text-lg font-semibold border-2"
+                />
               </div>
             </div>
 
@@ -419,26 +433,24 @@ export function YukselenBurcHesaplayici() {
                 Doğum Saati (24 saat)
               </Label>
               <div className="grid grid-cols-2 gap-2">
-                <Select value={birthHour} onValueChange={(v) => { setBirthHour(v); setShowResult(false); }}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Saat" />
-                  </SelectTrigger>
-                  <SelectContent className="max-h-[200px]">
-                    {hoursList.map((h) => (
-                      <SelectItem key={h} value={h}>{h}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <Select value={birthMinute} onValueChange={(v) => { setBirthMinute(v); setShowResult(false); }}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Dakika" />
-                  </SelectTrigger>
-                  <SelectContent className="max-h-[200px]">
-                    {minutesList.map((m) => (
-                      <SelectItem key={m} value={m}>{m}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <Input
+                  type="number"
+                  value={birthHour}
+                  onChange={handleHourChange}
+                  placeholder="Saat"
+                  min="0"
+                  max="23"
+                  className="h-14 text-center text-lg font-semibold border-2"
+                />
+                <Input
+                  type="number"
+                  value={birthMinute}
+                  onChange={handleMinuteChange}
+                  placeholder="Dakika"
+                  min="0"
+                  max="59"
+                  className="h-14 text-center text-lg font-semibold border-2"
+                />
               </div>
             </div>
 

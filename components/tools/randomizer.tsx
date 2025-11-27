@@ -1,13 +1,11 @@
 "use client"
 
-import { useState, useEffect, useCallback, useRef } from "react"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { useState, useCallback } from "react"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { motion, AnimatePresence } from "framer-motion"
-import { Dice1, Dice2, Dice3, Dice4, Dice5, Dice6, Home, Volume2, VolumeX, Trophy, Flame, Zap, RotateCcw, History, Target, Sparkles, PartyPopper, Crown, Star } from "lucide-react"
+import { Home, Volume2, VolumeX, Trophy, Flame, Zap, RotateCcw, History, Target, Sparkles, PartyPopper, Crown, Star } from "lucide-react"
 import Link from "next/link"
 
 // 3D Zar Yüzleri CSS Sınıfları
@@ -60,21 +58,6 @@ export function RandomizerTool() {
   const [targetNumber, setTargetNumber] = useState<number | null>(null)
   const [targetHits, setTargetHits] = useState(0)
   const [animatingDice, setAnimatingDice] = useState<number[]>([])
-  
-  // Coin States
-  const [coinResult, setCoinResult] = useState<string | null>(null)
-  const [coinFlipping, setCoinFlipping] = useState(false)
-  const [coinCurrency, setCoinCurrency] = useState("TRY")
-  
-  // Card States
-  const [cardResult, setCardResult] = useState<string | null>(null)
-  const [cardDrawing, setCardDrawing] = useState(false)
-  
-  // Wheel States
-  const [wheelResult, setWheelResult] = useState<string | null>(null)
-  const [wheelSpinning, setWheelSpinning] = useState(false)
-  const [wheelOptions, setWheelOptions] = useState(["Seçenek 1", "Seçenek 2", "Seçenek 3", "Seçenek 4"])
-  const [newOption, setNewOption] = useState("")
 
   // Sound Effect
   const playRollSound = useCallback(() => {
@@ -211,53 +194,6 @@ export function RandomizerTool() {
     setTargetHits(0)
   }
 
-  // Coin Flip
-  const flipCoin = () => {
-    setCoinFlipping(true)
-    setTimeout(() => {
-      const result = Math.random() > 0.5 ? "Yazı" : "Tura"
-      setCoinResult(result)
-      setCoinFlipping(false)
-    }, 1500)
-  }
-
-  // Card Draw
-  const drawCard = () => {
-    setCardDrawing(true)
-    const suits = ["♠️", "♥️", "♦️", "♣️"]
-    const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
-    
-    setTimeout(() => {
-      const suit = suits[Math.floor(Math.random() * suits.length)]
-      const value = values[Math.floor(Math.random() * values.length)]
-      setCardResult(`${value}${suit}`)
-      setCardDrawing(false)
-    }, 1000)
-  }
-
-  // Wheel Spin
-  const spinWheel = () => {
-    if (wheelOptions.length === 0) return
-    setWheelSpinning(true)
-    
-    setTimeout(() => {
-      const result = wheelOptions[Math.floor(Math.random() * wheelOptions.length)]
-      setWheelResult(result)
-      setWheelSpinning(false)
-    }, 2000)
-  }
-
-  const addWheelOption = () => {
-    if (newOption.trim()) {
-      setWheelOptions([...wheelOptions, newOption.trim()])
-      setNewOption("")
-    }
-  }
-
-  const removeWheelOption = (index: number) => {
-    setWheelOptions(wheelOptions.filter((_, i) => i !== index))
-  }
-
   // Render 3D Dice Face
   const renderDiceFace = (value: number, size: "sm" | "md" | "lg" = "lg", isAnimating: boolean = false) => {
     const sizeClasses = {
@@ -392,17 +328,11 @@ export function RandomizerTool() {
           </motion.div>
           
           <div className="text-center sm:text-left">
-            <h1 className="text-2xl sm:text-4xl font-bold mb-2">3D Zar Atma & Şans Oyunları</h1>
+            <h1 className="text-2xl sm:text-4xl font-bold mb-2">3D Zar Atma</h1>
             <p className="text-white/80 text-sm sm:text-lg max-w-2xl">
-              Gerçekçi 3D animasyonlu zar atma, yazı-tura, kart çekme ve çarkıfelek. 
+              Gerçekçi 3D animasyonlu zar atma aracı. 
               Eğlenceli ses efektleri ve kutlama animasyonları ile şansınızı deneyin!
             </p>
-            <div className="flex flex-wrap gap-2 mt-4 justify-center sm:justify-start">
-              <Badge className="bg-white/20 hover:bg-white/30 text-white">🎲 3D Zar</Badge>
-              <Badge className="bg-white/20 hover:bg-white/30 text-white">🪙 Yazı Tura</Badge>
-              <Badge className="bg-white/20 hover:bg-white/30 text-white">🃏 Kart Çek</Badge>
-              <Badge className="bg-white/20 hover:bg-white/30 text-white">🎡 Çarkıfelek</Badge>
-            </div>
           </div>
         </div>
       </motion.div>
@@ -412,24 +342,8 @@ export function RandomizerTool() {
         {showConfetti && <Confetti />}
       </AnimatePresence>
 
-      <Tabs defaultValue="dice" className="w-full">
-        <TabsList className="grid w-full grid-cols-4 h-auto p-1">
-          <TabsTrigger value="dice" className="text-xs sm:text-sm py-2 sm:py-3 gap-1 sm:gap-2">
-            <span className="hidden sm:inline">🎲</span> Zar
-          </TabsTrigger>
-          <TabsTrigger value="coin" className="text-xs sm:text-sm py-2 sm:py-3 gap-1 sm:gap-2">
-            <span className="hidden sm:inline">🪙</span> Yazı Tura
-          </TabsTrigger>
-          <TabsTrigger value="card" className="text-xs sm:text-sm py-2 sm:py-3 gap-1 sm:gap-2">
-            <span className="hidden sm:inline">🃏</span> Kart
-          </TabsTrigger>
-          <TabsTrigger value="wheel" className="text-xs sm:text-sm py-2 sm:py-3 gap-1 sm:gap-2">
-            <span className="hidden sm:inline">🎡</span> Çark
-          </TabsTrigger>
-        </TabsList>
-
-        {/* Dice Tab */}
-        <TabsContent value="dice" className="space-y-6">
+      {/* Dice Section */}
+      <div className="space-y-6">
           <div className="grid gap-6 lg:grid-cols-3">
             {/* Main Dice Area */}
             <Card className="lg:col-span-2 border-2 border-indigo-100">
@@ -716,354 +630,7 @@ export function RandomizerTool() {
               </Card>
             </div>
           </div>
-        </TabsContent>
-
-        {/* Coin Flip */}
-        <TabsContent value="coin" className="space-y-6">
-          <Card className="border-2 border-yellow-100">
-            <CardContent className="pt-8 sm:pt-12 pb-8 sm:pb-12">
-              <div className="flex flex-col items-center space-y-6 sm:space-y-8">
-                <motion.div
-                  className="relative w-32 h-32 sm:w-40 sm:h-40"
-                  animate={coinFlipping ? {
-                    rotateY: [0, 1800],
-                    y: [0, -50, 0, -30, 0]
-                  } : {}}
-                  transition={{ duration: 1.5, ease: "easeOut" }}
-                  style={{ transformStyle: "preserve-3d" }}
-                >
-                  {/* Coin glow effect */}
-                  <div className="absolute inset-0 rounded-full bg-yellow-400/50 blur-xl animate-pulse" />
-                  
-                  <div className="relative w-full h-full rounded-full bg-gradient-to-br from-yellow-300 via-yellow-400 to-amber-500 shadow-2xl flex items-center justify-center border-4 sm:border-8 border-yellow-200">
-                    {/* Coin shine effect */}
-                    <div className="absolute inset-2 rounded-full bg-gradient-to-tr from-white/40 via-transparent to-transparent" />
-                    
-                    {coinResult && !coinFlipping && (
-                      <motion.div
-                        initial={{ scale: 0, rotateY: 180 }}
-                        animate={{ scale: 1, rotateY: 0 }}
-                        className="text-center"
-                      >
-                        <span className="text-4xl sm:text-5xl font-bold text-amber-800 drop-shadow-lg">
-                          {coinResult === "Yazı" ? "Y" : "T"}
-                        </span>
-                        <p className="text-xs text-amber-700 font-medium mt-1">{coinResult}</p>
-                      </motion.div>
-                    )}
-                    {!coinResult && !coinFlipping && (
-                      <div className="text-center">
-                        <span className="text-4xl sm:text-5xl">🪙</span>
-                      </div>
-                    )}
-                  </div>
-                </motion.div>
-
-                <div className="flex flex-wrap gap-2 justify-center">
-                  {["TRY", "USD", "EUR", "GBP"].map(currency => (
-                    <Button
-                      key={currency}
-                      size="sm"
-                      variant={coinCurrency === currency ? "default" : "outline"}
-                      onClick={() => setCoinCurrency(currency)}
-                      className={coinCurrency === currency ? "bg-yellow-500 hover:bg-yellow-600" : ""}
-                    >
-                      {currency === "TRY" && "₺ TRY"}
-                      {currency === "USD" && "$ USD"}
-                      {currency === "EUR" && "€ EUR"}
-                      {currency === "GBP" && "£ GBP"}
-                    </Button>
-                  ))}
-                </div>
-
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Button 
-                    size="lg" 
-                    onClick={flipCoin} 
-                    disabled={coinFlipping} 
-                    className="w-48 sm:w-56 h-12 sm:h-14 text-base sm:text-lg font-bold bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 shadow-lg"
-                  >
-                    {coinFlipping ? (
-                      <motion.span animate={{ rotateY: 360 }} transition={{ duration: 0.3, repeat: Infinity }}>
-                        🪙
-                      </motion.span>
-                    ) : (
-                      <>🪙 Para At!</>
-                    )}
-                  </Button>
-                </motion.div>
-
-                <AnimatePresence>
-                  {coinResult && !coinFlipping && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 20, scale: 0.8 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      className="bg-gradient-to-r from-yellow-50 to-amber-50 rounded-2xl p-4 sm:p-6 border-2 border-yellow-200 shadow-lg"
-                    >
-                      <div className="flex items-center justify-center gap-3 sm:gap-4">
-                        <Sparkles className="h-6 w-6 sm:h-8 sm:w-8 text-yellow-600" />
-                        <div className="text-center">
-                          <p className="text-xs sm:text-sm text-yellow-600 font-medium">Sonuç</p>
-                          <p className="text-3xl sm:text-5xl font-bold text-amber-600">
-                            {coinResult}
-                          </p>
-                        </div>
-                        <Sparkles className="h-6 w-6 sm:h-8 sm:w-8 text-amber-600" />
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* Card Draw */}
-        <TabsContent value="card" className="space-y-6">
-          <Card className="border-2 border-slate-100">
-            <CardContent className="pt-8 sm:pt-12 pb-8 sm:pb-12">
-              <div className="flex flex-col items-center space-y-6 sm:space-y-8">
-                <motion.div
-                  className="relative w-40 h-56 sm:w-48 sm:h-72"
-                  animate={cardDrawing ? {
-                    rotateY: [0, 180, 360],
-                    y: [0, -50, 0],
-                    scale: [1, 1.1, 1]
-                  } : {}}
-                  transition={{ duration: 1, ease: "easeOut" }}
-                  style={{ transformStyle: "preserve-3d" }}
-                >
-                  {/* Card shadow */}
-                  <div className="absolute inset-0 translate-y-2 bg-black/20 rounded-2xl blur-lg" />
-                  
-                  <div className="relative w-full h-full bg-white rounded-2xl shadow-2xl flex items-center justify-center border-4 border-slate-200 overflow-hidden">
-                    {/* Card pattern background */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-slate-50 to-slate-100" />
-                    
-                    {cardResult && !cardDrawing && (
-                      <motion.div
-                        initial={{ scale: 0, rotateY: 180 }}
-                        animate={{ scale: 1, rotateY: 0 }}
-                        className="relative z-10 text-center"
-                      >
-                        <span 
-                          className="text-6xl sm:text-8xl font-bold"
-                          style={{
-                            color: cardResult.includes("♥️") || cardResult.includes("♦️") 
-                              ? "#dc2626" 
-                              : "#1e293b"
-                          }}
-                        >
-                          {cardResult}
-                        </span>
-                      </motion.div>
-                    )}
-                    {!cardResult && !cardDrawing && (
-                      <div className="relative z-10 text-center">
-                        <div className="w-32 h-44 sm:w-40 sm:h-56 bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl flex items-center justify-center">
-                          <div className="text-white text-4xl sm:text-6xl">🃏</div>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </motion.div>
-
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Button 
-                    size="lg" 
-                    onClick={drawCard} 
-                    disabled={cardDrawing}
-                    className="w-48 sm:w-56 h-12 sm:h-14 text-base sm:text-lg font-bold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg"
-                  >
-                    {cardDrawing ? (
-                      <motion.span animate={{ rotateY: 360 }} transition={{ duration: 0.3, repeat: Infinity }}>
-                        🃏
-                      </motion.span>
-                    ) : (
-                      <>🃏 Kart Çek!</>
-                    )}
-                  </Button>
-                </motion.div>
-
-                <AnimatePresence>
-                  {cardResult && !cardDrawing && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 20, scale: 0.8 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      className="bg-gradient-to-r from-slate-50 to-blue-50 rounded-2xl p-4 sm:p-6 border-2 border-slate-200 shadow-lg"
-                    >
-                      <p className="text-lg sm:text-xl text-center text-slate-900">
-                        Çekilen Kart: <span className="font-bold text-2xl sm:text-3xl">{cardResult}</span>
-                      </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* Wheel */}
-        <TabsContent value="wheel" className="space-y-6">
-          <Card className="border-2 border-purple-100">
-            <CardContent className="pt-8 sm:pt-12 pb-8 sm:pb-12">
-              <div className="flex flex-col items-center space-y-6 sm:space-y-8">
-                <div className="relative">
-                  {/* Pointer */}
-                  <div className="absolute -top-2 left-1/2 -translate-x-1/2 z-20">
-                    <div className="w-0 h-0 border-l-[12px] border-r-[12px] border-t-[20px] border-l-transparent border-r-transparent border-t-red-600 drop-shadow-lg" />
-                  </div>
-                  
-                  <motion.div
-                    className="relative w-56 h-56 sm:w-72 sm:h-72"
-                    animate={wheelSpinning ? {
-                      rotate: [0, 1800 + Math.random() * 720]
-                    } : {}}
-                    transition={{ duration: 3, ease: "easeOut" }}
-                  >
-                    {/* Wheel glow */}
-                    <div className="absolute inset-0 rounded-full bg-purple-400/30 blur-xl" />
-                    
-                    <div className="relative w-full h-full rounded-full shadow-2xl border-4 sm:border-8 border-white overflow-hidden">
-                      {/* Wheel segments */}
-                      {wheelOptions.map((option, index) => {
-                        const colors = [
-                          "from-pink-500 to-rose-500",
-                          "from-purple-500 to-violet-500",
-                          "from-blue-500 to-cyan-500",
-                          "from-emerald-500 to-green-500",
-                          "from-yellow-500 to-orange-500",
-                          "from-red-500 to-pink-500",
-                          "from-indigo-500 to-purple-500",
-                          "from-teal-500 to-cyan-500"
-                        ]
-                        const angle = (360 / wheelOptions.length) * index
-                        const skewAngle = 90 - (360 / wheelOptions.length)
-                        
-                        return (
-                          <div
-                            key={index}
-                            className={`absolute w-1/2 h-1/2 origin-bottom-right bg-gradient-to-r ${colors[index % colors.length]}`}
-                            style={{
-                              transform: `rotate(${angle}deg) skewY(${skewAngle}deg)`,
-                              transformOrigin: "100% 100%",
-                              left: 0,
-                              top: 0
-                            }}
-                          />
-                        )
-                      })}
-                      
-                      {/* Center circle */}
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white shadow-lg flex items-center justify-center">
-                          {wheelResult && !wheelSpinning ? (
-                            <motion.span
-                              initial={{ scale: 0 }}
-                              animate={{ scale: 1 }}
-                              className="text-xs sm:text-sm font-bold text-center text-purple-600 px-2"
-                            >
-                              {wheelResult}
-                            </motion.span>
-                          ) : (
-                            <span className="text-2xl sm:text-3xl">🎡</span>
-                          )}
-                        </div>
-                      </div>
-                      
-                      {/* Segment dividers */}
-                      {wheelOptions.map((_, index) => (
-                        <div
-                          key={index}
-                          className="absolute w-full h-0.5 bg-white/50 origin-left"
-                          style={{
-                            transform: `rotate(${(360 / wheelOptions.length) * index}deg)`,
-                            left: "50%",
-                            top: "50%"
-                          }}
-                        />
-                      ))}
-                    </div>
-                  </motion.div>
-                </div>
-
-                <div className="w-full max-w-md space-y-4">
-                  <div className="flex gap-2">
-                    <Input
-                      placeholder="Yeni seçenek ekle..."
-                      value={newOption}
-                      onChange={(e) => setNewOption(e.target.value)}
-                      onKeyPress={(e) => e.key === "Enter" && addWheelOption()}
-                      className="text-sm sm:text-base"
-                    />
-                    <Button onClick={addWheelOption} className="bg-purple-600 hover:bg-purple-700">Ekle</Button>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-2 max-h-40 overflow-y-auto">
-                    {wheelOptions.map((option, index) => (
-                      <motion.div
-                        key={index}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="flex items-center justify-between bg-slate-100 rounded-lg p-2 sm:p-3"
-                      >
-                        <span className="text-xs sm:text-sm font-medium truncate">{option}</span>
-                        <button
-                          onClick={() => removeWheelOption(index)}
-                          className="text-red-600 hover:text-red-800 ml-2"
-                        >
-                          ✕
-                        </button>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Button 
-                    size="lg" 
-                    onClick={spinWheel} 
-                    disabled={wheelSpinning || wheelOptions.length === 0}
-                    className="w-48 sm:w-56 h-12 sm:h-14 text-base sm:text-lg font-bold bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 shadow-lg"
-                  >
-                    {wheelSpinning ? (
-                      <motion.span animate={{ rotate: 360 }} transition={{ duration: 0.5, repeat: Infinity }}>
-                        🎡
-                      </motion.span>
-                    ) : (
-                      <>🎡 Çarkı Çevir!</>
-                    )}
-                  </Button>
-                </motion.div>
-
-                <AnimatePresence>
-                  {wheelResult && !wheelSpinning && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 20, scale: 0.8 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-4 sm:p-6 border-2 border-purple-200 shadow-lg"
-                    >
-                      <div className="flex items-center justify-center gap-3 sm:gap-4">
-                        <PartyPopper className="h-6 w-6 sm:h-8 sm:w-8 text-purple-600" />
-                        <div className="text-center">
-                          <p className="text-xs sm:text-sm text-purple-600 font-medium">Kazanan</p>
-                          <p className="text-xl sm:text-3xl font-bold text-purple-700">
-                            {wheelResult}
-                          </p>
-                        </div>
-                        <PartyPopper className="h-6 w-6 sm:h-8 sm:w-8 text-pink-600" />
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+        </div>
 
       {/* Educational Section */}
       <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-4">

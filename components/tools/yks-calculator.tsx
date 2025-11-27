@@ -50,20 +50,49 @@ export function YksCalculator() {
 
   const updateTyt = (index: number, field: 'correct' | 'wrong', value: number) => {
     const newTyt = [...tyt]
+    const subject = newTyt[index]
+    const newValue = Math.max(0, Math.min(value, subject.total))
+    const otherField = field === 'correct' ? 'wrong' : 'correct'
+    const maxAllowed = subject.total - subject[otherField]
     newTyt[index] = {
-      ...newTyt[index],
-      [field]: Math.max(0, Math.min(value, newTyt[index].total))
+      ...subject,
+      [field]: Math.min(newValue, maxAllowed)
     }
     setTyt(newTyt)
   }
 
   const updateAytFen = (index: number, field: 'correct' | 'wrong', value: number) => {
     const newFen = [...aytFen]
+    const subject = newFen[index]
+    const newValue = Math.max(0, Math.min(value, subject.total))
+    const otherField = field === 'correct' ? 'wrong' : 'correct'
+    const maxAllowed = subject.total - subject[otherField]
     newFen[index] = {
-      ...newFen[index],
-      [field]: Math.max(0, Math.min(value, newFen[index].total))
+      ...subject,
+      [field]: Math.min(newValue, maxAllowed)
     }
     setAytFen(newFen)
+  }
+
+  const updateAytMat = (field: 'correct' | 'wrong', value: number) => {
+    const newValue = Math.max(0, Math.min(value, aytMat.total))
+    const otherField = field === 'correct' ? 'wrong' : 'correct'
+    const maxAllowed = aytMat.total - aytMat[otherField]
+    setAytMat({...aytMat, [field]: Math.min(newValue, maxAllowed)})
+  }
+
+  const updateAytEd = (field: 'correct' | 'wrong', value: number) => {
+    const newValue = Math.max(0, Math.min(value, aytEd.total))
+    const otherField = field === 'correct' ? 'wrong' : 'correct'
+    const maxAllowed = aytEd.total - aytEd[otherField]
+    setAytEd({...aytEd, [field]: Math.min(newValue, maxAllowed)})
+  }
+
+  const updateAytSos = (field: 'correct' | 'wrong', value: number) => {
+    const newValue = Math.max(0, Math.min(value, aytSos.total))
+    const otherField = field === 'correct' ? 'wrong' : 'correct'
+    const maxAllowed = aytSos.total - aytSos[otherField]
+    setAytSos({...aytSos, [field]: Math.min(newValue, maxAllowed)})
   }
 
   const calculateTytResult = (): ExamResult => {
@@ -335,7 +364,7 @@ export function YksCalculator() {
                         <Input
                           type="number"
                           value={aytMat.correct || ''}
-                          onChange={(e) => setAytMat({...aytMat, correct: Math.max(0, Math.min(Number(e.target.value), aytMat.total))})}
+                          onChange={(e) => updateAytMat('correct', Number(e.target.value))}
                           min="0"
                           max={aytMat.total}
                           className="h-12 text-center text-lg font-semibold text-green-600"
@@ -346,7 +375,7 @@ export function YksCalculator() {
                         <Input
                           type="number"
                           value={aytMat.wrong || ''}
-                          onChange={(e) => setAytMat({...aytMat, wrong: Math.max(0, Math.min(Number(e.target.value), aytMat.total))})}
+                          onChange={(e) => updateAytMat('wrong', Number(e.target.value))}
                           min="0"
                           max={aytMat.total}
                           className="h-12 text-center text-lg font-semibold text-red-600"
@@ -436,7 +465,7 @@ export function YksCalculator() {
                         <Input
                           type="number"
                           value={aytMat.correct || ''}
-                          onChange={(e) => setAytMat({...aytMat, correct: Math.max(0, Math.min(Number(e.target.value), aytMat.total))})}
+                          onChange={(e) => updateAytMat('correct', Number(e.target.value))}
                           min="0"
                           max={aytMat.total}
                           className="h-12 text-center text-lg font-semibold text-green-600"
@@ -447,7 +476,7 @@ export function YksCalculator() {
                         <Input
                           type="number"
                           value={aytMat.wrong || ''}
-                          onChange={(e) => setAytMat({...aytMat, wrong: Math.max(0, Math.min(Number(e.target.value), aytMat.total))})}
+                          onChange={(e) => updateAytMat('wrong', Number(e.target.value))}
                           min="0"
                           max={aytMat.total}
                           className="h-12 text-center text-lg font-semibold text-red-600"
@@ -480,7 +509,7 @@ export function YksCalculator() {
                         <Input
                           type="number"
                           value={aytEd.correct || ''}
-                          onChange={(e) => setAytEd({...aytEd, correct: Math.max(0, Math.min(Number(e.target.value), aytEd.total))})}
+                          onChange={(e) => updateAytEd('correct', Number(e.target.value))}
                           min="0"
                           max={aytEd.total}
                           className="h-12 text-center text-lg font-semibold text-green-600"
@@ -491,7 +520,7 @@ export function YksCalculator() {
                         <Input
                           type="number"
                           value={aytEd.wrong || ''}
-                          onChange={(e) => setAytEd({...aytEd, wrong: Math.max(0, Math.min(Number(e.target.value), aytEd.total))})}
+                          onChange={(e) => updateAytEd('wrong', Number(e.target.value))}
                           min="0"
                           max={aytEd.total}
                           className="h-12 text-center text-lg font-semibold text-red-600"
@@ -535,7 +564,7 @@ export function YksCalculator() {
                         <Input
                           type="number"
                           value={aytEd.correct || ''}
-                          onChange={(e) => setAytEd({...aytEd, correct: Math.max(0, Math.min(Number(e.target.value), aytEd.total))})}
+                          onChange={(e) => updateAytEd('correct', Number(e.target.value))}
                           min="0"
                           max={aytEd.total}
                           className="h-12 text-center text-lg font-semibold text-green-600"
@@ -546,7 +575,7 @@ export function YksCalculator() {
                         <Input
                           type="number"
                           value={aytEd.wrong || ''}
-                          onChange={(e) => setAytEd({...aytEd, wrong: Math.max(0, Math.min(Number(e.target.value), aytEd.total))})}
+                          onChange={(e) => updateAytEd('wrong', Number(e.target.value))}
                           min="0"
                           max={aytEd.total}
                           className="h-12 text-center text-lg font-semibold text-red-600"
@@ -579,7 +608,7 @@ export function YksCalculator() {
                         <Input
                           type="number"
                           value={aytSos.correct || ''}
-                          onChange={(e) => setAytSos({...aytSos, correct: Math.max(0, Math.min(Number(e.target.value), aytSos.total))})}
+                          onChange={(e) => updateAytSos('correct', Number(e.target.value))}
                           min="0"
                           max={aytSos.total}
                           className="h-12 text-center text-lg font-semibold text-green-600"
@@ -590,7 +619,7 @@ export function YksCalculator() {
                         <Input
                           type="number"
                           value={aytSos.wrong || ''}
-                          onChange={(e) => setAytSos({...aytSos, wrong: Math.max(0, Math.min(Number(e.target.value), aytSos.total))})}
+                          onChange={(e) => updateAytSos('wrong', Number(e.target.value))}
                           min="0"
                           max={aytSos.total}
                           className="h-12 text-center text-lg font-semibold text-red-600"

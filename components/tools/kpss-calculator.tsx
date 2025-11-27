@@ -1,11 +1,12 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
-import { Calculator, TrendingUp, Award, BookOpen, Globe } from 'lucide-react'
+import { Calculator, TrendingUp, Award, BookOpen, Globe, Home } from 'lucide-react'
 
 interface Subject {
   name: string
@@ -35,18 +36,26 @@ export function KpssCalculator() {
 
   const updateGenelYetenek = (index: number, field: 'correct' | 'wrong', value: number) => {
     const newData = [...genelYetenek]
+    const subject = newData[index]
+    const newValue = Math.max(0, Math.min(value, subject.total))
+    const otherField = field === 'correct' ? 'wrong' : 'correct'
+    const maxAllowed = subject.total - subject[otherField]
     newData[index] = {
-      ...newData[index],
-      [field]: Math.max(0, Math.min(value, newData[index].total))
+      ...subject,
+      [field]: Math.min(newValue, maxAllowed)
     }
     setGenelYetenek(newData)
   }
 
   const updateGenelKultur = (index: number, field: 'correct' | 'wrong', value: number) => {
     const newData = [...genelKultur]
+    const subject = newData[index]
+    const newValue = Math.max(0, Math.min(value, subject.total))
+    const otherField = field === 'correct' ? 'wrong' : 'correct'
+    const maxAllowed = subject.total - subject[otherField]
     newData[index] = {
-      ...newData[index],
-      [field]: Math.max(0, Math.min(value, newData[index].total))
+      ...subject,
+      [field]: Math.min(newValue, maxAllowed)
     }
     setGenelKultur(newData)
   }
@@ -86,6 +95,14 @@ export function KpssCalculator() {
 
   return (
     <div className="space-y-6">
+      {/* Ana Sayfaya Dön Butonu */}
+      <Link href="/">
+        <Button variant="outline" className="group flex items-center gap-2 hover:gap-3 transition-all hover:border-green-300">
+          <Home className="h-4 w-4 text-green-600 group-hover:-translate-x-1 transition-transform" />
+          Ana Sayfaya Dön
+        </Button>
+      </Link>
+
       {/* Bilgilendirme */}
       <Card className="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200">
         <CardHeader>
