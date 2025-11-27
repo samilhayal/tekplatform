@@ -1,9 +1,10 @@
 import { Metadata } from "next"
 import { BMICalculator } from "@/components/tools/bmi-calculator"
 import { ToolPageHeader } from "@/components/tool-page-header"
+import { SEOContent, seoContentData } from "@/components/seo-content"
 
 export const metadata: Metadata = {
-  title: "BMI Hesaplama | Online Araçlar",
+  title: "BMI Hesaplama - Vücut Kitle İndeksi Hesaplayıcı | Online Araçlar",
   description: "Vücut kitle indeksinizi (BMI) hesaplayın ve sağlık durumunuzu öğrenin. Ücretsiz BMI hesaplayıcı ile ideal kilonuzu belirleyin.",
   keywords: ["bmi hesaplama", "vücut kitle indeksi", "ideal kilo", "kilo hesaplama", "sağlık", "fitness", "bmi calculator"],
 }
@@ -18,10 +19,11 @@ export default function BMICalculatorPage() {
         <div className="absolute -bottom-8 left-1/2 w-72 h-72 bg-gradient-to-br from-rose-200 to-red-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
       </div>
 
-      {/* Header with Social Share */}
+      {/* Header with Social Share - H1 20+ karakter */}
       <ToolPageHeader
         badge="Sağlığınızı Kontrol Edin"
         title="BMI Hesaplama"
+        subtitle="Vücut Kitle İndeksi Hesaplayıcı"
         description="Vücut kitle indeksinizi hesaplayarak sağlık durumunuz hakkında bilgi edinin. Metrik ve imperial birim desteği."
         badgeColors={{
           bg: 'from-pink-100 to-rose-100',
@@ -37,19 +39,19 @@ export default function BMICalculatorPage() {
         <BMICalculator />
       </div>
 
-      {/* How to Use Section */}
-      <div className="max-w-5xl mx-auto mt-16 animate-in fade-in slide-in-from-bottom duration-700 delay-500">
+      {/* How to Use Section - H2 */}
+      <section className="max-w-5xl mx-auto mt-16 animate-in fade-in slide-in-from-bottom duration-700 delay-500">
         <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-8 text-center">
-          Nasıl Kullanılır?
+          BMI Hesaplama Aracı Nasıl Kullanılır?
         </h2>
         <div className="grid md:grid-cols-2 gap-6">
-          <div className="group p-6 rounded-2xl border-2 border-slate-100 hover:border-pink-200 hover:shadow-lg transition-all duration-300 bg-white/50 backdrop-blur-sm">
+          <article className="group p-6 rounded-2xl border-2 border-slate-100 hover:border-pink-200 hover:shadow-lg transition-all duration-300 bg-white/50 backdrop-blur-sm">
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-pink-500/30 group-hover:scale-110 transition-transform">
                 1
               </div>
               <div>
-                <h3 className="text-lg font-bold text-slate-900 mb-2">Ölçü Birimi Seçin</h3>
+                <h3 className="text-lg font-bold text-slate-900 mb-2">Adım 1: Ölçü Birimi Seçimi</h3>
                 <p className="text-slate-600">
                   Metrik (cm/kg) veya Imperial (inç/lbs) sistemini seçin.
                 </p>
@@ -58,15 +60,15 @@ export default function BMICalculatorPage() {
                 </div>
               </div>
             </div>
-          </div>
+          </article>
 
-          <div className="group p-6 rounded-2xl border-2 border-slate-100 hover:border-rose-200 hover:shadow-lg transition-all duration-300 bg-white/50 backdrop-blur-sm">
+          <article className="group p-6 rounded-2xl border-2 border-slate-100 hover:border-rose-200 hover:shadow-lg transition-all duration-300 bg-white/50 backdrop-blur-sm">
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-rose-500 to-red-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-rose-500/30 group-hover:scale-110 transition-transform">
                 2
               </div>
               <div>
-                <h3 className="text-lg font-bold text-slate-900 mb-2">Boy ve Kilo Girin</h3>
+                <h3 className="text-lg font-bold text-slate-900 mb-2">Adım 2: Boy ve Kilo Girişi</h3>
                 <p className="text-slate-600">
                   Mevcut boyunuzu ve kilonuzu ilgili alanlara yazın.
                 </p>
@@ -75,15 +77,15 @@ export default function BMICalculatorPage() {
                 </div>
               </div>
             </div>
-          </div>
+          </article>
 
-          <div className="group p-6 rounded-2xl border-2 border-slate-100 hover:border-purple-200 hover:shadow-lg transition-all duration-300 bg-white/50 backdrop-blur-sm">
+          <article className="group p-6 rounded-2xl border-2 border-slate-100 hover:border-purple-200 hover:shadow-lg transition-all duration-300 bg-white/50 backdrop-blur-sm">
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-transform">
                 3
               </div>
               <div>
-                <h3 className="text-lg font-bold text-slate-900 mb-2">BMI'nizi Hesaplayın</h3>
+                <h3 className="text-lg font-bold text-slate-900 mb-2">Adım 3: Hesaplama ve Sonuç</h3>
                 <p className="text-slate-600">
                   "Hesapla" butonuna tıklayın ve sonucu görün. BMI değeriniz ve kategoriniz gösterilir.
                 </p>
@@ -92,15 +94,15 @@ export default function BMICalculatorPage() {
                 </div>
               </div>
             </div>
-          </div>
+          </article>
 
-          <div className="group p-6 rounded-2xl border-2 border-slate-100 hover:border-pink-200 hover:shadow-lg transition-all duration-300 bg-white/50 backdrop-blur-sm">
+          <article className="group p-6 rounded-2xl border-2 border-slate-100 hover:border-pink-200 hover:shadow-lg transition-all duration-300 bg-white/50 backdrop-blur-sm">
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-pink-500/30 group-hover:scale-110 transition-transform">
                 4
               </div>
               <div>
-                <h3 className="text-lg font-bold text-slate-900 mb-2">Önerileri İnceleyin</h3>
+                <h3 className="text-lg font-bold text-slate-900 mb-2">Adım 4: Sağlık Önerileri</h3>
                 <p className="text-slate-600">
                   Kategorinize özel sağlık önerileri ve tavsiyeler alın.
                 </p>
@@ -109,82 +111,83 @@ export default function BMICalculatorPage() {
                 </div>
               </div>
             </div>
-          </div>
+          </article>
         </div>
-      </div>
+      </section>
 
-      {/* BMI Info Section */}
-      <div className="max-w-5xl mx-auto mt-16 animate-in fade-in slide-in-from-bottom duration-700 delay-700">
+      {/* BMI Categories Section - H2 */}
+      <section className="max-w-5xl mx-auto mt-16 animate-in fade-in slide-in-from-bottom duration-700 delay-700">
         <div className="p-8 rounded-2xl bg-gradient-to-br from-slate-50 to-pink-50 border-2 border-pink-100 shadow-xl">
           <h2 className="text-2xl font-bold text-slate-900 mb-6 text-center">
-            ✨ BMI Kategorileri Nedir?
+            BMI Kategorileri ve Sağlık Değerlendirmesi
           </h2>
           <div className="grid sm:grid-cols-2 gap-6 mb-8">
-            <div className="p-5 rounded-xl bg-white/80 backdrop-blur-sm border-2 border-blue-100 shadow-md">
+            <article className="p-5 rounded-xl bg-white/80 backdrop-blur-sm border-2 border-blue-100 shadow-md">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center text-white font-bold">
                   📉
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900">Zayıf</h3>
+                  <h3 className="font-bold text-slate-900">Zayıf Kategori</h3>
                   <p className="text-sm text-blue-700 font-semibold">BMI &lt; 18.5</p>
                 </div>
               </div>
               <p className="text-sm text-slate-600">
                 Kilo almanız sağlığınız için faydalı olabilir. Dengeli beslenme ve düzenli egzersiz programı oluşturun.
               </p>
-            </div>
+            </article>
 
-            <div className="p-5 rounded-xl bg-white/80 backdrop-blur-sm border-2 border-green-100 shadow-md">
+            <article className="p-5 rounded-xl bg-white/80 backdrop-blur-sm border-2 border-green-100 shadow-md">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center text-white font-bold">
                   ✅
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900">Normal</h3>
+                  <h3 className="font-bold text-slate-900">Normal Kilo Aralığı</h3>
                   <p className="text-sm text-green-700 font-semibold">BMI 18.5 - 24.9</p>
                 </div>
               </div>
               <p className="text-sm text-slate-600">
                 Sağlıklı kilo aralığındasınız! Bu kilonuzu korumak için sağlıklı yaşam tarzınızı sürdürün.
               </p>
-            </div>
+            </article>
 
-            <div className="p-5 rounded-xl bg-white/80 backdrop-blur-sm border-2 border-yellow-100 shadow-md">
+            <article className="p-5 rounded-xl bg-white/80 backdrop-blur-sm border-2 border-yellow-100 shadow-md">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-yellow-500 to-amber-600 flex items-center justify-center text-white font-bold">
                   ⚠️
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900">Fazla Kilolu</h3>
+                  <h3 className="font-bold text-slate-900">Fazla Kilolu Durumu</h3>
                   <p className="text-sm text-yellow-700 font-semibold">BMI 25 - 29.9</p>
                 </div>
               </div>
               <p className="text-sm text-slate-600">
                 Sağlıklı kilo verme hedefleri belirleyin. Kalori açığı ve düzenli egzersiz ile ideal kiloya ulaşabilirsiniz.
               </p>
-            </div>
+            </article>
 
-            <div className="p-5 rounded-xl bg-white/80 backdrop-blur-sm border-2 border-red-100 shadow-md">
+            <article className="p-5 rounded-xl bg-white/80 backdrop-blur-sm border-2 border-red-100 shadow-md">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-red-500 to-orange-600 flex items-center justify-center text-white font-bold">
                   🏥
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900">Obez</h3>
+                  <h3 className="font-bold text-slate-900">Obezite Kategorisi</h3>
                   <p className="text-sm text-red-700 font-semibold">BMI ≥ 30</p>
                 </div>
               </div>
               <p className="text-sm text-slate-600">
                 Sağlık riskleri nedeniyle bir uzmanla görüşmeniz önerilir. Profesyonel destek ile hedeflerinize ulaşabilirsiniz.
               </p>
-            </div>
+            </article>
           </div>
 
+          {/* BMI Formula - H3 */}
           <div className="p-6 rounded-xl bg-gradient-to-r from-pink-50 to-rose-50 border-2 border-pink-200">
             <h3 className="font-bold text-slate-900 mb-3 flex items-center gap-2">
               <span className="text-xl">📊</span>
-              BMI Formülü
+              BMI Hesaplama Formülü ve Matematiksel İfade
             </h3>
             <div className="space-y-2 text-sm text-slate-700">
               <p className="font-mono bg-white/80 p-3 rounded-lg border border-pink-100">
@@ -196,34 +199,43 @@ export default function BMICalculatorPage() {
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Health Tips */}
-      <div className="max-w-5xl mx-auto mt-8">
+      {/* Health Tips Section - H2 */}
+      <section className="max-w-5xl mx-auto mt-8">
+        <h2 className="sr-only">Sağlıklı Yaşam Önerileri</h2>
         <div className="grid sm:grid-cols-3 gap-4">
-          <div className="p-5 rounded-xl bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200">
+          <article className="p-5 rounded-xl bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200">
             <div className="text-3xl mb-3">🥗</div>
-            <h3 className="font-bold text-slate-900 mb-2">Dengeli Beslenme</h3>
+            <h3 className="font-bold text-slate-900 mb-2">Dengeli Beslenme Programı</h3>
             <p className="text-sm text-slate-600">
               Sağlıklı kilo için protein, karbonhidrat ve yağ dengesine dikkat edin.
             </p>
-          </div>
-          <div className="p-5 rounded-xl bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-200">
+          </article>
+          <article className="p-5 rounded-xl bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-200">
             <div className="text-3xl mb-3">🏃</div>
-            <h3 className="font-bold text-slate-900 mb-2">Düzenli Egzersiz</h3>
+            <h3 className="font-bold text-slate-900 mb-2">Düzenli Fiziksel Aktivite</h3>
             <p className="text-sm text-slate-600">
               Haftada en az 150 dakika orta tempolu egzersiz yapın.
             </p>
-          </div>
-          <div className="p-5 rounded-xl bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-200">
+          </article>
+          <article className="p-5 rounded-xl bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-200">
             <div className="text-3xl mb-3">💤</div>
-            <h3 className="font-bold text-slate-900 mb-2">Kaliteli Uyku</h3>
+            <h3 className="font-bold text-slate-900 mb-2">Kaliteli Uyku Düzeni</h3>
             <p className="text-sm text-slate-600">
               Günde 7-9 saat kaliteli uyku metabolizmanızı düzenler.
             </p>
-          </div>
+          </article>
         </div>
-      </div>
+      </section>
+
+      {/* SEO Content - Expandable (250+ words + outbound links) */}
+      <SEOContent
+        toolName="BMI Hesaplama"
+        sections={seoContentData['bmi-calculator'].sections}
+        outboundLinks={seoContentData['bmi-calculator'].outboundLinks}
+        keywords={seoContentData['bmi-calculator'].keywords}
+      />
 
       {/* Disclaimer */}
       <div className="max-w-5xl mx-auto mt-8">

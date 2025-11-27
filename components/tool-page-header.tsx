@@ -5,6 +5,7 @@ import { SocialShare } from '@/components/social-share'
 interface ToolPageHeaderProps {
   badge: string
   title: string
+  subtitle?: string // SEO için ek başlık metni (H1'i uzatmak için)
   description: string
   badgeColors?: {
     bg: string
@@ -18,6 +19,7 @@ interface ToolPageHeaderProps {
 export function ToolPageHeader({
   badge,
   title,
+  subtitle,
   description,
   badgeColors = {
     bg: 'from-purple-100 to-indigo-100',
@@ -27,12 +29,15 @@ export function ToolPageHeader({
   },
   titleGradient = 'from-purple-600 via-indigo-600 to-blue-600'
 }: ToolPageHeaderProps) {
+  // H1 için tam başlık (SEO için 20+ karakter)
+  const fullTitle = subtitle ? `${title} - ${subtitle}` : title
+  
   return (
     <div className="max-w-5xl mx-auto mb-12 text-center relative">
       {/* Social Share Button - Top Right */}
       <div className="absolute top-0 right-0">
         <SocialShare 
-          title={title} 
+          title={fullTitle} 
           description={description}
         />
       </div>
@@ -45,11 +50,19 @@ export function ToolPageHeader({
         </span>
       </div>
       
-      {/* Title */}
+      {/* H1 Title - SEO Optimized (20+ characters) */}
       <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 animate-in fade-in slide-in-from-bottom duration-700 delay-100">
         <span className={`bg-gradient-to-r ${titleGradient} bg-clip-text text-transparent`}>
           {title}
         </span>
+        {subtitle && (
+          <>
+            <br className="hidden sm:block" />
+            <span className={`text-2xl sm:text-3xl lg:text-4xl bg-gradient-to-r ${titleGradient} bg-clip-text text-transparent opacity-80`}>
+              {subtitle}
+            </span>
+          </>
+        )}
       </h1>
       
       {/* Description */}
