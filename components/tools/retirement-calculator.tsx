@@ -194,15 +194,6 @@ export function RetirementCalculator() {
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 p-6 sm:p-8 text-white">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yLjIgMS44LTQgNC00czQgMS44IDQgNC0xLjggNC00IDQtNC0xLjgtNC00eiIvPjwvZz48L2c+PC9zdmc+')] opacity-30"></div>
         
-        {/* Ana Sayfa Butonu */}
-        <Link 
-          href="/"
-          className="absolute top-4 right-4 flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm px-3 py-2 rounded-lg transition-all duration-300 text-sm font-medium"
-        >
-          <Home className="h-4 w-4" />
-          Ana Sayfa
-        </Link>
-        
         <div className="relative flex flex-col sm:flex-row items-start sm:items-center gap-4">
           <div className="p-4 bg-white/20 backdrop-blur-sm rounded-2xl">
             <CalendarDays className="h-12 w-12 text-white" />

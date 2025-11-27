@@ -273,18 +273,17 @@ export function BrutNetMaasHesaplayici() {
 
   return (
     <div className="max-w-6xl mx-auto space-y-6">
+      {/* Ana Sayfaya Dön Butonu */}
+      <Link href="/">
+        <Button variant="outline" className="group flex items-center gap-2 hover:gap-3 transition-all hover:border-blue-300">
+          <Home className="h-4 w-4 text-blue-600 group-hover:-translate-x-1 transition-transform" />
+          Ana Sayfaya Dön
+        </Button>
+      </Link>
+
       {/* Hero Section */}
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 p-6 sm:p-8 text-white">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yLjIgMS44LTQgNC00czQgMS44IDQgNC0xLjggNC00IDQtNC0xLjgtNC00eiIvPjwvZz48L2c+PC9zdmc+')] opacity-30"></div>
-        
-        {/* Ana Sayfa Butonu */}
-        <Link 
-          href="/"
-          className="absolute top-4 right-4 flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm px-3 py-2 rounded-lg transition-all duration-300 text-sm font-medium"
-        >
-          <Home className="h-4 w-4" />
-          Ana Sayfa
-        </Link>
         
         <div className="relative flex flex-col sm:flex-row items-start sm:items-center gap-4">
           <div className="p-4 bg-white/20 backdrop-blur-sm rounded-2xl">
@@ -307,7 +306,7 @@ export function BrutNetMaasHesaplayici() {
           <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3 text-center">
             <Wallet className="h-5 w-5 mx-auto mb-1 text-yellow-300" />
             <div className="text-xs text-blue-200">Asgari Ücret</div>
-            <div className="text-sm font-bold">₺22.104</div>
+            <div className="text-sm font-bold">₺26.005,50</div>
           </div>
           <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3 text-center">
             <Percent className="h-5 w-5 mx-auto mb-1 text-green-300" />
@@ -848,11 +847,11 @@ export function BrutNetMaasHesaplayici() {
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span className="text-blue-700">Brüt Maaş:</span>
-                    <span className="font-bold">₺22.104</span>
+                    <span className="font-bold">₺26.005,50</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-blue-700">Net Maaş:</span>
-                    <span className="font-bold text-green-600">~₺17.002</span>
+                    <span className="font-bold text-green-600">~₺22.104,67</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-blue-700">Kesinti:</span>
