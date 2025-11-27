@@ -39,9 +39,20 @@ export default function Home() {
             <span className="text-sm font-semibold text-indigo-700">{activeToolsCount}+ {tCommon('slogan')}</span>
           </div>
           
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-indigo-900 to-slate-900">
-            {tCommon('appName')}
-          </h1>
+          <div className="flex flex-col items-center justify-center mb-4 sm:mb-6">
+            <div className="flex items-center justify-center gap-3 sm:gap-4">
+              <img 
+                src="/logo.png" 
+                alt="KolayHesapla Logo" 
+                className="h-14 w-14 sm:h-18 sm:w-18 lg:h-20 lg:w-20 object-contain"
+              />
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold">
+                <span className="text-purple-600">kolay</span>
+                <span className="text-indigo-500">hesapla</span>
+                <span className="text-purple-400">.org</span>
+              </h1>
+            </div>
+          </div>
           
           <p className="text-lg sm:text-xl lg:text-2xl text-slate-600 leading-relaxed mb-6">
             {t('description')}

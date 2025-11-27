@@ -4,7 +4,6 @@ import Link from "next/link"
 import { useLocale, useTranslations } from 'next-intl';
 import { CommandPalette } from "./command-palette"
 import { LanguageSwitcher } from "./language-switcher"
-import { Wrench } from "lucide-react"
 
 export function Header() {
   const locale = useLocale();
@@ -13,16 +12,19 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-slate-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 shadow-sm">
-      <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href={`/${locale}`} className="flex items-center gap-2 font-bold text-lg sm:text-xl text-slate-900 flex-shrink-0">
-          <div className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-indigo-600">
-            <Wrench className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+      <div className="container mx-auto flex h-16 max-w-7xl items-center px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center gap-3 sm:gap-4 flex-1">
+          <Link href={`/${locale}`} className="flex items-center flex-shrink-0">
+            <img 
+              src="/logo.png" 
+              alt="KolayHesapla Logo" 
+              className="h-10 w-10 sm:h-12 sm:w-12 object-contain"
+            />
+          </Link>
+          
+          <div className="flex-1 max-w-lg">
+            <CommandPalette />
           </div>
-          <span className="hidden sm:inline">{tCommon('appName')}</span>
-        </Link>
-        
-        <div className="flex-1 max-w-md mx-2 sm:mx-4">
-          <CommandPalette />
         </div>
 
         <nav className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
