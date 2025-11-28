@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Badge } from '@/components/ui/badge'
 import { 
   DollarSign, 
   Coins,
@@ -16,7 +17,10 @@ import {
   XCircle,
   Loader2,
   Calculator,
-  ArrowRightLeft
+  ArrowRightLeft,
+  Zap,
+  Clock,
+  AlertCircle
 } from 'lucide-react'
 
 const CURRENCIES = [
@@ -37,7 +41,9 @@ const CURRENCIES = [
 export default function AdminPricesPage() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState<string | null>(null)
+  const [autoUpdating, setAutoUpdating] = useState(false)
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
+  const [lastAutoUpdate, setLastAutoUpdate] = useState<{ date: string; source: string; autoUpdated: boolean } | null>(null)
 
   const [goldPrices, setGoldPrices] = useState({
     gram24: 0, gram22: 0, gram18: 0,
@@ -122,9 +128,41 @@ export default function AdminPricesPage() {
             silverGramPrice: data.zakat.silverGramPrice ?? prev.silverGramPrice,
           }))
         }
+        // Son güncelleme bilgisini al
+        if (data.currencyMeta) {
+          setLastAutoUpdate({
+            date: data.currencyMeta.lastUpdate,
+            source: data.currencyMeta.source || 'manual',
+            autoUpdated: data.currencyMeta.autoUpdated || false
+          })
+        }
       }
     } catch { setMessage({ type: 'error', text: 'Fiyatlar yüklenirken hata oluştu' }) }
     finally { setLoading(false) }
+  }
+
+  // Otomatik güncelleme tetikle
+  const handleAutoUpdate = async () => {
+    try {
+      setAutoUpdating(true)
+      const response = await fetch('/api/prices/update-currency', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      })
+      const result = await response.json()
+      if (result.success) {
+        setMessage({ type: 'success', text: 'Döviz kurları API\'den başarıyla güncellendi!' })
+        // Güncel verileri yeniden çek
+        await fetchPrices()
+      } else {
+        setMessage({ type: 'error', text: result.error || 'Otomatik güncelleme başarısız' })
+      }
+    } catch {
+      setMessage({ type: 'error', text: 'API bağlantı hatası' })
+    } finally {
+      setAutoUpdating(false)
+      setTimeout(() => setMessage(null), 3000)
+    }
   }
 
   const handleSave = async (type: 'gold' | 'currency' | 'zakat') => {
@@ -217,9 +255,68 @@ export default function AdminPricesPage() {
 
         <TabsContent value="currency">
           <div className="space-y-6">
+            {/* Otomatik Güncelleme Kartı */}
+            <Card className="border-2 border-cyan-200 bg-gradient-to-br from-cyan-50 to-sky-50">
+              <CardHeader>
+                <CardTitle className="text-cyan-900 flex items-center gap-2">
+                  <Zap className="h-5 w-5" />
+                  Otomatik Güncelleme
+                  <Badge variant="outline" className="ml-2 bg-cyan-100 text-cyan-700 border-cyan-300">
+                    CollectAPI
+                  </Badge>
+                </CardTitle>
+                <CardDescription>
+                  Döviz kurları her gün saat 10:00'da otomatik güncellenir.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {lastAutoUpdate && (
+                  <div className="flex items-center gap-4 p-3 bg-white rounded-lg border border-cyan-200">
+                    <Clock className="h-5 w-5 text-cyan-600" />
+                    <div className="flex-1">
+                      <p className="text-sm font-medium text-cyan-900">
+                        Son Güncelleme: {new Date(lastAutoUpdate.date).toLocaleString('tr-TR')}
+                      </p>
+                      <p className="text-xs text-cyan-600">
+                        Kaynak: {lastAutoUpdate.source === 'collectapi' ? 'CollectAPI (Otomatik)' : 'Manuel Giriş'}
+                      </p>
+                    </div>
+                    {lastAutoUpdate.autoUpdated ? (
+                      <Badge className="bg-green-100 text-green-700 border-green-300">
+                        <CheckCircle className="h-3 w-3 mr-1" />
+                        Otomatik
+                      </Badge>
+                    ) : (
+                      <Badge variant="outline" className="bg-slate-100 text-slate-600">
+                        Manuel
+                      </Badge>
+                    )}
+                  </div>
+                )}
+                <div className="flex items-center gap-3">
+                  <Button 
+                    onClick={handleAutoUpdate} 
+                    disabled={autoUpdating}
+                    className="bg-gradient-to-r from-cyan-600 to-sky-600 hover:from-cyan-700 hover:to-sky-700"
+                  >
+                    {autoUpdating ? (
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    ) : (
+                      <Zap className="h-4 w-4 mr-2" />
+                    )}
+                    API'den Şimdi Güncelle
+                  </Button>
+                  <p className="text-xs text-cyan-600 flex items-center gap-1">
+                    <AlertCircle className="h-3 w-3" />
+                    Aylık 60 istek limiti (otomatik: günlük 1)
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+
             <Card className="border-2 border-green-200 bg-gradient-to-br from-green-50 to-emerald-50">
               <CardHeader>
-                <CardTitle className="text-green-900 flex items-center gap-2"><DollarSign className="h-5 w-5" />USD Bazlı Kur Girişi</CardTitle>
+                <CardTitle className="text-green-900 flex items-center gap-2"><DollarSign className="h-5 w-5" />USD Bazlı Kur Girişi (Manuel)</CardTitle>
                 <CardDescription>1 USD = X para birimi şeklinde girin. Çapraz kurlar otomatik hesaplanır.</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -232,7 +329,7 @@ export default function AdminPricesPage() {
                   ))}
                 </div>
                 <Button onClick={() => handleSave('currency')} disabled={saving === 'currency'} className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700">
-                  {saving === 'currency' ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <Save className="h-4 w-4 mr-2" />}Döviz Kurlarını Kaydet
+                  {saving === 'currency' ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <Save className="h-4 w-4 mr-2" />}Manuel Kaydet
                 </Button>
               </CardContent>
             </Card>

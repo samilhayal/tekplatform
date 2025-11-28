@@ -37,11 +37,18 @@ export async function GET() {
       adminDb.collection('prices').doc('zakat').get()
     ])
 
+    const currencyData = currencyDoc.exists ? currencyDoc.data() : null
+
     return NextResponse.json({
       success: true,
       gold: goldDoc.exists ? goldDoc.data() : null,
-      usdRates: currencyDoc.exists ? currencyDoc.data()?.usdRates : null,
-      crossRates: currencyDoc.exists ? currencyDoc.data()?.crossRates : null,
+      usdRates: currencyData?.usdRates || null,
+      crossRates: currencyData?.crossRates || null,
+      currencyMeta: currencyData ? {
+        lastUpdate: currencyData.lastUpdate?.toDate?.()?.toISOString() || currencyData.lastUpdate,
+        source: currencyData.source || 'manual',
+        autoUpdated: currencyData.autoUpdated || false
+      } : null,
       zakat: zakatDoc.exists ? zakatDoc.data() : null
     })
   } catch (error) {
