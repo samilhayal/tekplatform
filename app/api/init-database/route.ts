@@ -484,10 +484,76 @@ export async function POST() {
   }
 }
 
+// PATCH - Sadece eksik araçları ekle (mevcut verileri değiştirmez)
+export async function PATCH() {
+  try {
+    const now = new Date()
+    
+    // Mevcut araçları al
+    const existingToolsSnapshot = await adminDb.collection('tools').get()
+    const existingToolIds = new Set(existingToolsSnapshot.docs.map(doc => doc.id))
+    
+    // Eksik araçları bul
+    const missingTools = tools.filter(tool => !existingToolIds.has(tool.id))
+    
+    if (missingTools.length === 0) {
+      return NextResponse.json({
+        success: true,
+        message: 'Tüm araçlar zaten mevcut',
+        added: 0,
+        total: tools.length
+      })
+    }
+    
+    // Eksik araçları ekle
+    const batch = adminDb.batch()
+    missingTools.forEach((tool, index) => {
+      const toolRef = adminDb.collection('tools').doc(tool.id)
+      batch.set(toolRef, {
+        id: tool.id,
+        title: tool.title,
+        description: tool.description,
+        category: tool.category,
+        icon: tool.icon,
+        href: tool.href,
+        keywords: tool.keywords,
+        isActive: true,
+        displayOrder: existingToolsSnapshot.size + index,
+        createdAt: now,
+        updatedAt: now
+      })
+    })
+    
+    await batch.commit()
+    
+    return NextResponse.json({
+      success: true,
+      message: `${missingTools.length} yeni araç eklendi`,
+      added: missingTools.length,
+      addedTools: missingTools.map(t => t.id),
+      total: tools.length
+    })
+  } catch (error) {
+    console.error('Error syncing tools:', error)
+    return NextResponse.json(
+      {
+        success: false,
+        error: 'Araçlar sync edilemedi',
+        details: error instanceof Error ? error.message : 'Bilinmeyen hata'
+      },
+      { status: 500 }
+    )
+  }
+}
+
 export async function GET() {
   return NextResponse.json({
     message: 'Veritabanını başlatmak için POST isteği gönderin',
     endpoint: '/api/init-database',
+    methods: {
+      POST: 'Tüm veritabanını sıfırdan başlat (mevcut verileri üzerine yazar)',
+      PATCH: 'Sadece eksik araçları ekle (mevcut verileri korur)'
+    },
     collections: [
       'tools - Tüm araçlar (aktif/pasif durumu)',
       'categories - Kategoriler (aktif/pasif durumu)',

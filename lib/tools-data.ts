@@ -318,6 +318,15 @@ export const tools: Tool[] = [
     href: '/tools/timezone-converter',
     keywords: ['saat', 'timezone', 'zaman', 'time', 'dilim']
   },
+  {
+    id: 'tarif-hesaplayici',
+    title: 'Tarif Hesaplayıcı',
+    description: 'Tariflerdeki malzeme miktarlarını kişi sayısına göre ayarlayın ve ölçü birimlerini dönüştürün',
+    category: 'Dönüştürücüler',
+    icon: 'ChefHat',
+    href: '/tools/tarif-hesaplayici',
+    keywords: ['tarif', 'recipe', 'malzeme', 'kişi sayısı', 'ölçü', 'bardak', 'kaşık', 'gram', 'mutfak', 'yemek']
+  },
 
   // Sağlık & Yaşam
   {
