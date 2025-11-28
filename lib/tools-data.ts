@@ -48,12 +48,12 @@ export const tools: Tool[] = [
   },
   {
     id: 'gold-calculator',
-    title: 'Altın Hesaplama',
-    description: 'Altın fiyatları, dönüşüm ve grafik analizi',
+    title: 'Altın/Gümüş Hesaplama',
+    description: 'Güncel altın ve gümüş fiyatları, alış-satış hesaplama',
     category: 'Finans & Matematik',
     icon: 'Coins',
     href: '/tools/gold-calculator',
-    keywords: ['altın', 'gold', 'gram', 'çeyrek', 'fiyat', 'değer']
+    keywords: ['altın', 'gümüş', 'gold', 'silver', 'gram', 'çeyrek', 'yarım', 'tam', 'cumhuriyet', 'ata', 'reşat', 'ons', 'fiyat', 'alış', 'satış']
   },
   {
     id: 'currency-converter',

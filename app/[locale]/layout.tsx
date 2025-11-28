@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     openGraph: {
       type: 'website',
-      locale: locale === 'tr' ? 'tr_TR' : 'en_US',
+      locale: 'tr_TR',
       url: 'https://kolayhesapla.org',
       siteName: 'Kolay Hesapla',
       title: t('defaultTitle'),
@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           url: '/og-image.png',
           width: 1200,
           height: 630,
-          alt: 'Kolay Hesapla - Free Online Tools',
+          alt: 'Kolay Hesapla - Ücretsiz Online Araçlar',
         }
       ],
     },
@@ -79,7 +79,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       canonical: 'https://kolayhesapla.org',
       languages: {
         'tr': 'https://kolayhesapla.org/tr',
-        'en': 'https://kolayhesapla.org/en',
       },
     },
   };
@@ -104,16 +103,14 @@ export default async function LocaleLayout({
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'Kolay Hesapla',
-    description: locale === 'tr' 
-      ? 'Türkiye\'nin en kapsamlı ücretsiz online araçlar platformu'
-      : 'Turkey\'s most comprehensive free online tools platform',
+    description: 'Türkiye\'nin en kapsamlı ücretsiz online araçlar platformu',
     url: 'https://kolayhesapla.org',
     potentialAction: {
       '@type': 'SearchAction',
       target: 'https://kolayhesapla.org/search?q={search_term_string}',
       'query-input': 'required name=search_term_string'
     },
-    inLanguage: locale === 'tr' ? 'tr-TR' : 'en-US',
+    inLanguage: 'tr-TR',
     publisher: {
       '@type': 'Organization',
       name: 'Kolay Hesapla',

@@ -89,8 +89,8 @@
       "description": "Bileşik faiz hesaplama ve yatırım getiri analizi"
     },
     "gold-calculator": {
-      "title": "Altın Hesaplama",
-      "description": "Altın fiyatları, dönüşüm ve grafik analizi"
+      "title": "Altın/Gümüş Hesaplama",
+      "description": "Güncel altın ve gümüş fiyatları, alış-satış hesaplama"
     },
     "currency-converter": {
       "title": "Güncel Döviz Kurları",

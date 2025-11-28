@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation';
 import { getRequestConfig } from 'next-intl/server';
 
-// Can be imported from a shared config
-export const locales = ['tr', 'en'] as const;
+// Sadece Türkçe destekleniyor
+export const locales = ['tr'] as const;
 export const defaultLocale = 'tr' as const;
 
 export default getRequestConfig(async ({ requestLocale }) => {

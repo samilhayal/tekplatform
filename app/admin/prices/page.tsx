@@ -1,376 +1,531 @@
-﻿'use client'
+'use client'
+
 
 import { useState, useEffect } from 'react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Button } from '@/components/ui/button'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Badge } from '@/components/ui/badge'
-import { 
-  DollarSign, 
-  Coins,
-  Banknote,
-  Save,
-  RefreshCw,
-  CheckCircle,
-  XCircle,
-  Loader2,
-  Calculator,
-  ArrowRightLeft,
-  Zap,
-  Clock,
-  AlertCircle
-} from 'lucide-react'
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Loader2, Save, RefreshCw, TrendingUp, TrendingDown, AlertCircle, CheckCircle2 } from 'lucide-react'
 
-const CURRENCIES = [
-  { code: 'TRY', name: 'Türk Lirası', symbol: '₺', flag: '' },
-  { code: 'USD', name: 'Amerikan Doları', symbol: '$', flag: '' },
-  { code: 'EUR', name: 'Euro', symbol: '€', flag: '' },
-  { code: 'GBP', name: 'İngiliz Sterlini', symbol: '£', flag: '' },
-  { code: 'CHF', name: 'İsviçre Frangı', symbol: 'CHF', flag: '' },
-  { code: 'JPY', name: 'Japon Yeni', symbol: '', flag: '' },
-  { code: 'SAR', name: 'Suudi Riyali', symbol: 'SR', flag: '' },
-  { code: 'AED', name: 'BAE Dirhemi', symbol: 'AED', flag: '' },
-  { code: 'CAD', name: 'Kanada Doları', symbol: 'C$', flag: '' },
-  { code: 'AUD', name: 'Avustralya Doları', symbol: 'A$', flag: '' },
-  { code: 'CNY', name: 'Çin Yuanı', symbol: '', flag: '' },
-  { code: 'RUB', name: 'Rus Rublesi', symbol: '', flag: '' },
+interface GoldPrice {
+  buying: number
+  selling: number
+}
+
+interface GoldPrices {
+  gramAltin: GoldPrice
+  bilezik22: GoldPrice
+  altin18: GoldPrice
+  altin14: GoldPrice
+  ceyrek: GoldPrice
+  yarim: GoldPrice
+  tam: GoldPrice
+  cumhuriyet: GoldPrice
+  ata: GoldPrice
+  gumus: GoldPrice
+}
+
+interface CurrencyPrices {
+  USD: number
+  EUR: number
+  GBP: number
+  lastUpdate?: string
+  autoUpdate?: boolean
+  updateInterval?: number
+}
+
+interface ZakatPrices {
+  goldPrice: number
+  silverPrice: number
+  nisab: number
+  lastUpdate?: string
+}
+
+const goldTypeNames: Record<keyof GoldPrices, string> = {
+  gramAltin: 'Gram Altin (24 Ayar)',
+  bilezik22: '22 Ayar Bilezik',
+  altin18: '18 Ayar Altin',
+  altin14: '14 Ayar Altin',
+  ceyrek: 'Ceyrek Altin',
+  yarim: 'Yarim Altin',
+  tam: 'Tam Altin',
+  cumhuriyet: 'Cumhuriyet Altini',
+  ata: 'Ata Altin',
+  gumus: 'Gumus (1 Gram)'
+}
+
+const goldCategories = [
+  { title: 'Gram Altin', keys: ['gramAltin'] as const },
+  { title: 'Ayar Altinlar', keys: ['bilezik22', 'altin18', 'altin14'] as const },
+  { title: 'Ziynet Altinlari', keys: ['ceyrek', 'yarim', 'tam'] as const },
+  { title: 'Ozel Altinlar', keys: ['cumhuriyet', 'ata'] as const },
+  { title: 'Gumus', keys: ['gumus'] as const }
 ]
 
+function GoldPriceInput({ 
+  goldType, 
+  price, 
+  onChange 
+}: { 
+  goldType: keyof GoldPrices
+  price: GoldPrice
+  onChange: (goldType: keyof GoldPrices, field: 'buying' | 'selling', value: number) => void 
+}) {
+  const spread = price.selling > 0 ? ((price.selling - price.buying) / price.selling * 100).toFixed(2) : '0'
+  
+  return (
+    <div className="p-4 border rounded-lg bg-background/50">
+      <div className="flex items-center justify-between mb-3">
+        <h4 className="font-medium text-sm">{goldTypeNames[goldType]}</h4>
+        <span className="text-xs text-muted-foreground">
+          Fark: %{spread}
+        </span>
+      </div>
+      <div className="grid grid-cols-2 gap-3">
+        <div>
+          <Label className="text-xs text-green-600 flex items-center gap-1">
+            <TrendingDown className="h-3 w-3" />
+            Alis (TL)
+          </Label>
+          <Input
+            type="number"
+            step="0.01"
+            value={price.buying || ''}
+            onChange={(e) => onChange(goldType, 'buying', parseFloat(e.target.value) || 0)}
+            className="mt-1"
+            placeholder="0.00"
+          />
+        </div>
+        <div>
+          <Label className="text-xs text-red-600 flex items-center gap-1">
+            <TrendingUp className="h-3 w-3" />
+            Satis (TL)
+          </Label>
+          <Input
+            type="number"
+            step="0.01"
+            value={price.selling || ''}
+            onChange={(e) => onChange(goldType, 'selling', parseFloat(e.target.value) || 0)}
+            className="mt-1"
+            placeholder="0.00"
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function AdminPricesPage() {
-  const [loading, setLoading] = useState(true)
-  const [saving, setSaving] = useState<string | null>(null)
+  const [loading, setLoading] = useState(false)
+  const [saving, setSaving] = useState(false)
   const [autoUpdating, setAutoUpdating] = useState(false)
-  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
-  const [lastAutoUpdate, setLastAutoUpdate] = useState<{ date: string; source: string; autoUpdated: boolean } | null>(null)
+  const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null)
+  const [lastUpdate, setLastUpdate] = useState<string>('')
 
-  const [goldPrices, setGoldPrices] = useState({
-    gram24: 0, gram22: 0, gram18: 0,
-    ceyrek: 0, yarim: 0, tam: 0,
-    cumhuriyet: 0, ata: 0, resat: 0, onsUsd: 0,
+  const [goldPrices, setGoldPrices] = useState<GoldPrices>({
+    gramAltin: { buying: 0, selling: 0 },
+    bilezik22: { buying: 0, selling: 0 },
+    altin18: { buying: 0, selling: 0 },
+    altin14: { buying: 0, selling: 0 },
+    ceyrek: { buying: 0, selling: 0 },
+    yarim: { buying: 0, selling: 0 },
+    tam: { buying: 0, selling: 0 },
+    cumhuriyet: { buying: 0, selling: 0 },
+    ata: { buying: 0, selling: 0 },
+    gumus: { buying: 0, selling: 0 },
   })
 
-  const [usdRates, setUsdRates] = useState<Record<string, number>>({
-    TRY: 34.50, EUR: 0.92, GBP: 0.79, CHF: 0.88,
-    JPY: 149.50, SAR: 3.75, AED: 3.67, CAD: 1.36,
-    AUD: 1.53, CNY: 7.24, RUB: 92.50,
+  const [currencyPrices, setCurrencyPrices] = useState<CurrencyPrices>({
+    USD: 0,
+    EUR: 0,
+    GBP: 0,
+    autoUpdate: false,
+    updateInterval: 60
   })
 
-  const [zakatSettings, setZakatSettings] = useState({
-    goldGramPrice: 0, silverGramPrice: 0,
+  const [zakatPrices, setZakatPrices] = useState<ZakatPrices>({
+    goldPrice: 0,
+    silverPrice: 0,
+    nisab: 0
   })
 
-  const [crossRates, setCrossRates] = useState<Record<string, Record<string, number>>>({})
-
-  useEffect(() => { fetchPrices() }, [])
-  useEffect(() => { calculateCrossRates() }, [usdRates])
-
-  const calculateCrossRates = () => {
-    const rates: Record<string, Record<string, number>> = {}
-    CURRENCIES.forEach(from => {
-      rates[from.code] = {}
-      CURRENCIES.forEach(to => {
-        if (from.code === to.code) {
-          rates[from.code][to.code] = 1
-        } else if (from.code === 'USD') {
-          rates[from.code][to.code] = usdRates[to.code] || 0
-        } else if (to.code === 'USD') {
-          rates[from.code][to.code] = usdRates[from.code] ? 1 / usdRates[from.code] : 0
-        } else {
-          const fromToUsd = usdRates[from.code] ? 1 / usdRates[from.code] : 0
-          const usdToTarget = usdRates[to.code] || 0
-          rates[from.code][to.code] = fromToUsd * usdToTarget
-        }
-      })
-    })
-    setCrossRates(rates)
-  }
+  useEffect(() => {
+    fetchPrices()
+  }, [])
 
   const fetchPrices = async () => {
+    setLoading(true)
     try {
-      setLoading(true)
-      const response = await fetch('/api/admin/prices')
-      const data = await response.json()
-      if (data.success) {
-        if (data.gold) {
-          setGoldPrices(prev => ({
-            gram24: data.gold.gram24 ?? prev.gram24,
-            gram22: data.gold.gram22 ?? prev.gram22,
-            gram18: data.gold.gram18 ?? prev.gram18,
-            ceyrek: data.gold.ceyrek ?? prev.ceyrek,
-            yarim: data.gold.yarim ?? prev.yarim,
-            tam: data.gold.tam ?? prev.tam,
-            cumhuriyet: data.gold.cumhuriyet ?? prev.cumhuriyet,
-            ata: data.gold.ata ?? prev.ata,
-            resat: data.gold.resat ?? prev.resat,
-            onsUsd: data.gold.onsUsd ?? prev.onsUsd,
-          }))
-        }
-        if (data.usdRates) {
-          setUsdRates(prev => ({
-            TRY: data.usdRates.TRY ?? prev.TRY,
-            EUR: data.usdRates.EUR ?? prev.EUR,
-            GBP: data.usdRates.GBP ?? prev.GBP,
-            CHF: data.usdRates.CHF ?? prev.CHF,
-            JPY: data.usdRates.JPY ?? prev.JPY,
-            SAR: data.usdRates.SAR ?? prev.SAR,
-            AED: data.usdRates.AED ?? prev.AED,
-            CAD: data.usdRates.CAD ?? prev.CAD,
-            AUD: data.usdRates.AUD ?? prev.AUD,
-            CNY: data.usdRates.CNY ?? prev.CNY,
-            RUB: data.usdRates.RUB ?? prev.RUB,
-          }))
-        }
-        if (data.zakat) {
-          setZakatSettings(prev => ({
-            goldGramPrice: data.zakat.goldGramPrice ?? prev.goldGramPrice,
-            silverGramPrice: data.zakat.silverGramPrice ?? prev.silverGramPrice,
-          }))
-        }
-        // Son güncelleme bilgisini al
-        if (data.currencyMeta) {
-          setLastAutoUpdate({
-            date: data.currencyMeta.lastUpdate,
-            source: data.currencyMeta.source || 'manual',
-            autoUpdated: data.currencyMeta.autoUpdated || false
-          })
-        }
-      }
-    } catch { setMessage({ type: 'error', text: 'Fiyatlar yüklenirken hata oluştu' }) }
-    finally { setLoading(false) }
-  }
+      const [goldRes, currencyRes, zakatRes] = await Promise.all([
+        fetch('/api/prices?type=gold'),
+        fetch('/api/prices?type=currency'),
+        fetch('/api/prices?type=zakat')
+      ])
 
-  // Otomatik güncelleme tetikle
-  const handleAutoUpdate = async () => {
-    try {
-      setAutoUpdating(true)
-      const response = await fetch('/api/prices/update-currency', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' }
-      })
-      const result = await response.json()
-      if (result.success) {
-        setMessage({ type: 'success', text: 'Döviz kurları API\'den başarıyla güncellendi!' })
-        // Güncel verileri yeniden çek
-        await fetchPrices()
-      } else {
-        setMessage({ type: 'error', text: result.error || 'Otomatik güncelleme başarısız' })
+      if (goldRes.ok) {
+        const goldData = await goldRes.json()
+        if (goldData.data) {
+          setGoldPrices(prev => ({ ...prev, ...goldData.data }))
+          if (goldData.data.lastUpdate) {
+            setLastUpdate(new Date(goldData.data.lastUpdate).toLocaleString('tr-TR'))
+          }
+        }
       }
-    } catch {
-      setMessage({ type: 'error', text: 'API bağlantı hatası' })
+
+      if (currencyRes.ok) {
+        const currencyData = await currencyRes.json()
+        if (currencyData.data) {
+          setCurrencyPrices(prev => ({ ...prev, ...currencyData.data }))
+        }
+      }
+
+      if (zakatRes.ok) {
+        const zakatData = await zakatRes.json()
+        if (zakatData.data) {
+          setZakatPrices(prev => ({ ...prev, ...zakatData.data }))
+        }
+      }
+    } catch (error) {
+      console.error('Fiyatlar yuklenirken hata:', error)
+      setMessage({ type: 'error', text: 'Fiyatlar yuklenirken hata olustu' })
     } finally {
-      setAutoUpdating(false)
-      setTimeout(() => setMessage(null), 3000)
+      setLoading(false)
     }
   }
 
-  const handleSave = async (type: 'gold' | 'currency' | 'zakat') => {
+  const handleGoldPriceChange = (goldType: keyof GoldPrices, field: 'buying' | 'selling', value: number) => {
+    setGoldPrices(prev => ({
+      ...prev,
+      [goldType]: { ...prev[goldType], [field]: value }
+    }))
+  }
+
+  const handleCurrencyChange = (currency: 'USD' | 'EUR' | 'GBP', value: number) => {
+    setCurrencyPrices(prev => ({ ...prev, [currency]: value }))
+  }
+
+  const handleZakatChange = (field: keyof ZakatPrices, value: number) => {
+    setZakatPrices(prev => ({ ...prev, [field]: value }))
+  }
+
+  const handleSave = async (priceType: 'gold' | 'currency' | 'zakat') => {
+    setSaving(true)
+    setMessage(null)
+
     try {
-      setSaving(type)
-      const payload: Record<string, unknown> = { type }
-      if (type === 'gold') payload.data = goldPrices
-      else if (type === 'currency') payload.data = { usdRates, crossRates, lastUpdate: new Date().toISOString() }
-      else payload.data = zakatSettings
+      let data: Record<string, unknown> = {}
       
+      if (priceType === 'gold') {
+        data = { ...goldPrices, lastUpdate: new Date().toISOString() }
+      } else if (priceType === 'currency') {
+        data = { ...currencyPrices, lastUpdate: new Date().toISOString() }
+      } else if (priceType === 'zakat') {
+        data = { ...zakatPrices, lastUpdate: new Date().toISOString() }
+      }
+
       const response = await fetch('/api/admin/prices', {
-        method: 'PUT',
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({ type: priceType, data })
       })
-      const result = await response.json()
-      if (result.success) {
-        setMessage({ type: 'success', text: `${type === 'gold' ? 'Altın fiyatları' : type === 'currency' ? 'Döviz kurları' : 'Zekat ayarları'} güncellendi!` })
-      } else { setMessage({ type: 'error', text: result.error || 'Güncelleme başarısız' }) }
-    } catch { setMessage({ type: 'error', text: 'Kaydetme sırasında hata oluştu' }) }
-    finally { setSaving(null); setTimeout(() => setMessage(null), 3000) }
+
+      if (response.ok) {
+        setMessage({ type: 'success', text: 'Fiyatlar basariyla kaydedildi!' })
+        setLastUpdate(new Date().toLocaleString('tr-TR'))
+      } else {
+        const error = await response.json()
+        setMessage({ type: 'error', text: error.error || 'Kaydetme hatasi' })
+      }
+    } catch (error) {
+      console.error('Kaydetme hatasi:', error)
+      setMessage({ type: 'error', text: 'Fiyatlar kaydedilemedi' })
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const handleAutoUpdate = async (priceType: 'gold' | 'currency') => {
+    setAutoUpdating(true)
+    setMessage(null)
+
+    try {
+      const response = await fetch('/api/admin/prices/auto-update?type=' + priceType, {
+        method: 'POST'
+      })
+
+      if (response.ok) {
+        const result = await response.json()
+        
+        if (priceType === 'gold' && result.data) {
+          setGoldPrices(prev => ({ ...prev, ...result.data }))
+        } else if (priceType === 'currency' && result.data) {
+          setCurrencyPrices(prev => ({ ...prev, ...result.data }))
+        }
+        
+        const typeName = priceType === 'gold' ? 'Altin' : 'Doviz'
+        setMessage({ type: 'success', text: typeName + ' fiyatlari guncellendi!' })
+        setLastUpdate(new Date().toLocaleString('tr-TR'))
+      } else {
+        const error = await response.json()
+        setMessage({ type: 'error', text: error.error || 'API guncelleme hatasi' })
+      }
+    } catch (error) {
+      console.error('Auto update hatasi:', error)
+      setMessage({ type: 'error', text: 'Otomatik guncelleme basarisiz' })
+    } finally {
+      setAutoUpdating(false)
+    }
   }
 
   if (loading) {
-    return <div className="flex justify-center items-center min-h-[400px]"><Loader2 className="h-8 w-8 animate-spin text-purple-600" /></div>
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    )
   }
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+      <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900 flex items-center gap-3">
-            <Coins className="h-8 w-8 text-amber-600" />Fiyat Yönetimi
-          </h1>
-          <p className="text-slate-600 mt-1">Altın, döviz kurları ve zekat hesaplama ayarları</p>
+          <h1 className="text-3xl font-bold">Fiyat Yonetimi</h1>
+          <p className="text-muted-foreground">
+            Altin, doviz ve zekat fiyatlarini yonetin
+          </p>
         </div>
-        <Button onClick={fetchPrices} variant="outline"><RefreshCw className="h-4 w-4 mr-2" />Yenile</Button>
+        {lastUpdate && (
+          <div className="text-sm text-muted-foreground">
+            Son guncelleme: {lastUpdate}
+          </div>
+        )}
       </div>
 
       {message && (
-        <div className={`p-4 rounded-lg flex items-center gap-3 ${message.type === 'success' ? 'bg-green-50 text-green-800 border border-green-200' : 'bg-red-50 text-red-800 border border-red-200'}`}>
-          {message.type === 'success' ? <CheckCircle className="h-5 w-5" /> : <XCircle className="h-5 w-5" />}
-          {message.text}
-        </div>
+        <Alert variant={message.type === 'error' ? 'destructive' : 'default'}>
+          {message.type === 'error' ? (
+            <AlertCircle className="h-4 w-4" />
+          ) : (
+            <CheckCircle2 className="h-4 w-4" />
+          )}
+          <AlertDescription>{message.text}</AlertDescription>
+        </Alert>
       )}
 
       <Tabs defaultValue="gold" className="space-y-6">
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="gold" className="flex items-center gap-2"><Coins className="h-4 w-4" />Altın</TabsTrigger>
-          <TabsTrigger value="currency" className="flex items-center gap-2"><Banknote className="h-4 w-4" />Döviz</TabsTrigger>
-          <TabsTrigger value="zakat" className="flex items-center gap-2"><DollarSign className="h-4 w-4" />Zekat</TabsTrigger>
+          <TabsTrigger value="gold">Altin/Gumus</TabsTrigger>
+          <TabsTrigger value="currency">Doviz</TabsTrigger>
+          <TabsTrigger value="zakat">Zekat</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="gold">
-          <Card className="border-2 border-amber-200 bg-gradient-to-br from-amber-50 to-yellow-50">
+        <TabsContent value="gold" className="space-y-6">
+          <Card>
             <CardHeader>
-              <CardTitle className="text-amber-900 flex items-center gap-2"><Coins className="h-5 w-5" />Altın Fiyatları</CardTitle>
-              <CardDescription>Altın Hesaplama aracı için güncel fiyatlar (₺)</CardDescription>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle>Altin ve Gumus Fiyatlari</CardTitle>
+                  <CardDescription>
+                    12 farkli altin ve gumus turu icin alis-satis fiyatlarini yonetin
+                  </CardDescription>
+                </div>
+                <div className="flex gap-2">
+                  <Button
+                    variant="outline"
+                    onClick={() => handleAutoUpdate('gold')}
+                    disabled={autoUpdating}
+                  >
+                    {autoUpdating ? (
+                      <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                    ) : (
+                      <RefreshCw className="h-4 w-4 mr-2" />
+                    )}
+                    API den Guncelle
+                  </Button>
+                  <Button
+                    onClick={() => handleSave('gold')}
+                    disabled={saving}
+                  >
+                    {saving ? (
+                      <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                    ) : (
+                      <Save className="h-4 w-4 mr-2" />
+                    )}
+                    Kaydet
+                  </Button>
+                </div>
+              </div>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div>
-                <h3 className="font-semibold text-amber-800 mb-3">Gram Altın Fiyatları</h3>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  <div className="space-y-2"><Label>24 Ayar Gram (₺)</Label><Input type="number" step="0.01" value={goldPrices.gram24} onChange={(e) => setGoldPrices({...goldPrices, gram24: parseFloat(e.target.value) || 0})} className="h-12 text-lg font-semibold" /></div>
-                  <div className="space-y-2"><Label>22 Ayar Gram (₺)</Label><Input type="number" step="0.01" value={goldPrices.gram22} onChange={(e) => setGoldPrices({...goldPrices, gram22: parseFloat(e.target.value) || 0})} className="h-12 text-lg font-semibold" /></div>
-                  <div className="space-y-2"><Label>18 Ayar Gram (₺)</Label><Input type="number" step="0.01" value={goldPrices.gram18} onChange={(e) => setGoldPrices({...goldPrices, gram18: parseFloat(e.target.value) || 0})} className="h-12 text-lg font-semibold" /></div>
+              {goldCategories.map((category) => (
+                <div key={category.title} className="space-y-3">
+                  <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide">
+                    {category.title}
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {category.keys.map((key) => (
+                      <GoldPriceInput
+                        key={key}
+                        goldType={key}
+                        price={goldPrices[key]}
+                        onChange={handleGoldPriceChange}
+                      />
+                    ))}
+                  </div>
                 </div>
-              </div>
-              <div>
-                <h3 className="font-semibold text-amber-800 mb-3">Ziynet Altın</h3>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  <div className="space-y-2"><Label>Çeyrek (₺)</Label><Input type="number" step="0.01" value={goldPrices.ceyrek} onChange={(e) => setGoldPrices({...goldPrices, ceyrek: parseFloat(e.target.value) || 0})} className="h-12 text-lg font-semibold" /></div>
-                  <div className="space-y-2"><Label>Yarım (₺)</Label><Input type="number" step="0.01" value={goldPrices.yarim} onChange={(e) => setGoldPrices({...goldPrices, yarim: parseFloat(e.target.value) || 0})} className="h-12 text-lg font-semibold" /></div>
-                  <div className="space-y-2"><Label>Tam (₺)</Label><Input type="number" step="0.01" value={goldPrices.tam} onChange={(e) => setGoldPrices({...goldPrices, tam: parseFloat(e.target.value) || 0})} className="h-12 text-lg font-semibold" /></div>
-                  <div className="space-y-2"><Label>Cumhuriyet (₺)</Label><Input type="number" step="0.01" value={goldPrices.cumhuriyet} onChange={(e) => setGoldPrices({...goldPrices, cumhuriyet: parseFloat(e.target.value) || 0})} className="h-12 text-lg font-semibold" /></div>
-                  <div className="space-y-2"><Label>Ata (₺)</Label><Input type="number" step="0.01" value={goldPrices.ata} onChange={(e) => setGoldPrices({...goldPrices, ata: parseFloat(e.target.value) || 0})} className="h-12 text-lg font-semibold" /></div>
-                  <div className="space-y-2"><Label>Reşat (₺)</Label><Input type="number" step="0.01" value={goldPrices.resat} onChange={(e) => setGoldPrices({...goldPrices, resat: parseFloat(e.target.value) || 0})} className="h-12 text-lg font-semibold" /></div>
-                </div>
-              </div>
-              <div>
-                <h3 className="font-semibold text-amber-800 mb-3">Uluslararası</h3>
-                <div className="space-y-2 w-48"><Label>Ons Altın (USD)</Label><Input type="number" step="0.01" value={goldPrices.onsUsd} onChange={(e) => setGoldPrices({...goldPrices, onsUsd: parseFloat(e.target.value) || 0})} className="h-12 text-lg font-semibold" /></div>
-              </div>
-              <Button onClick={() => handleSave('gold')} disabled={saving === 'gold'} className="bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-700 hover:to-yellow-700">
-                {saving === 'gold' ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <Save className="h-4 w-4 mr-2" />}Altın Fiyatlarını Kaydet
-              </Button>
+              ))}
             </CardContent>
           </Card>
         </TabsContent>
 
-        <TabsContent value="currency">
-          <div className="space-y-6">
-            {/* Otomatik Güncelleme Kartı */}
-            <Card className="border-2 border-cyan-200 bg-gradient-to-br from-cyan-50 to-sky-50">
-              <CardHeader>
-                <CardTitle className="text-cyan-900 flex items-center gap-2">
-                  <Zap className="h-5 w-5" />
-                  Otomatik Güncelleme
-                  <Badge variant="outline" className="ml-2 bg-cyan-100 text-cyan-700 border-cyan-300">
-                    CollectAPI
-                  </Badge>
-                </CardTitle>
-                <CardDescription>
-                  Döviz kurları her gün saat 10:00'da otomatik güncellenir.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {lastAutoUpdate && (
-                  <div className="flex items-center gap-4 p-3 bg-white rounded-lg border border-cyan-200">
-                    <Clock className="h-5 w-5 text-cyan-600" />
-                    <div className="flex-1">
-                      <p className="text-sm font-medium text-cyan-900">
-                        Son Güncelleme: {new Date(lastAutoUpdate.date).toLocaleString('tr-TR')}
-                      </p>
-                      <p className="text-xs text-cyan-600">
-                        Kaynak: {lastAutoUpdate.source === 'collectapi' ? 'CollectAPI (Otomatik)' : 'Manuel Giriş'}
-                      </p>
-                    </div>
-                    {lastAutoUpdate.autoUpdated ? (
-                      <Badge className="bg-green-100 text-green-700 border-green-300">
-                        <CheckCircle className="h-3 w-3 mr-1" />
-                        Otomatik
-                      </Badge>
-                    ) : (
-                      <Badge variant="outline" className="bg-slate-100 text-slate-600">
-                        Manuel
-                      </Badge>
-                    )}
-                  </div>
-                )}
-                <div className="flex items-center gap-3">
-                  <Button 
-                    onClick={handleAutoUpdate} 
+        <TabsContent value="currency" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle>Doviz Kurlari</CardTitle>
+                  <CardDescription>
+                    USD, EUR ve GBP kurlarini yonetin
+                  </CardDescription>
+                </div>
+                <div className="flex gap-2">
+                  <Button
+                    variant="outline"
+                    onClick={() => handleAutoUpdate('currency')}
                     disabled={autoUpdating}
-                    className="bg-gradient-to-r from-cyan-600 to-sky-600 hover:from-cyan-700 hover:to-sky-700"
                   >
                     {autoUpdating ? (
-                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                      <Loader2 className="h-4 w-4 animate-spin mr-2" />
                     ) : (
-                      <Zap className="h-4 w-4 mr-2" />
+                      <RefreshCw className="h-4 w-4 mr-2" />
                     )}
-                    API'den Şimdi Güncelle
+                    API den Guncelle
                   </Button>
-                  <p className="text-xs text-cyan-600 flex items-center gap-1">
-                    <AlertCircle className="h-3 w-3" />
-                    Aylık 60 istek limiti (otomatik: günlük 1)
-                  </p>
+                  <Button
+                    onClick={() => handleSave('currency')}
+                    disabled={saving}
+                  >
+                    {saving ? (
+                      <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                    ) : (
+                      <Save className="h-4 w-4 mr-2" />
+                    )}
+                    Kaydet
+                  </Button>
                 </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 border-green-200 bg-gradient-to-br from-green-50 to-emerald-50">
-              <CardHeader>
-                <CardTitle className="text-green-900 flex items-center gap-2"><DollarSign className="h-5 w-5" />USD Bazlı Kur Girişi (Manuel)</CardTitle>
-                <CardDescription>1 USD = X para birimi şeklinde girin. Çapraz kurlar otomatik hesaplanır.</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                  {CURRENCIES.filter(c => c.code !== 'USD').map(currency => (
-                    <div key={currency.code} className="space-y-2">
-                      <Label className="flex items-center gap-2"><span>{currency.flag}</span>1 USD = ? {currency.code}</Label>
-                      <Input type="number" step="0.0001" value={usdRates[currency.code] ?? 0} onChange={(e) => setUsdRates({...usdRates, [currency.code]: parseFloat(e.target.value) || 0})} className="h-12 text-lg font-semibold" />
-                    </div>
-                  ))}
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="usd">USD (Amerikan Dolari)</Label>
+                  <Input
+                    id="usd"
+                    type="number"
+                    step="0.0001"
+                    value={currencyPrices.USD || ''}
+                    onChange={(e) => handleCurrencyChange('USD', parseFloat(e.target.value) || 0)}
+                    placeholder="0.0000"
+                  />
                 </div>
-                <Button onClick={() => handleSave('currency')} disabled={saving === 'currency'} className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700">
-                  {saving === 'currency' ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <Save className="h-4 w-4 mr-2" />}Manuel Kaydet
-                </Button>
-              </CardContent>
-            </Card>
-            <Card className="border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-indigo-50">
-              <CardHeader>
-                <CardTitle className="text-blue-900 flex items-center gap-2"><ArrowRightLeft className="h-5 w-5" />Otomatik Hesaplanan Çapraz Kurlar</CardTitle>
-                <CardDescription>USD kurlarına göre otomatik hesaplanan değerler</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-sm">
-                    <thead><tr className="border-b-2 border-blue-200"><th className="text-left p-2 font-semibold text-blue-900">From / To</th>{CURRENCIES.slice(0, 6).map(c => (<th key={c.code} className="text-center p-2 font-semibold text-blue-900">{c.flag} {c.code}</th>))}</tr></thead>
-                    <tbody>{CURRENCIES.slice(0, 6).map(from => (<tr key={from.code} className="border-b border-blue-100"><td className="p-2 font-semibold text-blue-800">{from.flag} {from.code}</td>{CURRENCIES.slice(0, 6).map(to => (<td key={to.code} className="text-center p-2">{from.code === to.code ? <span className="text-slate-400">1.0000</span> : <span className="font-mono text-blue-700">{crossRates[from.code]?.[to.code]?.toFixed(4) || '-'}</span>}</td>))}</tr>))}</tbody>
-                  </table>
+                <div className="space-y-2">
+                  <Label htmlFor="eur">EUR (Euro)</Label>
+                  <Input
+                    id="eur"
+                    type="number"
+                    step="0.0001"
+                    value={currencyPrices.EUR || ''}
+                    onChange={(e) => handleCurrencyChange('EUR', parseFloat(e.target.value) || 0)}
+                    placeholder="0.0000"
+                  />
                 </div>
-              </CardContent>
-            </Card>
-          </div>
+                <div className="space-y-2">
+                  <Label htmlFor="gbp">GBP (Ingiliz Sterlini)</Label>
+                  <Input
+                    id="gbp"
+                    type="number"
+                    step="0.0001"
+                    value={currencyPrices.GBP || ''}
+                    onChange={(e) => handleCurrencyChange('GBP', parseFloat(e.target.value) || 0)}
+                    placeholder="0.0000"
+                  />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </TabsContent>
 
-        <TabsContent value="zakat">
-          <Card className="border-2 border-purple-200 bg-gradient-to-br from-purple-50 to-violet-50">
+        <TabsContent value="zakat" className="space-y-6">
+          <Card>
             <CardHeader>
-              <CardTitle className="text-purple-900 flex items-center gap-2"><Calculator className="h-5 w-5" />Zekat Hesaplama Ayarları</CardTitle>
-              <CardDescription>Zekat hesaplama için altın ve gümüş gram fiyatları</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2"><Label>Altın Gram Fiyatı (₺)</Label><Input type="number" step="0.01" value={zakatSettings.goldGramPrice} onChange={(e) => setZakatSettings({...zakatSettings, goldGramPrice: parseFloat(e.target.value) || 0})} className="h-12 text-lg font-semibold" /><p className="text-xs text-slate-500">24 ayar altın gram fiyatı</p></div>
-                <div className="space-y-2"><Label>Gümüş Gram Fiyatı (₺)</Label><Input type="number" step="0.01" value={zakatSettings.silverGramPrice} onChange={(e) => setZakatSettings({...zakatSettings, silverGramPrice: parseFloat(e.target.value) || 0})} className="h-12 text-lg font-semibold" /></div>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle>Zekat Hesaplama Fiyatlari</CardTitle>
+                  <CardDescription>
+                    Zekat hesaplamasi icin kullanilan degerleri yonetin
+                  </CardDescription>
+                </div>
+                <Button
+                  onClick={() => handleSave('zakat')}
+                  disabled={saving}
+                >
+                  {saving ? (
+                    <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                  ) : (
+                    <Save className="h-4 w-4 mr-2" />
+                  )}
+                  Kaydet
+                </Button>
               </div>
-              <div className="bg-purple-100 border-2 border-purple-300 rounded-lg p-4 space-y-3">
-                <h4 className="font-semibold text-purple-900">Otomatik Hesaplanan Nisap Değerleri</h4>
-                <div className="grid grid-cols-2 gap-4 text-sm">
-                  <div><span className="text-purple-700">Altın Nisabı (85 gram):</span><span className="font-bold text-purple-900 ml-2">{(zakatSettings.goldGramPrice * 85).toLocaleString('tr-TR')} ₺</span></div>
-                  <div><span className="text-purple-700">Gümüş Nisabı (595 gram):</span><span className="font-bold text-purple-900 ml-2">{(zakatSettings.silverGramPrice * 595).toLocaleString('tr-TR')} ₺</span></div>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="goldPrice">Altin Fiyati (TL/gram)</Label>
+                  <Input
+                    id="goldPrice"
+                    type="number"
+                    step="0.01"
+                    value={zakatPrices.goldPrice || ''}
+                    onChange={(e) => handleZakatChange('goldPrice', parseFloat(e.target.value) || 0)}
+                    placeholder="0.00"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    24 ayar gram altin fiyati
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="silverPrice">Gumus Fiyati (TL/gram)</Label>
+                  <Input
+                    id="silverPrice"
+                    type="number"
+                    step="0.01"
+                    value={zakatPrices.silverPrice || ''}
+                    onChange={(e) => handleZakatChange('silverPrice', parseFloat(e.target.value) || 0)}
+                    placeholder="0.00"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Saf gumus fiyati
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="nisab">Nisab Miktari (gram altin)</Label>
+                  <Input
+                    id="nisab"
+                    type="number"
+                    step="0.01"
+                    value={zakatPrices.nisab || ''}
+                    onChange={(e) => handleZakatChange('nisab', parseFloat(e.target.value) || 0)}
+                    placeholder="80.18"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Standart: 80.18 gram altin
+                  </p>
                 </div>
               </div>
-              <Button onClick={() => handleSave('zakat')} disabled={saving === 'zakat'} className="bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-700 hover:to-violet-700">
-                {saving === 'zakat' ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <Save className="h-4 w-4 mr-2" />}Zekat Ayarlarını Kaydet
-              </Button>
             </CardContent>
           </Card>
         </TabsContent>

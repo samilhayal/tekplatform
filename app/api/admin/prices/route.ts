@@ -60,8 +60,8 @@ export async function GET() {
   }
 }
 
-// PUT - Fiyatları güncelle
-export async function PUT(request: Request) {
+// POST - Fiyatları güncelle (Admin panel tarafından kullanılır)
+export async function POST(request: Request) {
   try {
     const { type, data } = await request.json()
     
@@ -69,17 +69,18 @@ export async function PUT(request: Request) {
     
     if (type === 'currency') {
       // Döviz için özel işlem: Çapraz kurları hesapla
-      const usdRates = data.usdRates
+      const usdRates = data.usdRates || { TRY: data.USD ? 1 / data.USD : 0 }
       const crossRates = calculateAllCrossRates(usdRates)
       
       await docRef.set({
+        ...data,
         usdRates,
         crossRates,
         lastUpdate: new Date(),
         updatedAt: new Date()
       })
     } else {
-      // Diğer türler için normal güncelleme
+      // Altın ve diğer türler için normal güncelleme
       await docRef.set({
         ...data,
         lastUpdate: new Date(),
@@ -98,4 +99,9 @@ export async function PUT(request: Request) {
       { status: 500 }
     )
   }
+}
+
+// PUT - Fiyatları güncelle (Eski endpoint, geriye uyumluluk için)
+export async function PUT(request: Request) {
+  return POST(request)
 }

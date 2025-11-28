@@ -2,10 +2,10 @@ import createMiddleware from 'next-intl/middleware';
 import { locales, defaultLocale } from './i18n';
 
 export default createMiddleware({
-  // A list of all locales that are supported
+  // Sadece Türkçe destekleniyor
   locales,
 
-  // Used when no locale matches
+  // Varsayılan dil Türkçe
   defaultLocale,
 
   // Don't redirect if locale is in pathname
@@ -15,5 +15,5 @@ export default createMiddleware({
 export const config = {
   // Match only internationalized pathnames
   // Exclude /tools, /admin, /api, /about, /contact, /privacy, /terms
-  matcher: ['/', '/(tr|en)/:path*']
+  matcher: ['/', '/(tr)/:path*']
 };
