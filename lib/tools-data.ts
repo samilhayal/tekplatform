@@ -137,6 +137,15 @@ export const tools: Tool[] = [
     keywords: ['kira zammı', 'kira artışı', 'TÜFE', 'kira hesaplama', 'kira zam oranı', 'yasal tavan', 'kiracı hakları', 'kira sözleşmesi', 'emlak']
   },
   {
+    id: 'is-degisikligi-hesaplayici',
+    title: 'İş Değişikliği Maaş ve Tazminat Hesaplama',
+    description: 'İş değişikliği sonrası net maaş, kümülatif vergi, kıdem-ihbar tazminatı ve yıllık izin ücreti hesaplama',
+    category: 'Finans & Matematik',
+    icon: 'Briefcase',
+    href: '/tools/is-degisikligi-hesaplayici',
+    keywords: ['iş değişikliği', 'kıdem tazminatı', 'ihbar tazminatı', 'kümülatif vergi', 'net maaş hesaplama', 'maaş karşılaştırma', 'yıllık izin ücreti', 'tazminat hesaplama', 'vergi dilimi', 'SGK kesintisi']
+  },
+  {
     id: 'pdf-merge',
     title: 'PDF Birleştirme',
     description: 'Birden fazla PDF dosyasını tek bir PDF\'de birleştirin',

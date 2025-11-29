@@ -348,6 +348,13 @@ export function TapuHarciHesaplama() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Hukuki Uyarı */}
+      <div className="mt-6 p-4 rounded-xl bg-amber-50 border border-amber-200">
+        <p className="text-sm text-amber-800">
+          <strong>Not:</strong> Bu hesaplama araçları, genel bilgiler sağlamak amacıyla tasarlanmıştır ve bireysel durumlara göre değişiklik gösterebilir. Hukuki tavsiye niteliği taşımaz.
+        </p>
+      </div>
     </div>
   )
 }

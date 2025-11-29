@@ -24,7 +24,8 @@ import {
   MapPin,
   Clock,
   Shirt,
-  Sun
+  Sun,
+  Briefcase
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
@@ -57,6 +58,7 @@ const managementGroups = [
     icon: Calculator,
     items: [
       { name: 'Maaş Ayarları', href: '/admin/salary-settings', icon: DollarSign },
+      { name: 'İş Değişikliği', href: '/admin/job-change-settings', icon: Briefcase },
       { name: 'Tapu & Rayiç', href: '/admin/tapu-settings', icon: Home },
       { name: 'Emeklilik Ayarları', href: '/admin/retirement-settings', icon: Clock },
       { name: 'Marka Bedenleri', href: '/admin/brands', icon: Shirt },
