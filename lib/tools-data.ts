@@ -839,12 +839,23 @@ export const tools: Tool[] = [
   // Aile & Bebek
   {
     id: 'bebek-gelisim-hesaplayici',
-    title: 'Bebek Gelişim Hesaplayıcı',
+    title: 'Bebek Gelişim Takip',
     description: 'WHO büyüme standartlarına göre boy, kilo ve baş çevresi persentil hesaplama (0-5 yaş)',
     category: 'Aile & Bebek',
     icon: 'Baby',
     href: '/tools/bebek-gelisim-hesaplayici',
     keywords: ['bebek', 'gelişim', 'persentil', 'boy', 'kilo', 'baş çevresi', 'WHO', 'büyüme', 'z-score', 'bebek takip']
+  },
+
+  // Finans & Matematik - Kira Çarpanı
+  {
+    id: 'kira-carpani-hesaplayici',
+    title: 'Konut ve Arsa Yatırım Getirisi Hesaplama',
+    description: 'Konut ve arsa yatırımlarınız için kira çarpanı, geri dönüş süresi ve yatırım getirisi hesaplayın',
+    category: 'Finans & Matematik',
+    icon: 'Building2',
+    href: '/tools/kira-carpani-hesaplayici',
+    keywords: ['kira çarpanı', 'konut yatırım', 'arsa yatırım', 'gayrimenkul', 'geri dönüş süresi', 'yatırım getirisi', 'cash on cash', 'emlak', 'kira geliri', 'CAGR']
   }
 ];
 

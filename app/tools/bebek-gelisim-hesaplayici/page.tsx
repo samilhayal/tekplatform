@@ -6,10 +6,10 @@ import { RelatedTools } from '@/components/related-tools'
 import { SEOContent } from '@/components/seo-content'
 
 export const metadata: Metadata = {
-  title: 'Bebek Gelişim Hesaplayıcı | Boy – Kilo – Baş Çevresi Persentil | KolayHesapla',
+  title: 'Bebek Gelişim Takip | Boy – Kilo – Baş Çevresi Persentil | KolayHesapla',
   description: 'Bebeğinizin boy, kilo ve baş çevresi persentil değerini WHO büyüme standartlarına göre hesaplayın. 0–5 yaş arası bebekler için gelişim yüzdelikleri, normal–düşük–yüksek değerlendirmesi ve grafikli sonuçlar.',
   keywords: [
-    'bebek gelişim hesaplayıcı',
+    'bebek gelişim takip',
     'bebek persentil hesaplama',
     'bebek boy persentil',
     'bebek kilo persentil',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     'bebek boy kilo tablosu'
   ],
   openGraph: {
-    title: 'Bebek Gelişim Hesaplayıcı | Boy – Kilo – Baş Çevresi',
+    title: 'Bebek Gelişim Takip | Boy – Kilo – Baş Çevresi',
     description: 'WHO büyüme standartlarına göre 0-5 yaş arası bebekler için boy, kilo ve baş çevresi persentil hesaplama',
     type: 'website',
     locale: 'tr_TR'
@@ -41,13 +41,13 @@ export default function BebekGelisimHesaplayiciPage() {
             Ana Sayfa
           </Link>
           <ChevronRight className="h-4 w-4" />
-          <Link href="/#tools" className="hover:text-pink-600 transition-colors">
+          <Link href="/tools" className="hover:text-pink-600 transition-colors">
             Araçlar
           </Link>
           <ChevronRight className="h-4 w-4" />
           <span className="text-pink-600 font-medium flex items-center gap-1">
             <Baby className="h-4 w-4" />
-            Bebek Gelişim Hesaplayıcı
+            Bebek Gelişim Takip
           </span>
         </nav>
 
