@@ -146,6 +146,15 @@ export const tools: Tool[] = [
     keywords: ['iş değişikliği', 'kıdem tazminatı', 'ihbar tazminatı', 'kümülatif vergi', 'net maaş hesaplama', 'maaş karşılaştırma', 'yıllık izin ücreti', 'tazminat hesaplama', 'vergi dilimi', 'SGK kesintisi']
   },
   {
+    id: 'kredi-yeniden-yapilandirma',
+    title: 'Kredi Yeniden Yapılandırma & Erken Kapama',
+    description: 'Mevcut kredi borcunuzu yeniden yapılandırın, erken kapama maliyetini hesaplayın, en avantajlı ödeme planını bulun',
+    category: 'Finans & Matematik',
+    icon: 'RefreshCw',
+    href: '/tools/kredi-yeniden-yapilandirma',
+    keywords: ['kredi yeniden yapılandırma', 'erken kapama', 'refinansman', 'kısmi ödeme', 'vade kısaltma', 'taksit düşürme', 'kredi faiz', 'konut kredisi', 'ihtiyaç kredisi', 'amortizasyon']
+  },
+  {
     id: 'pdf-merge',
     title: 'PDF Birleştirme',
     description: 'Birden fazla PDF dosyasını tek bir PDF\'de birleştirin',
