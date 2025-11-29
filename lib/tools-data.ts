@@ -834,6 +834,17 @@ export const tools: Tool[] = [
     icon: 'Sparkles',
     href: '/tools/burc-onerileri',
     keywords: ['burç önerileri', 'sağlık', 'beslenme', 'kariyer', 'finans', 'seyahat', 'kişisel gelişim', 'hediye önerileri']
+  },
+
+  // Aile & Bebek
+  {
+    id: 'bebek-gelisim-hesaplayici',
+    title: 'Bebek Gelişim Hesaplayıcı',
+    description: 'WHO büyüme standartlarına göre boy, kilo ve baş çevresi persentil hesaplama (0-5 yaş)',
+    category: 'Aile & Bebek',
+    icon: 'Baby',
+    href: '/tools/bebek-gelisim-hesaplayici',
+    keywords: ['bebek', 'gelişim', 'persentil', 'boy', 'kilo', 'baş çevresi', 'WHO', 'büyüme', 'z-score', 'bebek takip']
   }
 ];
 

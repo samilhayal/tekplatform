@@ -25,7 +25,8 @@ import {
   Clock,
   Shirt,
   Sun,
-  Briefcase
+  Briefcase,
+  Baby
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
@@ -62,6 +63,7 @@ const managementGroups = [
       { name: 'Tapu & Rayiç', href: '/admin/tapu-settings', icon: Home },
       { name: 'Emeklilik Ayarları', href: '/admin/retirement-settings', icon: Clock },
       { name: 'Marka Bedenleri', href: '/admin/brands', icon: Shirt },
+      { name: 'WHO Büyüme Verileri', href: '/admin/who-growth-settings', icon: Baby },
     ]
   }
 ]

@@ -545,20 +545,30 @@ export async function PATCH() {
     const existingToolsSnapshot = await adminDb.collection('tools').get()
     const existingToolIds = new Set(existingToolsSnapshot.docs.map(doc => doc.id))
     
+    // Mevcut kategorileri al
+    const existingCategoriesSnapshot = await adminDb.collection('categories').get()
+    const existingCategoryNames = new Set(existingCategoriesSnapshot.docs.map(doc => doc.data().name as string))
+    
     // Eksik araçları bul
     const missingTools = tools.filter(tool => !existingToolIds.has(tool.id))
     
-    if (missingTools.length === 0) {
+    // Eksik kategorileri bul
+    const allCategories = Array.from(new Set(tools.map(t => t.category)))
+    const missingCategories = allCategories.filter(cat => !existingCategoryNames.has(cat))
+    
+    if (missingTools.length === 0 && missingCategories.length === 0) {
       return NextResponse.json({
         success: true,
-        message: 'Tüm araçlar zaten mevcut',
+        message: 'Tüm araçlar ve kategoriler zaten mevcut',
         added: 0,
+        addedCategories: 0,
         total: tools.length
       })
     }
     
-    // Eksik araçları ekle
     const batch = adminDb.batch()
+    
+    // Eksik araçları ekle
     missingTools.forEach((tool, index) => {
       const toolRef = adminDb.collection('tools').doc(tool.id)
       batch.set(toolRef, {
@@ -576,13 +586,38 @@ export async function PATCH() {
       })
     })
     
+    // Eksik kategorileri ekle
+    missingCategories.forEach((category, index) => {
+      const categoryId = category.toLowerCase()
+        .replace(/\s+/g, '-')
+        .replace(/&/g, 've')
+        .replace(/ı/g, 'i')
+        .replace(/ö/g, 'o')
+        .replace(/ü/g, 'u')
+        .replace(/ş/g, 's')
+        .replace(/ç/g, 'c')
+        .replace(/ğ/g, 'g')
+      const categoryRef = adminDb.collection('categories').doc(categoryId)
+      batch.set(categoryRef, {
+        id: categoryId,
+        name: category,
+        isActive: true,
+        displayOrder: existingCategoriesSnapshot.size + index,
+        toolCount: tools.filter(t => t.category === category).length,
+        createdAt: now,
+        updatedAt: now
+      })
+    })
+    
     await batch.commit()
     
     return NextResponse.json({
       success: true,
-      message: `${missingTools.length} yeni araç eklendi`,
+      message: `${missingTools.length} yeni araç ve ${missingCategories.length} yeni kategori eklendi`,
       added: missingTools.length,
       addedTools: missingTools.map(t => t.id),
+      addedCategories: missingCategories.length,
+      addedCategoryNames: missingCategories,
       total: tools.length
     })
   } catch (error) {

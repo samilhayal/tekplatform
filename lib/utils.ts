@@ -22,7 +22,8 @@ export const categoryMap: Record<string, string> = {
   'Kod Araçları': 'code',
   'Emlak': 'realestate',
   'Moda & Stil': 'fashion',
-  'Astroloji': 'astrology'
+  'Astroloji': 'astrology',
+  'Aile & Bebek': 'family'
 }
 
 export function getCategoryKey(category: string): string {
